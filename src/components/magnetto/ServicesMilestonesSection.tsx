@@ -2,34 +2,29 @@ import ServicesCardStack from "./ServicesCardStack";
 
 export default function ServicesMilestonesSection() {
   return (
-    <section
-      id="services-milestones"
-      className="relative w-full flex justify-center"
-      style={{
-        background: "#000000",
-        paddingTop: "5px",
-        paddingBottom: "40px",
-      }}
-    >
-      {/* Two-column layout – centred, equal-width cards */}
+    <section id="services-milestones" className="section-wrapper">
+      {/* Two-column layout – shared width, two equal-width cards */}
       <div
         className="flex flex-col lg:flex-row mx-auto"
         style={{
-          gap: "7px",
-          width: "clamp(340px, 74.95vw, 1439px)",
+          gap: "20px",
+          width: "var(--section-width)",
+          maxWidth: "var(--section-max-width)",
         }}
       >
+
         {/* ==============================================================
             LEFT CARD — SERVICES
             ============================================================== */}
         <div
           className="relative flex-1 flex flex-col items-center overflow-hidden"
           style={{
-            minHeight: "clamp(400px, 31.2vw, 599px)",
-            borderRadius: "clamp(50px, 5.73vw, 110px)",
+            minHeight: "clamp(460px, 32vw, 620px)",
+            borderRadius: "var(--section-radius)",
             background: "#171717",
           }}
         >
+
           {/* Heading */}
           <h2
             style={{
@@ -97,23 +92,24 @@ export default function ServicesMilestonesSection() {
               fontWeight: 400,
             }}
           >
-            we craft digital experiences that elevate brands and engage
-            audiences. Our services blend creativity with strategy, ensuring
-            every design is not just visually striking but also results-driven.
+            we believe every experience should be built on substance and
+            purpose. Our craft blends strategic intuition with timeless
+            execution, making sure every project means something lasting.
           </p>
         </div>
 
         {/* ==============================================================
-            RIGHT CARD — MILESTONES
+            RIGHT CARD — PHILOSOPHY (Idea-first, no fake numbers)
             ============================================================== */}
         <div
           className="relative flex-1 flex flex-col items-center overflow-hidden"
           style={{
-            minHeight: "clamp(400px, 31.2vw, 599px)",
-            borderRadius: "clamp(50px, 5.73vw, 110px)",
+            minHeight: "clamp(460px, 32vw, 620px)",
+            borderRadius: "var(--section-radius)",
             background: "#171717",
           }}
         >
+
           {/* Heading */}
           <h2
             style={{
@@ -127,37 +123,37 @@ export default function ServicesMilestonesSection() {
               textAlign: "center",
             }}
           >
-            MILESTONES
+            PHILOSOPHY
           </h2>
 
-          {/* Milestone 1: 7+ */}
+          {/* Pillar 1: IDEA FIRST */}
           <div
-            className="flex flex-col items-center"
+            className="flex flex-col items-center text-center px-4"
             style={{ marginTop: "clamp(30px, 3.13vw, 60px)" }}
           >
             <span
               style={{
                 fontFamily: "var(--font-silkscreen), monospace",
-                fontSize: "clamp(46px, 4.17vw, 80px)",
+                fontSize: "clamp(26px, 2.6vw, 48px)",
                 fontWeight: 700,
-                lineHeight: 1,
+                lineHeight: 1.1,
                 color: "#ffffff",
-                letterSpacing: "0.02em",
+                letterSpacing: "0.04em",
               }}
             >
-              7+
+              IDEA FIRST
             </span>
             <span
               className="italic"
               style={{
-                marginTop: "clamp(6px, 0.52vw, 10px)",
+                marginTop: "clamp(8px, 0.6vw, 12px)",
                 fontFamily: "Georgia, 'Times New Roman', serif",
-                fontSize: "clamp(10px, 0.63vw, 12px)",
+                fontSize: "clamp(11px, 0.72vw, 14px)",
                 color: "rgba(255,255,255,0.50)",
                 letterSpacing: "0.01em",
               }}
             >
-              Extensive Industry Experience
+              Concept Drives Form
             </span>
           </div>
 
@@ -172,31 +168,31 @@ export default function ServicesMilestonesSection() {
             }}
           />
 
-          {/* Milestone 2: 24+ */}
-          <div className="flex flex-col items-center">
+          {/* Pillar 2: MEANING */}
+          <div className="flex flex-col items-center text-center px-4">
             <span
               style={{
                 fontFamily: "var(--font-silkscreen), monospace",
-                fontSize: "clamp(46px, 4.17vw, 80px)",
+                fontSize: "clamp(26px, 2.6vw, 48px)",
                 fontWeight: 700,
-                lineHeight: 1,
+                lineHeight: 1.1,
                 color: "#ffffff",
-                letterSpacing: "0.02em",
+                letterSpacing: "0.04em",
               }}
             >
-              24+
+              MEANING
             </span>
             <span
               className="italic"
               style={{
-                marginTop: "clamp(6px, 0.52vw, 10px)",
+                marginTop: "clamp(8px, 0.6vw, 12px)",
                 fontFamily: "Georgia, 'Times New Roman', serif",
-                fontSize: "clamp(10px, 0.63vw, 12px)",
+                fontSize: "clamp(11px, 0.72vw, 14px)",
                 color: "rgba(255,255,255,0.50)",
                 letterSpacing: "0.01em",
               }}
             >
-              Projects Completed
+              Make It Mean Something
             </span>
           </div>
         </div>

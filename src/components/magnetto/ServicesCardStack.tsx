@@ -10,9 +10,9 @@ import Image from "next/image";
  */
 
 const STACK_IMAGES = [
-  { src: "/nav-avatar.jpg", alt: "Project 1", bg: "#c0392b" },
-  { src: "/hero-portrait.jpg", alt: "Project 2", bg: "#e6922e" },
-  { src: "/nav-avatar.jpg", alt: "Project 3", bg: "#2d8f6f" },
+  { src: "/project-2.jpg", alt: "UI/UX Design", bg: "#0b3a31" },
+  { src: "/project-3.jpg", alt: "Brand Identity", bg: "#3a2a10" },
+  { src: "/project-4.jpg", alt: "Art Direction", bg: "#1f2328" },
 ];
 
 const INTERVAL_MS = 3000; // time each card stays as front

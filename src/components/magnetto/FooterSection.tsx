@@ -4,21 +4,17 @@ export default function FooterSection() {
   return (
     <footer
       id="footer"
-      className="relative w-full flex justify-center"
+      className="section-wrapper"
       style={{
-        background: "#000000",
-        paddingTop: "15px",
         paddingBottom: "100px", /* space for floating nav */
       }}
     >
       {/* ================================================================
-          FOOTER CONTAINER
+          FOOTER CONTAINER – shared container, 100px radius
           ================================================================ */}
       <div
-        className="relative overflow-hidden mx-auto"
+        className="section-container relative"
         style={{
-          width: "clamp(340px, 75vw, 1440px)",
-          borderRadius: "clamp(30px, 3.13vw, 60px)",
           background: "#171717",
           paddingTop: "clamp(40px, 4.17vw, 80px)",
           paddingBottom: "clamp(40px, 3.65vw, 70px)",
@@ -26,29 +22,43 @@ export default function FooterSection() {
           paddingRight: "clamp(24px, 4.17vw, 80px)",
         }}
       >
+
         {/* ============================================================
             TOP ROW — 3-column layout
             ============================================================ */}
         <div className="flex flex-col lg:flex-row gap-[clamp(30px,3vw,60px)]">
           {/* -------- LEFT: Brand / Contact -------- */}
           <div className="flex-1 min-w-0">
-            {/* Label */}
-            <p
-              style={{
-                fontFamily: "var(--font-silkscreen), monospace",
-                fontSize: "clamp(7px, 0.47vw, 9px)",
-                letterSpacing: "0.12em",
-                color: "rgba(255,255,255,0.40)",
-                textTransform: "uppercase",
-                marginBottom: "clamp(10px, 0.94vw, 18px)",
-              }}
+            {/* Label + logo */}
+            <div
+              className="flex items-center gap-2"
+              style={{ marginBottom: "clamp(10px, 0.94vw, 18px)" }}
             >
-              STAY CONNECTED.
-            </p>
+              <div className="relative w-4 h-4 flex-shrink-0">
+                <Image
+                  src="/logo-transparent.png"
+                  alt="N4MES Logo"
+                  fill
+                  className="object-contain filter invert opacity-75"
+                />
+              </div>
+              <p
+                style={{
+                  fontFamily: "var(--font-silkscreen), monospace",
+                  fontSize: "clamp(7px, 0.47vw, 9px)",
+                  letterSpacing: "0.12em",
+                  color: "rgba(255,255,255,0.40)",
+                  textTransform: "uppercase",
+                }}
+              >
+                STAY CONNECTED.
+              </p>
+            </div>
+
 
             {/* Email */}
             <a
-              href="mailto:hi@magnetto.com"
+              href="mailto:hi@n4mes.com"
               className="block hover:opacity-80 transition-opacity"
               style={{
                 fontFamily: "var(--font-silkscreen), monospace",
@@ -60,7 +70,7 @@ export default function FooterSection() {
                 marginBottom: "clamp(14px, 1.3vw, 25px)",
               }}
             >
-              HI@MAGNETTO.COM
+              HI@N4MES.COM
             </a>
 
             {/* Description */}
@@ -76,9 +86,8 @@ export default function FooterSection() {
                 marginBottom: "clamp(20px, 2.08vw, 40px)",
               }}
             >
-              At Magnetto, we break boundaries to craft designs that stand out
-              and deliver results. We blend creativity with strategy, turning
-              bold ideas into digital experiences that captivate and inspire.
+              At N4MES, we make it mean something. Turning bold ideas into
+              experiences that captivate, inspire, and endure.
             </p>
 
             {/* Credit */}
@@ -189,7 +198,7 @@ export default function FooterSection() {
         </div>
 
         {/* ============================================================
-            BOTTOM — Large "Magnetto" + copyright
+            BOTTOM — Large "N4MES" + copyright
             ============================================================ */}
         <div
           className="flex flex-col items-center"
@@ -197,7 +206,7 @@ export default function FooterSection() {
             marginTop: "clamp(40px, 4.17vw, 80px)",
           }}
         >
-          {/* Large elegant "Magnetto" */}
+          {/* Large elegant "N4MES" */}
           <span
             className="select-none"
             style={{
@@ -210,7 +219,7 @@ export default function FooterSection() {
               color: "rgba(255,255,255,0.90)",
             }}
           >
-            Magnetto
+            N4MES
           </span>
 
           {/* Copyright */}
@@ -224,7 +233,7 @@ export default function FooterSection() {
               fontWeight: 400,
             }}
           >
-            ©2025 MAGNETTO Studio. All right reserved.
+            ©2025 N4MES. All rights reserved.
           </p>
         </div>
       </div>

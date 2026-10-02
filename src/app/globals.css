@@ -1,8 +1,32 @@
 @import "tailwindcss";
 
+:root {
+  --section-max-width: none;
+  --section-width: calc(100% - 40px);
+  --section-radius: 100px;
+  --section-gap: 20px;
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --section-width: calc(100% - 32px);
+    --section-radius: 60px;
+    --section-gap: 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --section-width: calc(100% - 20px);
+    --section-radius: 36px;
+    --section-gap: 12px;
+  }
+}
+
+
 @theme inline {
-  --color-background: #e5e2dd;
-  --color-foreground: #111111;
+  --color-background: #000000;
+  --color-foreground: #ffffff;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-pixel: var(--font-silkscreen);
@@ -18,12 +42,33 @@
 
 html {
   scroll-behavior: smooth;
+  background: #000000;
 }
 
 body {
-  background: #e5e2dd;
+  background: #000000;
   color: var(--color-foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
+
+/* Shared section container system */
+.section-container {
+  width: var(--section-width);
+  max-width: var(--section-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: var(--section-radius);
+  overflow: hidden;
+  position: relative;
+}
+
+.section-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--section-gap);
+}
+

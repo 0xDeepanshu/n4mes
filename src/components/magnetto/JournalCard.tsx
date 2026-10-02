@@ -19,9 +19,10 @@ export default function JournalCard({
       <div
         className="relative w-full overflow-hidden"
         style={{
-          height: "clamp(260px, 21.46vw, 412px)",
-          borderRadius: "clamp(36px, 3.65vw, 70px)",
+          height: "clamp(280px, 24vw, 440px)",
+          borderRadius: "100px",
         }}
+
       >
         <Image
           src={image}

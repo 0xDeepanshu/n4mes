@@ -3,18 +3,25 @@
 import { useEffect, useRef } from "react";
 import ClientCard from "./ClientCard";
 
-const BRANDS = [
-  "Google",
-  "Swiggy",
-  "Oakley",
-  "Wave\nStudios",
-  "Meridian",
-  "Nexus",
-  "Prism",
-  "Vertex",
-  "Orbit",
-  "Atlas",
+interface BrandItem {
+  name: string;
+  logo?: string;
+}
+
+const BRANDS: BrandItem[] = [
+  { name: "Google" },
+  { name: "N4MES", logo: "/logo-transparent.png" },
+  { name: "Swiggy" },
+  { name: "Oakley" },
+  { name: "Wave\nStudios" },
+  { name: "Meridian" },
+  { name: "Nexus" },
+  { name: "Prism" },
+  { name: "Vertex" },
+  { name: "Orbit" },
+  { name: "Atlas" },
 ];
+
 
 /** Card width + gap */
 const CARD_W = 268;
@@ -60,9 +67,14 @@ export default function ClientsCarousel() {
         style={{ gap: `${GAP}px` }}
       >
         {cards.map((brand, i) => (
-          <ClientCard key={`${brand}-${i}`} name={brand} />
+          <ClientCard
+            key={`${brand.name}-${i}`}
+            name={brand.name}
+            logo={brand.logo}
+          />
         ))}
       </div>
     </div>
   );
 }
+

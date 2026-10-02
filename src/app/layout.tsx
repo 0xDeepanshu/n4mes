@@ -1,3 +1,4 @@
+import { MotionConfig } from "framer-motion";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Silkscreen } from "next/font/google";
 import "./globals.css";
@@ -19,9 +20,9 @@ const silkscreen = Silkscreen({
 });
 
 export const metadata: Metadata = {
-  title: "MAGNETTO — Design Studio · London",
+  title: "N4MES — MAKE IT MEAN SOMETHING.",
   description:
-    "At Magnetto, we break boundaries to craft designs that stand out and deliver results.",
+    "N4MES — MAKE IT MEAN SOMETHING.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -30,7 +31,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${silkscreen.variable} antialiased`}
     >
-      <body>{children}</body>
+      <body>
+        <MotionConfig reducedMotion="user">{children}</MotionConfig>
+      </body>
     </html>
   );
 }

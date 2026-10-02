@@ -1,193 +1,230 @@
 import Image from "next/image";
-import ProjectCard from "@/components/magnetto/ProjectCard";
 import AboutSection from "@/components/magnetto/AboutSection";
 import ClientsSection from "@/components/magnetto/ClientsSection";
-import ServicesMilestonesSection from "@/components/magnetto/ServicesMilestonesSection";
-import JournalSection from "@/components/magnetto/JournalSection";
 import ContactSection from "@/components/magnetto/ContactSection";
 import FooterSection from "@/components/magnetto/FooterSection";
+import JournalSection from "@/components/magnetto/JournalSection";
+import ProjectCard from "@/components/magnetto/ProjectCard";
+import Reveal from "@/components/magnetto/Reveal";
+import ServicesMilestonesSection from "@/components/magnetto/ServicesMilestonesSection";
 
 export default function Home() {
   return (
-    <div className="relative w-full bg-[#e5e2dd]">
+    <div className="relative w-full bg-[#000000] min-h-screen">
       {/* ================================================================
-          HERO SECTION
+          LIGHT BACKGROUND REGION (#e5e2dd) - Hero & Projects
           ================================================================ */}
-      <div
-        className="relative h-screen w-full flex items-center justify-center"
-        style={{ padding: "10px" }}
-      >
-        <section className="relative w-full h-full bg-[#eae7e3] rounded-[22px] overflow-hidden">
-          {/* -------- LEFT: Logo + Subtitle (desktop) -------- */}
-          <div className="absolute left-[5.5%] top-[48%] -translate-y-1/2 z-10 flex-col gap-4 hidden md:flex">
-            <h1
-              className="text-[clamp(2rem,3.8vw,4rem)] leading-[1] tracking-[0.08em] text-[#1a1a1a]"
-              style={{ fontFamily: "var(--font-silkscreen), monospace" }}
-            >
-              MAGNETTO
-            </h1>
-            <p
-              className="text-[clamp(0.55rem,0.68vw,0.72rem)] tracking-[0.32em] uppercase text-[#1a1a1a]/50 mt-1"
-              style={{ fontFamily: "var(--font-silkscreen), monospace" }}
-            >
-              Design Studio · London
-            </p>
-          </div>
+      <div className="w-full bg-[#e5e2dd] pt-[var(--section-gap)]">
+        {/* HERO SECTION */}
+        <section id="home" className="section-wrapper">
+          <div
+            className="section-container relative bg-[#eae7e3]"
+            style={{
+              height: "calc(100vh - 40px)",
+              minHeight: "720px",
+            }}
+          >
+            {/* -------- LEFT: Logo + Subtitle (desktop) -------- */}
+            <div className="absolute left-[6%] top-[50%] -translate-y-1/2 z-10 flex flex-col gap-2 hidden md:flex">
+              <div className="flex items-center gap-3">
+                <div className="relative w-9 h-9 xl:w-11 xl:h-11 flex-shrink-0">
+                  <Image
+                    src="/logo-transparent.png"
+                    alt="N4MES Logo"
+                    fill
+                    className="object-contain mix-blend-multiply"
+                  />
+                </div>
+                <h1
+                  className="text-[clamp(1.8rem,3vw,3.4rem)] leading-[1] tracking-[0.08em] text-[#1a1a1a]"
+                  style={{ fontFamily: "var(--font-silkscreen), monospace" }}
+                >
+                  N4MES
+                </h1>
+              </div>
+              <p
+                className="text-[clamp(0.55rem,0.65vw,0.72rem)] tracking-[0.32em] uppercase text-[#1a1a1a]/50 mt-1 pl-[48px] xl:pl-[56px]"
+                style={{ fontFamily: "var(--font-silkscreen), monospace" }}
+              >
+                MAKE IT MEAN SOMETHING.
+              </p>
+            </div>
 
-          {/* -------- CENTER: Portrait -------- */}
-          <div className="absolute left-1/2 bottom-0 -translate-x-1/2 md:-translate-x-[48%] z-[5] w-[75%] md:w-[35%] min-w-[260px] max-w-[550px] h-[70%] md:h-[93%]">
-            <Image
-              src="/hero-portrait.jpg"
-              alt="Portrait"
-              fill
-              priority
-              className="object-cover object-top mix-blend-multiply"
-              sizes="(max-width: 768px) 75vw, 35vw"
-            />
-          </div>
+            {/* -------- CENTER: Logo Mark -------- */}
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[5] w-[45%] md:w-[26%] max-w-[380px] aspect-square flex items-center justify-center">
+              <div className="relative w-full h-full">
+                <Image
+                  src="/logo-transparent.png"
+                  alt="N4MES Logo"
+                  fill
+                  priority
+                  className="object-contain mix-blend-multiply"
+                  sizes="(max-width: 768px) 45vw, 26vw"
+                />
+              </div>
+            </div>
 
-          {/* -------- RIGHT: Description (desktop) -------- */}
-          <div className="absolute right-[5%] top-[36%] z-10 w-[185px] xl:w-[200px] hidden md:block">
-            <p
-              className="text-[clamp(0.66rem,0.72vw,0.76rem)] leading-[1.72] text-[#1a1a1a]/55 font-normal tracking-[0.005em]"
-              style={{
-                fontFamily: "Georgia, 'Times New Roman', serif",
-                fontStyle: "italic",
-              }}
-            >
-              At Magnetto, we break boundaries to craft designs that stand out
-              and deliver results. We blend creativity with strategy, turning
-              bold ideas into digital experiences that captivate and inspire.
-            </p>
-          </div>
+            {/* -------- RIGHT: Description (desktop) -------- */}
+            <div className="absolute right-[6%] top-[50%] -translate-y-1/2 z-10 w-[200px] xl:w-[220px] hidden md:block">
+              <p
+                className="text-[clamp(0.68rem,0.72vw,0.78rem)] leading-[1.65] text-[#1a1a1a]/60 font-normal tracking-[0.005em]"
+                style={{
+                  fontFamily: "Georgia, 'Times New Roman', serif",
+                  fontStyle: "italic",
+                }}
+              >
+                At N4MES, we make it mean something. Turning bold ideas into
+                experiences that captivate, inspire, and endure.
+              </p>
+            </div>
 
-          {/* -------- MOBILE: Logo overlay -------- */}
-          <div className="md:hidden absolute inset-x-0 top-0 z-10 flex flex-col items-center pt-8 px-6 text-center">
-            <h1
-              className="text-[2rem] leading-[1] tracking-[0.08em] text-[#1a1a1a]"
-              style={{ fontFamily: "var(--font-silkscreen), monospace" }}
-            >
-              MAGNETTO
-            </h1>
-            <p
-              className="text-[0.55rem] tracking-[0.32em] uppercase text-[#1a1a1a]/50 mt-3"
-              style={{ fontFamily: "var(--font-silkscreen), monospace" }}
-            >
-              Design Studio · London
-            </p>
+            {/* -------- MOBILE: Logo overlay -------- */}
+            <div className="md:hidden absolute inset-x-0 top-0 z-10 flex flex-col items-center pt-8 px-6 text-center">
+              <div className="flex items-center gap-2 mb-1">
+                <div className="relative w-7 h-7 flex-shrink-0">
+                  <Image
+                    src="/logo-transparent.png"
+                    alt="N4MES Logo"
+                    fill
+                    className="object-contain mix-blend-multiply"
+                  />
+                </div>
+                <h1
+                  className="text-[1.8rem] leading-[1] tracking-[0.08em] text-[#1a1a1a]"
+                  style={{ fontFamily: "var(--font-silkscreen), monospace" }}
+                >
+                  N4MES
+                </h1>
+              </div>
+              <p
+                className="text-[0.55rem] tracking-[0.32em] uppercase text-[#1a1a1a]/50"
+                style={{ fontFamily: "var(--font-silkscreen), monospace" }}
+              >
+                MAKE IT MEAN SOMETHING.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* PROJECTS SECTION */}
+        <section
+          id="projects"
+          className="section-wrapper"
+          style={{ marginBottom: 0, paddingBottom: "var(--section-gap)" }}
+        >
+          <div
+            className="mx-auto grid grid-cols-1 md:grid-cols-2 gap-[20px]"
+            style={{
+              width: "var(--section-width)",
+              maxWidth: "var(--section-max-width)",
+            }}
+          >
+            <Reveal delay={0}>
+              <ProjectCard
+                category="Art Direction"
+                title={["BEYOND TIME"]}
+                image="/project-1.jpg"
+                alt="Beyond Time"
+                tint="#4d140b"
+                objectPosition="center 50%"
+              />
+            </Reveal>
+
+            <Reveal delay={80}>
+              <ProjectCard
+                category="Brand Identity"
+                title={["BRAND", "REDEFINE"]}
+                image="/project-2.jpg"
+                alt="Brand Redefine"
+                tint="#0b3a31"
+              />
+            </Reveal>
+
+            <Reveal delay={160}>
+              <ProjectCard
+                category="Ad Campaign"
+                title={["EVERY SECOND"]}
+                image="/project-3.jpg"
+                alt="Every Second"
+                tint="#3a2a10"
+              />
+            </Reveal>
+
+            <Reveal delay={240}>
+              <ProjectCard
+                category="Art Direction"
+                title={["TIMELESS", "MASTERY"]}
+                image="/project-4.jpg"
+                alt="Timeless Mastery"
+                tint="#1f2328"
+              />
+            </Reveal>
           </div>
         </section>
       </div>
 
       {/* ================================================================
-          PROJECTS SECTION
+          ABOUT SECTION (contains the gradient transition to #000000)
           ================================================================ */}
-      <section id="projects" className="w-full px-[10px] pb-[10px]">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-[10px]">
-          <ProjectCard
-            category="Art Direction"
-            title={["BEYOND TIME"]}
-            image="/nav-avatar.jpg"
-            alt="Beyond Time"
-            tint="#4d140b"
-            objectPosition="center 30%"
+      <Reveal>
+        <AboutSection />
+      </Reveal>
+
+      {/* ================================================================
+          DARK BACKGROUND REGION (#000000) - Clients, Services, Journal, Contact, Footer
+          ================================================================ */}
+      <div className="w-full bg-[#000000] pt-[var(--section-gap)]">
+        <Reveal>
+          <ClientsSection />
+        </Reveal>
+        <Reveal>
+          <ServicesMilestonesSection />
+        </Reveal>
+        <Reveal>
+          <JournalSection />
+        </Reveal>
+        <Reveal>
+          <ContactSection />
+        </Reveal>
+        <Reveal>
+          <FooterSection />
+        </Reveal>
+      </div>
+
+      {/* ================================================================
+          FIXED NAV (floats over all sections with glassy backdrop blur)
+          ================================================================ */}
+      <nav
+        className="fixed bottom-[32px] left-1/2 -translate-x-1/2 z-50 flex items-center justify-between p-[6px] pl-[8px] pr-[8px] rounded-full border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.6)]"
+        style={{
+          backgroundColor: "rgba(18, 18, 18, 0.68)",
+          backdropFilter: "blur(24px) saturate(180%)",
+          WebkitBackdropFilter: "blur(24px) saturate(180%)",
+          height: "60px",
+        }}
+      >
+        {/* Nav avatar – single squircle avatar matching reference */}
+        <div className="relative w-[48px] h-[48px] rounded-[20px] overflow-hidden flex-shrink-0">
+          <Image
+            src="/nav-avatar.jpg"
+            alt="Nav Avatar"
+            fill
+            className="object-cover"
+            sizes="48px"
           />
-
-          <ProjectCard
-            category="Brand Identity"
-            title={["BRAND", "REDEFINE"]}
-            image="/globe.svg"
-            alt="Brand Redefine"
-            tint="#0b3a31"
-            explore
-          />
-
-          <ProjectCard
-            category="Ad Campaign"
-            title={["EVERY SECOND"]}
-            image="/window.svg"
-            alt="Every Second"
-            tint="#3a2a10"
-            explore
-          />
-
-          <ProjectCard
-            category="Art Direction"
-            title={["TIMELESS", "MASTERY"]}
-            image="/file.svg"
-            alt="Timeless Mastery"
-            tint="#1f2328"
-          />
-        </div>
-      </section>
-
-      {/* ================================================================
-          ABOUT SECTION
-          ================================================================ */}
-      <AboutSection />
-
-      {/* ================================================================
-          CLIENTS SECTION
-          ================================================================ */}
-      <ClientsSection />
-
-      {/* ================================================================
-          SERVICES + MILESTONES SECTION
-          ================================================================ */}
-      <ServicesMilestonesSection />
-
-      {/* ================================================================
-          JOURNAL SECTION
-          ================================================================ */}
-      <JournalSection />
-
-      {/* ================================================================
-          CONTACT SECTION
-          ================================================================ */}
-      <ContactSection />
-
-      {/* ================================================================
-          FOOTER SECTION
-          ================================================================ */}
-      <FooterSection />
-
-      {/* ================================================================
-          FIXED NAV (floats over all sections)
-          ================================================================ */}
-      <nav className="fixed bottom-[24px] left-1/2 -translate-x-1/2 z-50 flex items-center bg-[#1a1a1a]/85 backdrop-blur-xl rounded-full pl-[6px] pr-[6px] py-[6px]">
-        {/* Nav avatar – two overlapping circles */}
-        <div className="flex items-center -space-x-[10px]">
-          <div className="w-[42px] h-[42px] rounded-full overflow-hidden flex-shrink-0 border-2 border-[#1a1a1a] z-[2]">
-            <Image
-              src="/nav-avatar.jpg"
-              alt="Avatar 1"
-              width={42}
-              height={42}
-              className="object-cover w-full h-full"
-            />
-          </div>
-          <div className="w-[42px] h-[42px] rounded-full overflow-hidden flex-shrink-0 border-2 border-[#1a1a1a] z-[1]">
-            <Image
-              src="/hero-portrait.jpg"
-              alt="Avatar 2"
-              width={42}
-              height={42}
-              className="object-cover w-full h-full"
-            />
-          </div>
         </div>
 
         {/* Nav links */}
-        <div className="hidden sm:flex items-center ml-3">
+        <div className="hidden sm:flex items-center px-6 gap-7 lg:gap-8">
           {["HOME", "ABOUT", "PROJECTS", "JOURNAL"].map((item) => (
             <a
               key={item}
               href={`#${item.toLowerCase()}`}
-              className="px-[14px] py-[8px] text-white/55 hover:text-white transition-colors whitespace-nowrap"
+              className="text-white hover:text-white/80 transition-colors whitespace-nowrap"
               style={{
                 fontFamily: "var(--font-silkscreen), monospace",
-                fontSize: "8px",
-                letterSpacing: "0.1em",
+                fontSize: "12px",
+                letterSpacing: "0.08em",
               }}
             >
               {item}
@@ -195,18 +232,18 @@ export default function Home() {
           ))}
         </div>
 
-        {/* Contact button */}
+        {/* Contact button – solid white pill with CONTACT + */}
         <a
           href="#contact"
-          className="ml-2 mr-[2px] flex items-center gap-[5px] px-[20px] py-[8px] rounded-full border border-white/15 text-white/70 hover:bg-white/10 transition-colors bg-white/5 whitespace-nowrap"
+          className="flex items-center justify-center px-6 h-[48px] rounded-full bg-white text-black hover:bg-white/90 active:scale-[0.98] transition-all whitespace-nowrap"
           style={{
             fontFamily: "var(--font-silkscreen), monospace",
-            fontSize: "8px",
-            letterSpacing: "0.1em",
+            fontSize: "12px",
+            letterSpacing: "0.08em",
+            fontWeight: 400,
           }}
         >
-          CONTACT
-          <span className="text-[7px]">→</span>
+          CONTACT +
         </a>
       </nav>
     </div>
