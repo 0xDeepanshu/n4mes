@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>preview</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #fff;
+        overflow: hidden;
+      }
+      iframe {
+        display: block;
+        border: 0;
+      }
+      #dbg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+        background: #f0f;
+        color: #000;
+        font: 22px monospace;
+        padding: 3px 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="dbg">init</div>
+    <iframe id="f" width="1920" height="1080"></iframe>
+    <script>
+      const q = new URLSearchParams(location.search);
+      const f = document.getElementById("f");
+      const dbg = document.getElementById("dbg");
+      f.width = q.get("w") || 1920;
+      f.height = q.get("h") || 1080;
+      const only = q.get("only");
+      const hideHero = q.get("hide") !== "0";
+
+      const apply = () => {
+        try {
+          const doc = f.contentWindow.document;
+          let changed = 0;
+          if (only) {
+            const target = doc.getElementById(only);
+            if (!target) {
+              dbg.textContent = "no-" + only;
+              return;
+            }
+            const root = target.parentElement;
+            Array.from(root.children).forEach((el) => {
+              if (el !== target && el.style.display !== "none") {
+                el.style.display = "none";
+                changed++;
+              }
+            });
+            target.style.marginTop = "0";
+            root.style.background = "#000";
+            f.contentWindow.scrollTo(0, 0);
+            const box = target.firstElementChild.getBoundingClientRect();
+            const panel = target.querySelector("#about > div > div:nth-child(3)");
+            const pr = panel ? panel.getBoundingClientRect() : null;
+            dbg.textContent =
+              "C x=" +
+              Math.round(box.x) +
+              " y=" +
+              Math.round(box.y) +
+              " w=" +
+              Math.round(box.width) +
+              " h=" +
+              Math.round(box.height) +
+              (pr
+                ? " | P x=" +
+                  Math.round(pr.x) +
+                  " y=" +
+                  Math.round(pr.y) +
+                  " w=" +
+                  Math.round(pr.width) +
+                  " h=" +
+                  Math.round(pr.height)
+                : "");
+            return;
+          }
+          if (hideHero) {
+            const sec = doc.getElementById("projects");
+            const wrap = sec && sec.previousElementSibling;
+            if (wrap) {
+              wrap.style.height = "10px";
+              wrap.style.padding = "0";
+              if (wrap.firstElementChild) {
+                wrap.firstElementChild.style.display = "none";
+              }
+              changed++;
+            }
+          }
+          f.contentWindow.scrollTo(0, 0);
+          dbg.textContent = "ok changed=" + changed;
+        } catch (err) {
+          dbg.textContent = "err " + err.message;
+        }
+      };
+
+      f.addEventListener("load", apply);
+      setInterval(apply, 150);
+
+      f.src = "/";
+    </script>
+  </body>
+</html>

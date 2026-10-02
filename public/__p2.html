@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>preview</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #fff;
+        overflow: hidden;
+      }
+      iframe {
+        display: block;
+        border: 0;
+        margin-top: 46px;
+      }
+      #dbg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 9999;
+        background: #00f;
+        color: #fff;
+        font: 26px/44px monospace;
+        padding: 0 8px;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="dbg">init</div>
+    <iframe id="f" width="1920" height="547"></iframe>
+    <script>
+      const q = new URLSearchParams(location.search);
+      const f = document.getElementById("f");
+      const dbg = document.getElementById("dbg");
+      f.width = q.get("w") || 1920;
+      f.height = q.get("h") || 547;
+      const only = q.get("only");
+
+      const apply = () => {
+        try {
+          const doc = f.contentWindow.document;
+          const target = only ? doc.getElementById(only) : null;
+          if (only && !target) {
+            dbg.textContent = "no-" + only;
+            return;
+          }
+          if (target) {
+            const root = target.parentElement;
+            Array.from(root.children).forEach((el) => {
+              if (el !== target) el.style.display = "none";
+            });
+            root.style.background = "#000";
+            f.contentWindow.scrollTo(0, 0);
+          }
+          const srect = target.getBoundingClientRect();
+          const cs = getComputedStyle(target);
+          const box = target.firstElementChild.getBoundingClientRect();
+          const kids = Array.from(target.firstElementChild.children);
+          const panel = kids[2] ? kids[2].getBoundingClientRect() : null;
+          const para = kids[3] ? kids[3].getBoundingClientRect() : null;
+          const n = (v) => Math.round(v * 10) / 10;
+          const pc = doc.getElementById("projects");
+          const nv = doc.querySelector("nav");
+          const pad = (el) =>
+            el
+              ? getComputedStyle(el).padding +
+                "/" +
+                getComputedStyle(el).paddingLeft
+              : "none";
+          dbg.textContent =
+            "sy=" +
+            Math.round(f.contentWindow.scrollY) +
+            " sec=" +
+            Math.round(srect.y) +
+            " pt=" +
+            cs.paddingTop +
+            " pb=" +
+            cs.paddingBottom +
+            " || proj=" +
+            pad(pc) +
+            " nav=" +
+            pad(nv) +
+            " || C " +
+            n(box.x) +
+            "," +
+            n(box.y) +
+            " " +
+            n(box.width) +
+            "x" +
+            n(box.height) +
+            " || P " +
+            (panel
+              ? n(panel.x) +
+                "," +
+                n(panel.y) +
+                " " +
+                n(panel.width) +
+                "x" +
+                n(panel.height)
+              : "-") +
+            " || T " +
+            (para
+              ? n(para.x) + "," + n(para.y) + " " + n(para.width) + "x" + n(para.height)
+              : "-");
+        } catch (err) {
+          dbg.textContent = "err " + err.message;
+        }
+      };
+
+      f.addEventListener("load", apply);
+      setInterval(apply, 150);
+      f.src = "/";
+    </script>
+  </body>
+</html>
