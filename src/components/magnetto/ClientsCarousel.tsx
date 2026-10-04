@@ -1,32 +1,30 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { FnBLogo, GoogleLogo, HZYLogo, SGLogo, SwiggyLogo } from "./BrandLogos";
 import ClientCard from "./ClientCard";
 
 interface BrandItem {
   name: string;
   logo?: string;
+  icon?: React.ReactNode;
+  invert?: boolean;
 }
 
 const BRANDS: BrandItem[] = [
-  { name: "Google" },
-  { name: "N4MES", logo: "/logo-transparent.png" },
-  { name: "Swiggy" },
-  { name: "Oakley" },
-  { name: "Wave\nStudios" },
-  { name: "Meridian" },
-  { name: "Nexus" },
-  { name: "Prism" },
-  { name: "Vertex" },
-  { name: "Orbit" },
-  { name: "Atlas" },
+  { name: "Google", icon: <GoogleLogo /> },
+  { name: "N4MES", logo: "/logo-transparent.png", invert: true },
+  { name: "Swiggy", icon: <SwiggyLogo /> },
+  { name: "HZY", icon: <HZYLogo /> },
+  { name: "SG", icon: <SGLogo /> },
+  { name: "JAGERMISTER", logo: "/jagermeister.svg" },
+  { name: "F&B", icon: <FnBLogo /> },
 ];
 
-
-/** Card width + gap */
-const CARD_W = 268;
-const GAP = 7;
-const STEP = CARD_W + GAP; // 275px per card
+/** Card width + gap - tuned for showing fewer, more prominent hero cards */
+const CARD_W = 350;
+const GAP = 18;
+const STEP = CARD_W + GAP; // 368px per card
 
 export default function ClientsCarousel() {
   const trackRef = useRef<HTMLDivElement>(null);
@@ -37,14 +35,14 @@ export default function ClientsCarousel() {
     const track = trackRef.current;
     if (!track) return;
 
-    // Speed in px per frame (~60fps → ~0.8px/frame ≈ 48px/s)
-    const speed = 0.8;
+    // Smooth speed in px per frame (~60fps → ~0.75px/frame ≈ 45px/s)
+    const speed = 0.75;
     // Total width of one full set of cards
     const setWidth = BRANDS.length * STEP;
 
     const animate = () => {
       offsetRef.current -= speed;
-      // When we've scrolled one full set, loop back seamlessly
+      // Loop back seamlessly when one set has scrolled
       if (Math.abs(offsetRef.current) >= setWidth) {
         offsetRef.current += setWidth;
       }
@@ -56,7 +54,7 @@ export default function ClientsCarousel() {
     return () => cancelAnimationFrame(rafRef.current);
   }, []);
 
-  // Render 3 copies for seamless looping
+  // Render 3 copies for seamless looping on any screen resolution
   const cards = [...BRANDS, ...BRANDS, ...BRANDS];
 
   return (
@@ -71,10 +69,11 @@ export default function ClientsCarousel() {
             key={`${brand.name}-${i}`}
             name={brand.name}
             logo={brand.logo}
+            icon={brand.icon}
+            invert={brand.invert}
           />
         ))}
       </div>
     </div>
   );
 }
-

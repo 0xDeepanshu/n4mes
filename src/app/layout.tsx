@@ -21,8 +21,7 @@ const silkscreen = Silkscreen({
 
 export const metadata: Metadata = {
   title: "N4MES — MAKE IT MEAN SOMETHING.",
-  description:
-    "N4MES — MAKE IT MEAN SOMETHING.",
+  description: "N4MES — MAKE IT MEAN SOMETHING.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

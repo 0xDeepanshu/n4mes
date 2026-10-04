@@ -18,10 +18,11 @@ export default function Home() {
         {/* HERO SECTION */}
         <section id="home" className="section-wrapper">
           <div
-            className="section-container relative bg-[#eae7e3]"
+            className="section-container hero-container relative"
             style={{
-              height: "calc(100vh - 40px)",
-              minHeight: "720px",
+              backgroundImage: "url(/hero/herobg.png)",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
             }}
           >
             {/* -------- LEFT: Logo + Subtitle (desktop) -------- */}
@@ -121,8 +122,8 @@ export default function Home() {
           >
             <Reveal delay={0}>
               <ProjectCard
-                category="Art Direction"
-                title={["BEYOND TIME"]}
+                category=""
+                title={["BRANDS"]}
                 image="/project-1.jpg"
                 alt="Beyond Time"
                 tint="#4d140b"
@@ -132,8 +133,8 @@ export default function Home() {
 
             <Reveal delay={80}>
               <ProjectCard
-                category="Brand Identity"
-                title={["BRAND", "REDEFINE"]}
+                category=""
+                title={["CAMPAIGNS"]}
                 image="/project-2.jpg"
                 alt="Brand Redefine"
                 tint="#0b3a31"
@@ -142,8 +143,8 @@ export default function Home() {
 
             <Reveal delay={160}>
               <ProjectCard
-                category="Ad Campaign"
-                title={["EVERY SECOND"]}
+                category=""
+                title={["CONTENT"]}
                 image="/project-3.jpg"
                 alt="Every Second"
                 tint="#3a2a10"
@@ -152,8 +153,8 @@ export default function Home() {
 
             <Reveal delay={240}>
               <ProjectCard
-                category="Art Direction"
-                title={["TIMELESS", "MASTERY"]}
+                category=""
+                title={["ADVERTISING"]}
                 image="/project-4.jpg"
                 alt="Timeless Mastery"
                 tint="#1f2328"

@@ -38,7 +38,7 @@ export default function ServicesMilestonesSection() {
               textAlign: "center",
             }}
           >
-            SERVICES
+            MUSIC
           </h2>
 
           {/* Card stack */}

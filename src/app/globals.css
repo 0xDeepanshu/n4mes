@@ -1,7 +1,9 @@
 @import "tailwindcss";
 
 :root {
-  --section-max-width: none;
+  /* Desktop cap: keeps the composition at its designed size and lets the
+     outer gutters absorb the viewport once the browser zooms out. */
+  --section-max-width: 1880px;
   --section-width: calc(100% - 40px);
   --section-radius: 100px;
   --section-gap: 20px;
@@ -22,7 +24,6 @@
     --section-gap: 12px;
   }
 }
-
 
 @theme inline {
   --color-background: #000000;
@@ -72,3 +73,15 @@ body {
   margin-bottom: var(--section-gap);
 }
 
+/* Hero card: viewport-tall on normal screens, capped to the designed
+   proportion once the container itself stops tracking the viewport. */
+.hero-container {
+  height: calc(100vh - 40px);
+  min-height: 720px;
+}
+
+@media (min-width: 1921px) {
+  .hero-container {
+    height: min(calc(100vh - 40px), calc(var(--section-max-width) * 0.5532));
+  }
+}
