@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export type ProjectCardProps = {
@@ -16,6 +17,8 @@ export type ProjectCardProps = {
   tint: string;
   /** Optional object-position tweak for the artwork */
   objectPosition?: string;
+  /** Detail route this card navigates to, e.g. "/projects/brands" */
+  href: string;
 };
 
 const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -66,6 +69,7 @@ export default function ProjectCard({
   alt,
   tint,
   objectPosition = "center",
+  href,
 }: ProjectCardProps) {
   const canHover = useCanHover();
 
@@ -101,6 +105,14 @@ export default function ProjectCard({
       {/* -------- Legibility gradient -------- */}
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.30)_0%,rgba(0,0,0,0.06)_46%,rgba(0,0,0,0.36)_100%)]" />
 
+      {/* -------- Stretched link: whole card navigates to the detail page -------- */}
+      <Link
+        href={href}
+        aria-hidden="true"
+        tabIndex={-1}
+        className="absolute inset-0 z-20"
+      />
+
       {/* -------- Centered information panel -------- */}
       <div className="absolute inset-0 z-10 flex items-center justify-center p-[5%]">
         <div className="flex min-h-[clamp(180px,16vw,300px)] w-[75%] max-w-[520px] min-w-[220px] flex-col items-center justify-center gap-[clamp(10px,1.2vw,20px)] rounded-[40px] border border-white/10 bg-[linear-gradient(155deg,rgba(8,8,8,0.64)_0%,rgba(8,8,8,0.32)_100%)] px-[clamp(20px,3vw,52px)] py-[clamp(24px,3vw,52px)] text-center backdrop-blur-[12px] sm:w-[62%] md:w-[54%]">
@@ -122,7 +134,7 @@ export default function ProjectCard({
             </h3>
 
             <motion.a
-              href="#projects"
+              href={href}
               className="absolute left-1/2 inline-flex items-center gap-[0.9em] font-pixel text-[clamp(0.6rem,0.7vw,0.8rem)] tracking-[0.16em] whitespace-nowrap text-white/85 transition-colors hover:text-white"
               style={{ top: "calc(100% + 14px)" }}
               variants={ctaVariants}

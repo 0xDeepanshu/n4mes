@@ -19,7 +19,7 @@ export default function ServicesMilestonesSection() {
         <div
           className="relative flex-1 flex flex-col items-center overflow-hidden"
           style={{
-            minHeight: "clamp(460px, 32vw, 620px)",
+            minHeight: "clamp(460px, 48.5vw, 930px)",
             borderRadius: "var(--section-radius)",
             background: "#171717",
           }}
@@ -34,7 +34,7 @@ export default function ServicesMilestonesSection() {
               letterSpacing: "0.06em",
               lineHeight: 1,
               color: "#ffffff",
-              marginTop: "clamp(60px, 5.63vw, 108px)",
+              marginTop: "clamp(60px, 12.43vw, 239px)",
               textAlign: "center",
             }}
           >
@@ -104,7 +104,7 @@ export default function ServicesMilestonesSection() {
         <div
           className="relative flex-1 flex flex-col items-center overflow-hidden"
           style={{
-            minHeight: "clamp(460px, 32vw, 620px)",
+            minHeight: "clamp(460px, 48.5vw, 930px)",
             borderRadius: "var(--section-radius)",
             background: "#171717",
           }}
@@ -119,7 +119,7 @@ export default function ServicesMilestonesSection() {
               letterSpacing: "0.06em",
               lineHeight: 1,
               color: "#ffffff",
-              marginTop: "clamp(60px, 5.63vw, 108px)",
+              marginTop: "clamp(60px, 12.43vw, 239px)",
               textAlign: "center",
             }}
           >
@@ -129,7 +129,7 @@ export default function ServicesMilestonesSection() {
           {/* Pillar 1: IDEA FIRST */}
           <div
             className="flex flex-col items-center text-center px-4"
-            style={{ marginTop: "clamp(30px, 3.13vw, 60px)" }}
+            style={{ marginTop: "clamp(30px, 6.6vw, 127px)" }}
           >
             <span
               style={{
@@ -163,8 +163,8 @@ export default function ServicesMilestonesSection() {
               width: "clamp(200px, 18.23vw, 350px)",
               height: "1px",
               background: "rgba(255,255,255,0.10)",
-              marginTop: "clamp(18px, 1.56vw, 30px)",
-              marginBottom: "clamp(18px, 1.56vw, 30px)",
+              marginTop: "clamp(18px, 3.13vw, 60px)",
+              marginBottom: "clamp(18px, 3.13vw, 60px)",
             }}
           />
 

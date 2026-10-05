@@ -16,8 +16,8 @@ export default function FooterSection() {
         className="section-container relative"
         style={{
           background: "#171717",
-          paddingTop: "clamp(40px, 4.17vw, 80px)",
-          paddingBottom: "clamp(40px, 3.65vw, 70px)",
+          paddingTop: "clamp(40px, 10.2vw, 197px)",
+          paddingBottom: "clamp(40px, 10.2vw, 197px)",
           paddingLeft: "clamp(24px, 4.17vw, 80px)",
           paddingRight: "clamp(24px, 4.17vw, 80px)",
         }}

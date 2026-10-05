@@ -9,7 +9,7 @@ export default function ClientsSection() {
       <div
         className="section-container relative"
         style={{
-          height: "clamp(500px, 42vw, 760px)",
+          height: "clamp(500px, 54.17vw, 1040px)",
           background: "#171717",
         }}
       >
@@ -24,7 +24,7 @@ export default function ClientsSection() {
             lineHeight: 1,
             color: "#ffffff",
             left: "clamp(40px, 4.5vw, 80px)",
-            top: "clamp(80px, 11vw, 200px)",
+            top: "clamp(80px, 17vw, 326px)",
           }}
         >
           CLIENTS
@@ -35,7 +35,7 @@ export default function ClientsSection() {
           className="absolute hidden md:block"
           style={{
             right: "clamp(40px, 4.5vw, 80px)",
-            top: "clamp(80px, 11vw, 200px)",
+            top: "clamp(80px, 17vw, 326px)",
             width: "clamp(220px, 18vw, 320px)",
           }}
         >
@@ -58,7 +58,7 @@ export default function ClientsSection() {
         <div
           className="absolute left-0 right-0"
           style={{
-            top: "clamp(180px, 17vw, 330px)",
+            top: "clamp(180px, 23.5vw, 452px)",
           }}
         >
           <ClientsCarousel />

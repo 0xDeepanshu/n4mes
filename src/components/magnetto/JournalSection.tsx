@@ -1,4 +1,4 @@
-import JournalCard from "./JournalCard";
+import FlexCarousel from "./FlexCarousel";
 
 const ARTICLES = [
   {
@@ -35,7 +35,6 @@ export default function JournalSection() {
           paddingBottom: "clamp(30px, 3vw, 50px)",
         }}
       >
-
         {/* -------- JOURNAL heading -------- */}
         <h2
           className="absolute"
@@ -78,27 +77,41 @@ export default function JournalSection() {
           </p>
         </div>
 
-        {/* -------- Article cards row -------- */}
+        {/* -------- Image area: FlexCarousel (same box as the 3 image cards) -------- */}
         <div
-          className="flex flex-col md:flex-row mx-auto"
+          className="mx-auto"
           style={{
             marginTop: "clamp(130px, 11vw, 200px)",
             paddingLeft: "clamp(30px, 3.5vw, 60px)",
             paddingRight: "clamp(30px, 3.5vw, 60px)",
-            gap: "clamp(12px, 1.2vw, 20px)",
           }}
         >
-
-          {ARTICLES.map((article) => (
-            <div key={article.category} className="flex-1">
-              <JournalCard
-                image={article.image}
-                alt={article.alt}
-                title={article.title}
-                category={article.category}
-              />
-            </div>
-          ))}
+          <div
+            className="relative w-full overflow-hidden"
+            style={{
+              height: "clamp(280px, 38vw, 730px)",
+              borderRadius: "100px",
+            }}
+          >
+            <FlexCarousel
+              items={ARTICLES.map((article) => ({
+                src: article.image,
+                alt: article.alt,
+                title: article.title,
+              }))}
+              preset="liquid"
+              intro="rise"
+              fit="natural"
+              cardHeight={0.785}
+              gap={20}
+              radius={100}
+              squeeze={0.2}
+              captions={false}
+              focusOnClick={false}
+              autoplay={false}
+              captureWheel={true}
+            />
+          </div>
         </div>
       </div>
     </section>

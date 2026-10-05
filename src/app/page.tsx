@@ -122,42 +122,66 @@ export default function Home() {
           >
             <Reveal delay={0}>
               <ProjectCard
-                category=""
+                category="campaigns, content, advertising"
                 title={["BRANDS"]}
                 image="/project-1.jpg"
                 alt="Beyond Time"
                 tint="#4d140b"
                 objectPosition="center 50%"
+                href="/projects/brands"
               />
             </Reveal>
 
             <Reveal delay={80}>
               <ProjectCard
-                category=""
-                title={["CAMPAIGNS"]}
+                category="concerts, festivals, artists"
+                title={["MUSIC"]}
                 image="/project-2.jpg"
                 alt="Brand Redefine"
                 tint="#0b3a31"
+                href="/projects/music"
               />
             </Reveal>
 
             <Reveal delay={160}>
               <ProjectCard
-                category=""
-                title={["CONTENT"]}
+                category="creators ugc, personalities"
+                title={["PEOPLE"]}
                 image="/project-3.jpg"
                 alt="Every Second"
                 tint="#3a2a10"
+                href="/projects/people"
               />
             </Reveal>
 
             <Reveal delay={240}>
               <ProjectCard
-                category=""
-                title={["ADVERTISING"]}
+                category="corporate films, events, business content"
+                title={["CORPORTE"]}
                 image="/project-4.jpg"
                 alt="Timeless Mastery"
                 tint="#1f2328"
+                href="/projects/corporte"
+              />
+            </Reveal>
+            <Reveal delay={320}>
+              <ProjectCard
+                category="brands we've built from scratch"
+                title={["BUILT"]}
+                image="/project-4.jpg"
+                alt="Timeless Mastery"
+                tint="#1f2328"
+                href="/projects/built"
+              />
+            </Reveal>
+            <Reveal delay={400}>
+              <ProjectCard
+                category="motion graphics, SaaS videos, typography"
+                title={["MOTION"]}
+                image="/project-4.jpg"
+                alt="Timeless Mastery"
+                tint="#1f2328"
+                href="/projects/motion"
               />
             </Reveal>
           </div>

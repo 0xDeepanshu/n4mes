@@ -9,7 +9,7 @@ export default function ContactSection() {
       <div
         className="section-container relative"
         style={{
-          height: "clamp(500px, 36vw, 680px)",
+          height: "clamp(500px, 54.17vw, 1040px)",
         }}
       >
         {/* -------- Full-bleed background image -------- */}
@@ -36,7 +36,7 @@ export default function ContactSection() {
           className="absolute z-[2] hidden lg:block"
           style={{
             left: "clamp(40px, 6vw, 100px)",
-            top: "clamp(140px, 14vw, 240px)",
+            top: "clamp(140px, 24.35vw, 468px)",
             width: "clamp(340px, 32vw, 600px)",
           }}
         >
@@ -91,7 +91,7 @@ export default function ContactSection() {
         <div
           className="absolute z-[2] left-1/2 -translate-x-1/2 lg:left-auto lg:translate-x-0"
           style={{
-            top: "clamp(90px, 9vw, 150px)",
+            top: "clamp(90px, 19.66vw, 378px)",
             width: "clamp(320px, 29vw, 560px)",
             borderRadius: "40px",
             background: "rgba(255, 255, 255, 0.08)",
