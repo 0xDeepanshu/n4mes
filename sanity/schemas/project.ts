@@ -1,9 +1,33 @@
 import { defineField, defineType } from "sanity";
 
+/**
+ * FIXED project detail structure — the layout is controlled by React:
+ *   HERO (full-width banner + title/category/description overlay)
+ *   → 4 media cards (2×2 grid)
+ *   → CLOSING full-width banner
+ * The client only chooses the media inside each slot.
+ */
 export default defineType({
   name: "project",
   title: "Project",
   type: "document",
+  fieldsets: [
+    {
+      name: "hero",
+      title: "HERO — top full-width banner",
+      options: { columns: 1 },
+    },
+    {
+      name: "cards",
+      title: "4 MEDIA CARDS — fixed 2×2 layout",
+      options: { columns: 2 },
+    },
+    {
+      name: "closing",
+      title: "CLOSING BANNER — bottom full-width",
+      options: { columns: 1 },
+    },
+  ],
   fields: [
     defineField({
       name: "title",
@@ -52,6 +76,7 @@ export default defineType({
       name: "hero",
       title: "Hero Image",
       type: "image",
+      fieldset: "hero",
       options: { hotspot: true },
       fields: [defineField({ name: "alt", title: "Alt Text", type: "string" })],
       description:
@@ -62,19 +87,46 @@ export default defineType({
       name: "heroVideo",
       title: "Hero Video (optional)",
       type: "file",
+      fieldset: "hero",
       options: { accept: "video/*" },
       description:
         "Plays in the hero and on the home page card when set. The image stays as the poster/fallback.",
     }),
     defineField({
-      name: "sections",
-      title: "Page Sections",
-      type: "array",
+      name: "card1",
+      title: "Card 1 — top left",
+      type: "projectMedia",
+      fieldset: "cards",
+      description: "Media card in the top-left slot of the 2×2 grid.",
+    }),
+    defineField({
+      name: "card2",
+      title: "Card 2 — top right",
+      type: "projectMedia",
+      fieldset: "cards",
+      description: "Media card in the top-right slot of the 2×2 grid.",
+    }),
+    defineField({
+      name: "card3",
+      title: "Card 3 — bottom left",
+      type: "projectMedia",
+      fieldset: "cards",
+      description: "Media card in the bottom-left slot of the 2×2 grid.",
+    }),
+    defineField({
+      name: "card4",
+      title: "Card 4 — bottom right",
+      type: "projectMedia",
+      fieldset: "cards",
+      description: "Media card in the bottom-right slot of the 2×2 grid.",
+    }),
+    defineField({
+      name: "closingBanner",
+      title: "Closing Banner",
+      type: "projectMedia",
+      fieldset: "closing",
       description:
-        "Body of the project page. Drag to reorder, add Text + Image rows or Full-Width Images.",
-      of: [{ type: "textImageBlock" }, { type: "fullWidthImageBlock" }],
-      validation: (rule) =>
-        rule.min(1).error("A project needs at least one section."),
+        "Full-width media banner between the cards and the contact section.",
     }),
     defineField({
       name: "seoTitle",

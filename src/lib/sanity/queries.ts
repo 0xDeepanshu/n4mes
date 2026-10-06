@@ -32,22 +32,22 @@ const journalPostFields = `
   featured
 `;
 
-const sectionProjection = `
-  sections[]{
-    _key,
-    _type == "textImageBlock" => {
-      _type,
-      text,
-      image,
-      video{asset->{url, originalFilename}},
-      side
-    },
-    _type == "fullWidthImageBlock" => {
-      _type,
-      image,
-      video{asset->{url, originalFilename}}
-    }
-  }
+/** Fixed media slot projection: image (with alt) + optional video. */
+const mediaSlotProjection = `
+  image,
+  video{asset->{url, originalFilename}}
+`;
+
+/**
+ * Fixed project detail media slots — layout is React-controlled:
+ * HERO → card1..card4 (2×2 grid) → closingBanner.
+ */
+const projectMediaProjection = `
+  card1{${mediaSlotProjection}},
+  card2{${mediaSlotProjection}},
+  card3{${mediaSlotProjection}},
+  card4{${mediaSlotProjection}},
+  closingBanner{${mediaSlotProjection}}
 `;
 
 export const siteSettingsQuery = defineQuery(`*[_type == "siteSettings"][0]{
@@ -118,7 +118,7 @@ export const allProjectsQuery =
   seoTitle,
   seoDescription,
   seoOgImage,
-  ${sectionProjection}
+  ${projectMediaProjection}
 }`);
 
 export const projectBySlugQuery = defineQuery(
@@ -127,7 +127,7 @@ export const projectBySlugQuery = defineQuery(
   seoTitle,
   seoDescription,
   seoOgImage,
-  ${sectionProjection}
+  ${projectMediaProjection}
 }`,
 );
 

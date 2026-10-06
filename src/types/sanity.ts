@@ -96,23 +96,15 @@ export interface SiteSettings {
   seoOgImage?: SanityImage;
 }
 
-export interface TextImageSection {
-  _type: "textImageBlock";
-  _key?: string;
-  text: string;
-  image?: SanityImage;
-  video?: SanityVideo;
-  side?: "textLeft" | "textRight";
-}
-
-export interface FullWidthImageSection {
-  _type: "fullWidthImageBlock";
-  _key?: string;
+/**
+ * A fixed media slot on a project page (card1..card4 / closingBanner).
+ * The slot size is React-controlled; Sanity only picks the media.
+ */
+export interface ProjectMediaSlot {
+  _type?: "projectMedia";
   image?: SanityImage;
   video?: SanityVideo;
 }
-
-export type ProjectSection = TextImageSection | FullWidthImageSection;
 
 export interface ProjectDoc {
   _id: string;
@@ -124,7 +116,11 @@ export interface ProjectDoc {
   tint?: string;
   hero?: SanityImage;
   heroVideo?: SanityVideo;
-  sections?: ProjectSection[];
+  card1?: ProjectMediaSlot;
+  card2?: ProjectMediaSlot;
+  card3?: ProjectMediaSlot;
+  card4?: ProjectMediaSlot;
+  closingBanner?: ProjectMediaSlot;
   seoTitle?: string;
   seoDescription?: string;
   seoOgImage?: SanityImage;

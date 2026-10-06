@@ -1,6 +1,27 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Monument Extended";
+  src: url("/fonts/MonumentExtended-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Monument Extended";
+  src: url("/fonts/MonumentExtended-Ultrabold.otf") format("opentype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
+  --font-monument:
+    "Monument Extended", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-silkscreen: var(--font-monument);
+
   /* Desktop cap: keeps the composition at its designed size and lets the
      outer gutters absorb the viewport once the browser zooms out. */
   --section-max-width: 1880px;
@@ -30,7 +51,7 @@
   --color-foreground: #ffffff;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --font-pixel: var(--font-silkscreen);
+  --font-pixel: var(--font-monument);
 }
 
 *,

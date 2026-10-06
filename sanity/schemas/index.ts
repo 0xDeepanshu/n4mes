@@ -1,4 +1,3 @@
-import { fullWidthImageBlock, textImageBlock } from "./blocks";
 import client from "./client";
 import homePage from "./homePage";
 import journalPost from "./journalPost";
@@ -9,6 +8,7 @@ import {
   milestoneItem,
   navCta,
   navItem,
+  projectMedia,
   serviceCard,
   socialLink,
 } from "./objects";
@@ -21,8 +21,6 @@ export const schemaTypes = [
   project,
   journalPost,
   client,
-  textImageBlock,
-  fullWidthImageBlock,
   navItem,
   navCta,
   formField,
@@ -31,4 +29,5 @@ export const schemaTypes = [
   footerCredit,
   serviceCard,
   milestoneItem,
+  projectMedia,
 ];

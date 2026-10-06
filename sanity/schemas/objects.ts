@@ -218,6 +218,40 @@ export const serviceCard = defineType({
   },
 });
 
+export const projectMedia = defineType({
+  name: "projectMedia",
+  title: "Media (image + video)",
+  type: "object",
+  fields: [
+    defineField({
+      name: "image",
+      title: "Image",
+      type: "image",
+      options: { hotspot: true },
+      fields: [defineField({ name: "alt", title: "Alt Text", type: "string" })],
+      description: "Fill image shown in this fixed slot.",
+    }),
+    defineField({
+      name: "video",
+      title: "Video (optional)",
+      type: "file",
+      options: { accept: "video/*" },
+      description:
+        "Plays in the slot when set. The image stays as the poster/fallback. The slot size never changes.",
+    }),
+  ],
+  preview: {
+    select: { media: "image", title: "image.alt", subtitle: "video" },
+    prepare({ media, title, subtitle }) {
+      return {
+        title: title || (subtitle ? "Video" : "Media"),
+        subtitle: subtitle ? "Video plays over the image" : "Image",
+        media,
+      };
+    },
+  },
+});
+
 export const milestoneItem = defineType({
   name: "milestoneItem",
   title: "Milestone",

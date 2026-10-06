@@ -7,6 +7,7 @@ import type {
   HomePageDoc,
   JournalPostDoc,
   ProjectDoc,
+  ProjectMediaSlot,
   SiteSettings,
 } from "@/types/sanity";
 import { hasSanity, sanityClient } from "./client";
@@ -79,23 +80,20 @@ export interface HomeProjectCard {
   video?: string;
 }
 
-export type ProjectSectionView =
-  | {
-      _key: string;
-      _type: "textImageBlock";
-      text: string;
-      image: string;
-      alt: string;
-      video?: string;
-      side: "textLeft" | "textRight";
-    }
-  | {
-      _key: string;
-      _type: "fullWidthImageBlock";
-      image: string;
-      alt: string;
-      video?: string;
-    };
+/** Resolved media for one fixed project slot (Sanity CDN or local /public). */
+export interface ProjectMediaView {
+  image?: string;
+  video?: string;
+  alt: string;
+}
+
+/** Fixed tuple: the React-controlled 2×2 card grid. */
+export type ProjectCards = [
+  ProjectMediaView,
+  ProjectMediaView,
+  ProjectMediaView,
+  ProjectMediaView,
+];
 
 export interface ProjectDetailView {
   slug: string;
@@ -105,7 +103,8 @@ export interface ProjectDetailView {
   hero: string;
   heroAlt: string;
   heroVideo?: string;
-  sections: ProjectSectionView[];
+  cards: ProjectCards;
+  closingBanner: ProjectMediaView;
   seoTitle?: string;
   seoDescription?: string;
   seoOgImage?: string;
@@ -176,37 +175,22 @@ export async function getProjectDetailView(
   return null;
 }
 
+/** Resolve one fixed media slot (Sanity image/video) to renderable URLs. */
+function mapMediaSlot(
+  slot: ProjectMediaSlot | undefined,
+  fallbackAlt: string,
+  width: number,
+): ProjectMediaView {
+  return {
+    image: imgSrc(slot?.image, width),
+    video: slot?.video?.asset?.url,
+    alt: slot?.image?.alt ?? fallbackAlt,
+  };
+}
+
 function mapSanityProject(doc: ProjectDoc): ProjectDetailView | null {
   const hero = imgSrc(doc.hero, 2000);
   if (!hero) return null;
-
-  const sections: ProjectSectionView[] = [];
-  for (const [index, section] of (doc.sections ?? []).entries()) {
-    const key = section._key ?? `section-${index}`;
-    if (section._type === "textImageBlock") {
-      const image = imgSrc(section.image, 1200);
-      if (!image) continue;
-      sections.push({
-        _key: key,
-        _type: "textImageBlock",
-        text: section.text,
-        image,
-        alt: section.image?.alt ?? "",
-        video: section.video?.asset?.url,
-        side: section.side === "textRight" ? "textRight" : "textLeft",
-      });
-    } else if (section._type === "fullWidthImageBlock") {
-      const image = imgSrc(section.image, 2000);
-      if (!image) continue;
-      sections.push({
-        _key: key,
-        _type: "fullWidthImageBlock",
-        image,
-        alt: section.image?.alt ?? "",
-        video: section.video?.asset?.url,
-      });
-    }
-  }
 
   return {
     slug: doc.slug.current,
@@ -216,7 +200,13 @@ function mapSanityProject(doc: ProjectDoc): ProjectDetailView | null {
     hero,
     heroAlt: doc.hero?.alt ?? doc.title,
     heroVideo: doc.heroVideo?.asset?.url,
-    sections,
+    cards: [
+      mapMediaSlot(doc.card1, doc.title, 1200),
+      mapMediaSlot(doc.card2, doc.title, 1200),
+      mapMediaSlot(doc.card3, doc.title, 1200),
+      mapMediaSlot(doc.card4, doc.title, 1200),
+    ],
+    closingBanner: mapMediaSlot(doc.closingBanner, doc.title, 2000),
     seoTitle: doc.seoTitle,
     seoDescription: doc.seoDescription,
     seoOgImage: imgSrc(doc.seoOgImage, 1200),
@@ -229,44 +219,10 @@ function mapLocalProject(
   const [row1Image, row2Image, row3Image] = local.rowImages;
   const [feature1, feature2] = local.features;
 
-  const sections: ProjectSectionView[] = [
-    {
-      _key: "section-1",
-      _type: "textImageBlock",
-      text: local.textBlocks[0],
-      image: row1Image.src,
-      alt: row1Image.alt,
-      side: "textLeft",
-    },
-    {
-      _key: "section-2",
-      _type: "fullWidthImageBlock",
-      image: feature1.src,
-      alt: feature1.alt,
-    },
-    {
-      _key: "section-3",
-      _type: "textImageBlock",
-      text: local.textBlocks[1],
-      image: row2Image.src,
-      alt: row2Image.alt,
-      side: "textRight",
-    },
-    {
-      _key: "section-4",
-      _type: "fullWidthImageBlock",
-      image: feature2.src,
-      alt: feature2.alt,
-    },
-    {
-      _key: "section-5",
-      _type: "textImageBlock",
-      text: local.textBlocks[2],
-      image: row3Image.src,
-      alt: row3Image.alt,
-      side: "textLeft",
-    },
-  ];
+  const media = (image: { src: string; alt: string }): ProjectMediaView => ({
+    image: image.src,
+    alt: image.alt,
+  });
 
   return {
     slug: local.slug,
@@ -275,7 +231,15 @@ function mapLocalProject(
     description: local.description,
     hero: local.hero.src,
     heroAlt: local.hero.alt,
-    sections,
+    // Existing local project media, mapped into the fixed slots:
+    // cards = 3 row images + first full-width feature, closing = second feature.
+    cards: [
+      media(row1Image),
+      media(row2Image),
+      media(row3Image),
+      media(feature1),
+    ],
+    closingBanner: media(feature2),
   };
 }
 

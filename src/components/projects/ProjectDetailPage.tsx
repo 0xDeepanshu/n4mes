@@ -3,37 +3,35 @@ import FooterSection from "@/components/magnetto/FooterSection";
 import Media from "@/components/magnetto/Media";
 import Reveal from "@/components/magnetto/Reveal";
 import SiteNav from "@/components/magnetto/SiteNav";
-import type { ProjectDetailView } from "@/lib/sanity/data";
+import type { ProjectDetailView, ProjectMediaView } from "@/lib/sanity/data";
 
 const ROW_STYLE = {
   width: "var(--section-width)",
   maxWidth: "var(--section-max-width)",
+  marginInline: "auto",
 };
 
 const CARD_RADIUS = { borderRadius: "var(--section-radius)" };
 
 const ROW_SIZES = "(max-width: 767px) 100vw, 50vw";
 
-function ImageBlock({
-  image,
-  video,
-  alt,
-  className,
-}: {
-  image: string;
-  video?: string;
-  alt: string;
-  className: string;
-}) {
+/**
+ * One fixed card slot of the 2×2 grid.
+ * The container dimensions are defined by the design (never by the media);
+ * the image/video simply fills it with object-fit: cover. When a slot has no
+ * media yet, the container keeps its size and shows the design's fallback
+ * background color.
+ */
+function ProjectCard({ media }: { media: ProjectMediaView }) {
   return (
     <div
-      className={`relative w-full overflow-hidden bg-[#d9d6d1] ${className}`}
+      className="relative w-full overflow-hidden bg-[#d9d6d1] aspect-square md:aspect-[6/5]"
       style={CARD_RADIUS}
     >
       <Media
-        image={image}
-        video={video}
-        alt={alt}
+        image={media.image}
+        video={media.video}
+        alt={media.alt}
         sizes={ROW_SIZES}
         className="object-cover"
       />
@@ -41,45 +39,24 @@ function ImageBlock({
   );
 }
 
-function TextBlock({ text, className }: { text: string; className: string }) {
-  return (
-    <div
-      className={`relative flex w-full items-center justify-center bg-white ${className}`}
-      style={CARD_RADIUS}
-    >
-      <p
-        style={{
-          maxWidth: "76%",
-          fontSize: "clamp(12px, 0.78vw, 15px)",
-          lineHeight: 1.7,
-          letterSpacing: "-0.003em",
-          color: "#111111",
-          textAlign: "center",
-          fontWeight: 400,
-        }}
-      >
-        {text}
-      </p>
-    </div>
-  );
-}
-
 /**
  * Shared detail-page template for every /projects/[slug] route.
- * Presentation only — all copy/images come from the Project record
- * (Sanity), with the original local data as fallback.
+ * The layout is FIXED and React-controlled:
+ *   HERO (with the existing title/category/description overlay)
+ *   → 4 media cards (2×2 grid)
+ *   → closing full-width media banner
+ *   → GET IN TOUCH → FOOTER
+ * Sanity only decides which image/video lives inside each slot.
  */
 export default function ProjectDetailPage({
   project,
 }: {
   project: ProjectDetailView;
 }) {
-  const lastSectionIndex = project.sections.length - 1;
-
   return (
     <div className="relative w-full bg-[#000000] min-h-screen">
       {/* ================================================================
-          LIGHT REGION — hero + ordered CMS sections
+          LIGHT REGION — hero + fixed media layout
           ================================================================ */}
       <div
         className="w-full pt-[var(--section-gap)]"
@@ -146,77 +123,38 @@ export default function ProjectDetailPage({
           </Reveal>
         </section>
 
-        {/* -------- ORDERED CMS SECTIONS -------- */}
-        {project.sections.map((section, index) => {
-          const isLast = index === lastSectionIndex;
-          const closingStyle = isLast
-            ? { marginBottom: 0, paddingBottom: "var(--section-gap)" }
-            : undefined;
-
-          if (section._type === "fullWidthImageBlock") {
-            return (
-              <section
-                key={section._key}
-                className="section-wrapper"
-                style={closingStyle}
-              >
-                <Reveal className="w-full">
-                  <div className="section-container aspect-[4/3] md:aspect-[12/5]">
-                    <Media
-                      image={section.image}
-                      video={section.video}
-                      alt={section.alt}
-                      sizes="100vw"
-                      className="object-cover"
-                    />
-                  </div>
-                </Reveal>
-              </section>
-            );
-          }
-
-          const textBlock = (
-            <TextBlock
-              text={section.text}
-              className="aspect-square md:aspect-[6/5]"
-            />
-          );
-          const imageBlock = (
-            <ImageBlock
-              image={section.image}
-              video={section.video}
-              alt={section.alt}
-              className="aspect-square md:aspect-[6/5]"
-            />
-          );
-
-          return (
-            <section
-              key={section._key}
-              className="section-wrapper"
-              style={closingStyle}
+        {/* -------- 4 MEDIA CARDS — fixed 2×2 grid -------- */}
+        <section className="section-wrapper">
+          <Reveal className="w-full">
+            <div
+              className="grid grid-cols-1 gap-[20px] md:grid-cols-2"
+              style={ROW_STYLE}
             >
-              <Reveal>
-                <div
-                  className="grid grid-cols-1 gap-[20px] md:grid-cols-2"
-                  style={ROW_STYLE}
-                >
-                  {section.side === "textRight" ? (
-                    <>
-                      {imageBlock}
-                      {textBlock}
-                    </>
-                  ) : (
-                    <>
-                      {textBlock}
-                      {imageBlock}
-                    </>
-                  )}
-                </div>
-              </Reveal>
-            </section>
-          );
-        })}
+              <ProjectCard key="card-1" media={project.cards[0]} />
+              <ProjectCard key="card-2" media={project.cards[1]} />
+              <ProjectCard key="card-3" media={project.cards[2]} />
+              <ProjectCard key="card-4" media={project.cards[3]} />
+            </div>
+          </Reveal>
+        </section>
+
+        {/* -------- CLOSING FULL-WIDTH BANNER -------- */}
+        <section
+          className="section-wrapper"
+          style={{ marginBottom: 0, paddingBottom: "var(--section-gap)" }}
+        >
+          <Reveal className="w-full">
+            <div className="section-container aspect-[4/3] md:aspect-[12/5]">
+              <Media
+                image={project.closingBanner.image}
+                video={project.closingBanner.video}
+                alt={project.closingBanner.alt}
+                sizes="100vw"
+                className="object-cover"
+              />
+            </div>
+          </Reveal>
+        </section>
       </div>
 
       {/* ================================================================

@@ -110,16 +110,8 @@ export default async function Home() {
             {/* -------- LEFT: Logo + Subtitle (desktop) -------- */}
             <div className="absolute left-[6%] top-[50%] -translate-y-1/2 z-10 flex flex-col gap-2 hidden md:flex">
               <div className="flex items-center gap-3">
-                <div className="relative w-9 h-9 xl:w-11 xl:h-11 flex-shrink-0">
-                  <Image
-                    src={heroLogo}
-                    alt={heroLogoAlt}
-                    fill
-                    className="object-contain mix-blend-multiply"
-                  />
-                </div>
                 <h1
-                  className="text-[clamp(1.8rem,3vw,3.4rem)] leading-[1] tracking-[0.08em] text-[#1a1a1a]"
+                  className="text-[clamp(1.8rem,3vw,3.4rem)] leading-[1] tracking-[0.08em] text-white"
                   style={{ fontFamily: "var(--font-silkscreen), monospace" }}
                 >
                   {heroHeading}
@@ -134,14 +126,14 @@ export default async function Home() {
             </div>
 
             {/* -------- CENTER: Logo Mark -------- */}
-            <div className="absolute bottom-0 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[5] w-[45%] md:w-[26%] max-w-[380px] aspect-square flex items-center justify-center">
-              <div className="relative w-full h-full">
+            <div className="absolute bottom-0 left-1/2 z-[5] aspect-square w-[45%] max-w-[380px] -translate-x-1/2 md:w-[26%]">
+              <div className="relative h-full w-full">
                 <Image
-                  src={heroLogo}
+                  src="/Logo/logowhite.png"
                   alt={heroLogoAlt}
                   fill
                   priority
-                  className="object-contain mix-blend-multiply"
+                  className="object-contain"
                   sizes="(max-width: 768px) 45vw, 26vw"
                 />
               </div>

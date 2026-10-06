@@ -88,8 +88,19 @@ const PROJECT_TINTS: Record<string, string> = {
 
 async function seedProjects() {
   for (const project of projects) {
+    // Fixed detail layout: HERO → card1..card4 (2×2) → closing banner.
+    // Existing project media, mapped without inventing content:
+    // cards = 3 row images + first full-width feature; closing = second feature.
     const [row1Image, row2Image, row3Image] = project.rowImages;
     const [feature1, feature2] = project.features;
+
+    const card = async (image: {
+      src: string;
+      alt: string;
+    }): Promise<Record<string, unknown>> => ({
+      _type: "projectMedia",
+      image: await uploadImage(image.src.replace(/^\//, ""), image.alt),
+    });
 
     await upsert({
       _id: `project-${project.slug}`,
@@ -103,54 +114,11 @@ async function seedProjects() {
         project.hero.src.replace(/^\//, ""),
         project.hero.alt,
       ),
-      sections: [
-        {
-          _type: "textImageBlock",
-          _key: "section-1",
-          text: project.textBlocks[0],
-          image: await uploadImage(
-            row1Image.src.replace(/^\//, ""),
-            row1Image.alt,
-          ),
-          side: "textLeft",
-        },
-        {
-          _type: "fullWidthImageBlock",
-          _key: "section-2",
-          image: await uploadImage(
-            feature1.src.replace(/^\//, ""),
-            feature1.alt,
-          ),
-        },
-        {
-          _type: "textImageBlock",
-          _key: "section-3",
-          text: project.textBlocks[1],
-          image: await uploadImage(
-            row2Image.src.replace(/^\//, ""),
-            row2Image.alt,
-          ),
-          side: "textRight",
-        },
-        {
-          _type: "fullWidthImageBlock",
-          _key: "section-4",
-          image: await uploadImage(
-            feature2.src.replace(/^\//, ""),
-            feature2.alt,
-          ),
-        },
-        {
-          _type: "textImageBlock",
-          _key: "section-5",
-          text: project.textBlocks[2],
-          image: await uploadImage(
-            row3Image.src.replace(/^\//, ""),
-            row3Image.alt,
-          ),
-          side: "textLeft",
-        },
-      ],
+      card1: await card(row1Image),
+      card2: await card(row2Image),
+      card3: await card(row3Image),
+      card4: await card(feature1),
+      closingBanner: await card(feature2),
     });
   }
 }
