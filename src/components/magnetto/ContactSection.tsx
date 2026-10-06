@@ -1,6 +1,67 @@
-import Image from "next/image";
+import { getSiteSettings } from "@/lib/sanity/data";
+import { imgSrcOr } from "@/lib/sanity/image";
+import type { FormField } from "@/types/sanity";
+import Media from "./Media";
 
-export default function ContactSection() {
+const DEFAULT_HEADING = "GET IN TOUCH";
+const DEFAULT_DESCRIPTION =
+  "Have a project in mind? Whether you're launching a brand, designing a product, or elevating your digital presence, we're here to bring your vision to life.";
+const DEFAULT_FORM_LABEL = "CONTACT US.25";
+const DEFAULT_SUBMIT_LABEL = "SUBMIT";
+const DEFAULT_FORM_FIELDS: FormField[] = [
+  { label: "First name", placeholder: "Jane", inputType: "text" },
+  { label: "Last name", placeholder: "Smith", inputType: "text" },
+  { label: "Email", placeholder: "jane@framer.com", inputType: "email" },
+  { label: "Phone no.", placeholder: "(347) 000 0000", inputType: "tel" },
+];
+
+const LABEL_STYLE = {
+  fontFamily: "var(--font-geist-sans), sans-serif",
+  fontSize: "clamp(8px, 0.47vw, 9px)",
+  color: "rgba(255,255,255,0.50)",
+  marginBottom: "clamp(4px, 0.31vw, 6px)",
+  letterSpacing: "0.01em",
+};
+
+const INPUT_STYLE = {
+  width: "100%",
+  height: "clamp(28px, 1.82vw, 35px)",
+  borderRadius: "6px",
+  border: "1px solid rgba(255,255,255,0.18)",
+  background: "rgba(0,0,0,0.25)",
+  padding: "0 clamp(8px, 0.63vw, 12px)",
+  fontFamily: "var(--font-geist-sans), sans-serif",
+  fontSize: "clamp(9px, 0.52vw, 10px)",
+  color: "rgba(255,255,255,0.70)",
+  letterSpacing: "0.005em",
+};
+
+export default async function ContactSection() {
+  const settings = await getSiteSettings();
+
+  const heading = settings?.contactHeading ?? DEFAULT_HEADING;
+  const description = settings?.contactDescription ?? DEFAULT_DESCRIPTION;
+  const formLabel = settings?.contactFormLabel ?? DEFAULT_FORM_LABEL;
+  const submitLabel = settings?.contactSubmitLabel ?? DEFAULT_SUBMIT_LABEL;
+  const fields = settings?.contactFormFields?.length
+    ? settings.contactFormFields
+    : DEFAULT_FORM_FIELDS;
+  const background = imgSrcOr(
+    settings?.contactBackground,
+    "/contact-bg.jpg",
+    2000,
+  );
+  const backgroundAlt =
+    settings?.contactBackground?.alt ?? "Contact background";
+  const backgroundVideo = settings?.contactBackgroundVideo?.asset?.url;
+
+  // Keep the original two-column rows: pairs of fields, last row keeps the
+  // larger bottom spacing used by the existing design.
+  const rows: FormField[][] = [];
+  for (let i = 0; i < fields.length; i += 2) {
+    rows.push(fields.slice(i, i + 2));
+  }
+
   return (
     <section id="contact" className="section-wrapper">
       {/* ================================================================
@@ -12,13 +73,13 @@ export default function ContactSection() {
           height: "clamp(500px, 54.17vw, 1040px)",
         }}
       >
-        {/* -------- Full-bleed background image -------- */}
-        <Image
-          src="/contact-bg.jpg"
-          alt="Contact background"
-          fill
-          className="object-cover"
+        {/* -------- Full-bleed background image / video -------- */}
+        <Media
+          image={background}
+          video={backgroundVideo}
+          alt={backgroundAlt}
           sizes="100vw"
+          className="object-cover"
           style={{ objectPosition: "50% 50%" }}
         />
 
@@ -50,7 +111,7 @@ export default function ContactSection() {
               color: "#ffffff",
             }}
           >
-            GET IN TOUCH
+            {heading}
           </h2>
 
           <p
@@ -65,9 +126,7 @@ export default function ContactSection() {
               maxWidth: "clamp(300px, 28vw, 550px)",
             }}
           >
-            Have a project in mind? Whether you&apos;re launching a brand,
-            designing a product, or elevating your digital presence, we&apos;re
-            here to bring your vision to life.
+            {description}
           </p>
         </div>
 
@@ -83,7 +142,7 @@ export default function ContactSection() {
               color: "#ffffff",
             }}
           >
-            GET IN TOUCH
+            {heading}
           </h2>
         </div>
 
@@ -103,9 +162,11 @@ export default function ContactSection() {
             right: "clamp(40px, 5vw, 90px)",
           }}
         >
-
-          {/* "CONTACT US.25" label */}
-          <div className="flex justify-center" style={{ marginBottom: "clamp(14px, 1.3vw, 25px)" }}>
+          {/* Form label */}
+          <div
+            className="flex justify-center"
+            style={{ marginBottom: "clamp(14px, 1.3vw, 25px)" }}
+          >
             <span
               style={{
                 fontFamily: "var(--font-silkscreen), monospace",
@@ -115,139 +176,45 @@ export default function ContactSection() {
                 textTransform: "uppercase",
               }}
             >
-              CONTACT US.25
+              {formLabel}
             </span>
           </div>
 
-          {/* Row 1: First name / Last name */}
-          <div className="flex gap-[clamp(8px,0.73vw,14px)]" style={{ marginBottom: "clamp(6px, 0.52vw, 10px)" }}>
-            <div className="flex-1 flex flex-col">
-              <label
-                style={{
-                  fontFamily: "var(--font-geist-sans), sans-serif",
-                  fontSize: "clamp(8px, 0.47vw, 9px)",
-                  color: "rgba(255,255,255,0.50)",
-                  marginBottom: "clamp(4px, 0.31vw, 6px)",
-                  letterSpacing: "0.01em",
-                }}
-              >
-                First name
-              </label>
-              <input
-                type="text"
-                placeholder="Jane"
-                className="outline-none"
-                style={{
-                  width: "100%",
-                  height: "clamp(28px, 1.82vw, 35px)",
-                  borderRadius: "6px",
-                  border: "1px solid rgba(255,255,255,0.18)",
-                  background: "rgba(0,0,0,0.25)",
-                  padding: "0 clamp(8px, 0.63vw, 12px)",
-                  fontFamily: "var(--font-geist-sans), sans-serif",
-                  fontSize: "clamp(9px, 0.52vw, 10px)",
-                  color: "rgba(255,255,255,0.70)",
-                  letterSpacing: "0.005em",
-                }}
-              />
+          {/* Form field rows: two fields per row */}
+          {rows.map((row, rowIndex) => (
+            <div
+              key={row.map((f) => f.label).join("-")}
+              className="flex gap-[clamp(8px,0.73vw,14px)]"
+              style={{
+                marginBottom:
+                  rowIndex === rows.length - 1
+                    ? "clamp(14px, 1.3vw, 25px)"
+                    : "clamp(6px, 0.52vw, 10px)",
+              }}
+            >
+              {row.map((field) => {
+                const fieldId = `contact-${field.label
+                  .toLowerCase()
+                  .replace(/[^a-z0-9]+/g, "-")}`;
+                return (
+                  <div key={field.label} className="flex-1 flex flex-col">
+                    <label htmlFor={fieldId} style={LABEL_STYLE}>
+                      {field.label}
+                    </label>
+                    <input
+                      id={fieldId}
+                      type={field.inputType ?? "text"}
+                      placeholder={field.placeholder}
+                      className="outline-none"
+                      style={INPUT_STYLE}
+                    />
+                  </div>
+                );
+              })}
             </div>
-            <div className="flex-1 flex flex-col">
-              <label
-                style={{
-                  fontFamily: "var(--font-geist-sans), sans-serif",
-                  fontSize: "clamp(8px, 0.47vw, 9px)",
-                  color: "rgba(255,255,255,0.50)",
-                  marginBottom: "clamp(4px, 0.31vw, 6px)",
-                  letterSpacing: "0.01em",
-                }}
-              >
-                Last name
-              </label>
-              <input
-                type="text"
-                placeholder="Smith"
-                className="outline-none"
-                style={{
-                  width: "100%",
-                  height: "clamp(28px, 1.82vw, 35px)",
-                  borderRadius: "6px",
-                  border: "1px solid rgba(255,255,255,0.18)",
-                  background: "rgba(0,0,0,0.25)",
-                  padding: "0 clamp(8px, 0.63vw, 12px)",
-                  fontFamily: "var(--font-geist-sans), sans-serif",
-                  fontSize: "clamp(9px, 0.52vw, 10px)",
-                  color: "rgba(255,255,255,0.70)",
-                  letterSpacing: "0.005em",
-                }}
-              />
-            </div>
-          </div>
+          ))}
 
-          {/* Row 2: Email / Phone no. */}
-          <div className="flex gap-[clamp(8px,0.73vw,14px)]" style={{ marginBottom: "clamp(14px, 1.3vw, 25px)" }}>
-            <div className="flex-1 flex flex-col">
-              <label
-                style={{
-                  fontFamily: "var(--font-geist-sans), sans-serif",
-                  fontSize: "clamp(8px, 0.47vw, 9px)",
-                  color: "rgba(255,255,255,0.50)",
-                  marginBottom: "clamp(4px, 0.31vw, 6px)",
-                  letterSpacing: "0.01em",
-                }}
-              >
-                Email
-              </label>
-              <input
-                type="email"
-                placeholder="jane@framer.com"
-                className="outline-none"
-                style={{
-                  width: "100%",
-                  height: "clamp(28px, 1.82vw, 35px)",
-                  borderRadius: "6px",
-                  border: "1px solid rgba(255,255,255,0.18)",
-                  background: "rgba(0,0,0,0.25)",
-                  padding: "0 clamp(8px, 0.63vw, 12px)",
-                  fontFamily: "var(--font-geist-sans), sans-serif",
-                  fontSize: "clamp(9px, 0.52vw, 10px)",
-                  color: "rgba(255,255,255,0.70)",
-                  letterSpacing: "0.005em",
-                }}
-              />
-            </div>
-            <div className="flex-1 flex flex-col">
-              <label
-                style={{
-                  fontFamily: "var(--font-geist-sans), sans-serif",
-                  fontSize: "clamp(8px, 0.47vw, 9px)",
-                  color: "rgba(255,255,255,0.50)",
-                  marginBottom: "clamp(4px, 0.31vw, 6px)",
-                  letterSpacing: "0.01em",
-                }}
-              >
-                Phone no.
-              </label>
-              <input
-                type="tel"
-                placeholder="(347) 000 0000"
-                className="outline-none"
-                style={{
-                  width: "100%",
-                  height: "clamp(28px, 1.82vw, 35px)",
-                  borderRadius: "6px",
-                  border: "1px solid rgba(255,255,255,0.18)",
-                  background: "rgba(0,0,0,0.25)",
-                  padding: "0 clamp(8px, 0.63vw, 12px)",
-                  fontFamily: "var(--font-geist-sans), sans-serif",
-                  fontSize: "clamp(9px, 0.52vw, 10px)",
-                  color: "rgba(255,255,255,0.70)",
-                  letterSpacing: "0.005em",
-                }}
-              />
-            </div>
-          </div>
-
-          {/* SUBMIT button */}
+          {/* Submit button */}
           <button
             type="button"
             className="w-full cursor-pointer"
@@ -264,7 +231,7 @@ export default function ContactSection() {
               textTransform: "uppercase",
             }}
           >
-            SUBMIT
+            {submitLabel}
           </button>
         </div>
       </div>

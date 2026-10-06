@@ -1,0 +1,210 @@
+import { defineField, defineType } from "sanity";
+
+export default defineType({
+  name: "homePage",
+  title: "Home Page",
+  type: "document",
+  fields: [
+    defineField({
+      name: "heroHeading",
+      title: "Hero Heading",
+      type: "string",
+      group: "hero",
+      description: "Large brand name shown in the hero, e.g. N4MES",
+    }),
+    defineField({
+      name: "heroTagline",
+      title: "Hero Tagline",
+      type: "string",
+      group: "hero",
+      description: "Small line under the heading, e.g. MAKE IT MEAN SOMETHING.",
+    }),
+    defineField({
+      name: "heroDescription",
+      title: "Hero Description",
+      type: "text",
+      rows: 4,
+      group: "hero",
+      description: "Paragraph on the right side of the hero (desktop only).",
+    }),
+    defineField({
+      name: "heroLogo",
+      title: "Hero Logo",
+      type: "image",
+      options: { hotspot: true },
+      group: "hero",
+      fields: [defineField({ name: "alt", title: "Alt Text", type: "string" })],
+      description: "Centered logo mark. Defaults to the site logo when empty.",
+    }),
+    defineField({
+      name: "heroBackground",
+      title: "Hero Background Image",
+      type: "image",
+      options: { hotspot: true },
+      group: "hero",
+      fields: [defineField({ name: "alt", title: "Alt Text", type: "string" })],
+    }),
+    defineField({
+      name: "heroBackgroundVideo",
+      title: "Hero Background Video (optional)",
+      type: "file",
+      options: { accept: "video/*" },
+      group: "hero",
+      description:
+        "Plays behind the hero when set. The image stays as the poster/fallback.",
+    }),
+    defineField({
+      name: "projectsHeading",
+      title: "Projects Section Heading",
+      type: "string",
+      group: "projects",
+      description:
+        "Optional heading above the project grid. Leave empty to show none.",
+    }),
+    defineField({
+      name: "projectCards",
+      title: "Projects Shown",
+      type: "array",
+      group: "projects",
+      of: [
+        {
+          type: "reference",
+          title: "Project",
+          to: [{ type: "project" }],
+        },
+      ],
+      description:
+        "Projects displayed on the home page. Drag to reorder, add or remove.",
+    }),
+    defineField({
+      name: "aboutParagraph",
+      title: "About Paragraph",
+      type: "text",
+      rows: 5,
+      group: "about",
+    }),
+    defineField({
+      name: "aboutImage",
+      title: "About Image",
+      type: "image",
+      options: { hotspot: true },
+      group: "about",
+      fields: [defineField({ name: "alt", title: "Alt Text", type: "string" })],
+    }),
+    defineField({
+      name: "clientsHeading",
+      title: "Clients Heading",
+      type: "string",
+      group: "clients",
+      description: "e.g. CLIENTS",
+    }),
+    defineField({
+      name: "clientsDescription",
+      title: "Clients Description",
+      type: "text",
+      rows: 4,
+      group: "clients",
+    }),
+    defineField({
+      name: "clientCards",
+      title: "Clients Shown",
+      type: "array",
+      group: "clients",
+      of: [
+        {
+          type: "reference",
+          title: "Client",
+          to: [{ type: "client" }],
+        },
+      ],
+      description: "Clients in the scrolling carousel. Drag to reorder.",
+    }),
+    defineField({
+      name: "servicesTitle",
+      title: "Services Card Heading",
+      type: "string",
+      group: "services",
+      description: "Heading of the left card, e.g. MUSIC",
+    }),
+    defineField({
+      name: "servicesPill",
+      title: "Services Pill",
+      type: "string",
+      group: "services",
+      description: "Small pill under the card stack, e.g. 04 UI/UX",
+    }),
+    defineField({
+      name: "servicesDescription",
+      title: "Services Description",
+      type: "text",
+      rows: 4,
+      group: "services",
+    }),
+    defineField({
+      name: "servicesCards",
+      title: "Service Cards",
+      type: "array",
+      group: "services",
+      of: [{ type: "serviceCard" }],
+      description: "Images cycling in the card stack. Drag to reorder.",
+    }),
+    defineField({
+      name: "milestonesHeading",
+      title: "Milestones Card Heading",
+      type: "string",
+      group: "milestones",
+      description: "Heading of the right card, e.g. PHILOSOPHY",
+    }),
+    defineField({
+      name: "milestones",
+      title: "Milestones",
+      type: "array",
+      group: "milestones",
+      of: [{ type: "milestoneItem" }],
+      description:
+        "Entries listed in the right card, separated by dividers. Drag to reorder.",
+    }),
+    defineField({
+      name: "journalHeading",
+      title: "Journal Heading",
+      type: "string",
+      group: "journal",
+      description: "e.g. JOURNAL",
+    }),
+    defineField({
+      name: "journalDescription",
+      title: "Journal Description",
+      type: "text",
+      rows: 4,
+      group: "journal",
+    }),
+    defineField({
+      name: "journalPosts",
+      title: "Journal Entries Shown",
+      type: "array",
+      group: "journal",
+      of: [
+        {
+          type: "reference",
+          title: "Journal Entry",
+          to: [{ type: "journalPost" }],
+        },
+      ],
+      description: "Entries in the journal carousel. Drag to reorder.",
+    }),
+  ],
+  groups: [
+    { name: "hero", title: "Hero" },
+    { name: "projects", title: "Projects" },
+    { name: "about", title: "About" },
+    { name: "clients", title: "Clients" },
+    { name: "services", title: "Services" },
+    { name: "milestones", title: "Milestones" },
+    { name: "journal", title: "Journal" },
+  ],
+  preview: {
+    prepare() {
+      return { title: "Home Page" };
+    },
+  },
+});

@@ -1,6 +1,20 @@
-import ClientsCarousel from "./ClientsCarousel";
+import ClientsCarousel, { type CarouselClient } from "./ClientsCarousel";
 
-export default function ClientsSection() {
+const DEFAULT_HEADING = "CLIENTS";
+const DEFAULT_DESCRIPTION =
+  "At N4MES, we collaborate with forward-thinking brands, startups, and leaders who dare to challenge the norm and make it mean something.";
+
+type ClientsSectionProps = {
+  heading?: string;
+  description?: string;
+  clients?: CarouselClient[];
+};
+
+export default function ClientsSection({
+  heading = DEFAULT_HEADING,
+  description = DEFAULT_DESCRIPTION,
+  clients,
+}: ClientsSectionProps) {
   return (
     <section id="clients" className="section-wrapper">
       {/* ================================================================
@@ -27,7 +41,7 @@ export default function ClientsSection() {
             top: "clamp(80px, 17vw, 326px)",
           }}
         >
-          CLIENTS
+          {heading}
         </h2>
 
         {/* -------- Description text -------- */}
@@ -49,8 +63,7 @@ export default function ClientsSection() {
               fontWeight: 400,
             }}
           >
-            At N4MES, we collaborate with forward-thinking brands, startups,
-            and leaders who dare to challenge the norm and make it mean something.
+            {description}
           </p>
         </div>
 
@@ -61,11 +74,9 @@ export default function ClientsSection() {
             top: "clamp(180px, 23.5vw, 452px)",
           }}
         >
-          <ClientsCarousel />
+          <ClientsCarousel items={clients} />
         </div>
       </div>
-
     </section>
   );
 }
-

@@ -1,27 +1,44 @@
 import FlexCarousel from "./FlexCarousel";
 
-const ARTICLES = [
+interface JournalCard {
+  image: string;
+  alt?: string;
+  title: string;
+}
+
+const DEFAULT_HEADING = "JOURNAL";
+const DEFAULT_DESCRIPTION =
+  "Our journal is where design meets thought leadership. From industry trends to creative breakthroughs, we share insights that inspire, challenge, and push the boundaries of design.";
+
+const ARTICLES: JournalCard[] = [
   {
     image: "/project-1.jpg",
     alt: "AI Transforming Design",
     title: "How AI Is Transforming Design in 2025",
-    category: "AI DESIGN",
   },
   {
     image: "/project-2.jpg",
     alt: "Choosing the Right Palette",
     title: "How to Choose the Right Palette for Your Brand",
-    category: "VISUAL DESIGN",
   },
   {
     image: "/project-3.jpg",
     alt: "Web Design Trends",
     title: "10 Web Design Trends That Will Dominate This Year",
-    category: "TRENDS",
   },
 ];
 
-export default function JournalSection() {
+type JournalSectionProps = {
+  heading?: string;
+  description?: string;
+  posts?: JournalCard[];
+};
+
+export default function JournalSection({
+  heading = DEFAULT_HEADING,
+  description = DEFAULT_DESCRIPTION,
+  posts = ARTICLES,
+}: JournalSectionProps) {
   return (
     <section id="journal" className="section-wrapper">
       {/* ================================================================
@@ -49,7 +66,7 @@ export default function JournalSection() {
             top: "clamp(40px, 4vw, 70px)",
           }}
         >
-          JOURNAL
+          {heading}
         </h2>
 
         {/* -------- Description text (right-aligned) -------- */}
@@ -71,9 +88,7 @@ export default function JournalSection() {
               fontWeight: 400,
             }}
           >
-            Our journal is where design meets thought leadership. From industry
-            trends to creative breakthroughs, we share insights that inspire,
-            challenge, and push the boundaries of design.
+            {description}
           </p>
         </div>
 
@@ -94,9 +109,9 @@ export default function JournalSection() {
             }}
           >
             <FlexCarousel
-              items={ARTICLES.map((article) => ({
+              items={posts.map((article) => ({
                 src: article.image,
-                alt: article.alt,
+                alt: article.alt ?? article.title,
                 title: article.title,
               }))}
               preset="liquid"

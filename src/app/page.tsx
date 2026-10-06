@@ -7,8 +7,76 @@ import JournalSection from "@/components/magnetto/JournalSection";
 import ProjectCard from "@/components/magnetto/ProjectCard";
 import Reveal from "@/components/magnetto/Reveal";
 import ServicesMilestonesSection from "@/components/magnetto/ServicesMilestonesSection";
+import SiteNav from "@/components/magnetto/SiteNav";
+import {
+  getHomePage,
+  getHomeProjectCards,
+  getSiteSettings,
+} from "@/lib/sanity/data";
+import { imgSrcOr } from "@/lib/sanity/image";
 
-export default function Home() {
+export default async function Home() {
+  const [home, settings] = await Promise.all([
+    getHomePage(),
+    getSiteSettings(),
+  ]);
+  const projectCards = await getHomeProjectCards();
+
+  const heroLogo = imgSrcOr(
+    home?.heroLogo ?? settings?.logo,
+    "/logo-transparent.png",
+    512,
+  );
+  const heroLogoAlt =
+    home?.heroLogo?.alt ?? settings?.logo?.alt ?? "N4MES Logo";
+  const heroBackground = imgSrcOr(
+    home?.heroBackground,
+    "/hero/herobg.png",
+    2000,
+  );
+  const heroBackgroundVideo = home?.heroBackgroundVideo?.asset?.url;
+  const heroHeading = home?.heroHeading ?? "N4MES";
+  const heroTagline = home?.heroTagline ?? "MAKE IT MEAN SOMETHING.";
+  const heroDescription =
+    home?.heroDescription ??
+    "At N4MES, we make it mean something. Turning bold ideas into experiences that captivate, inspire, and endure.";
+
+  const clients = home?.clientCards?.map((client) => {
+    const logo = imgSrcOr(client.logoImage, "", 400) || undefined;
+    return {
+      name: client.name,
+      logo: client.logoMode === "preset" ? undefined : logo,
+      logoPreset: client.logoMode === "preset" ? client.logoPreset : undefined,
+      invert: client.invert,
+      link: client.link,
+    };
+  });
+
+  const journalPosts = home?.journalPosts?.flatMap((post) => {
+    const image = imgSrcOr(post.image, "", 900) || undefined;
+    if (!image) return [];
+    return [
+      {
+        image,
+        alt: post.image?.alt ?? post.title,
+        title: post.title,
+      },
+    ];
+  });
+
+  const servicesCards = home?.servicesCards?.flatMap((card) => {
+    const src = imgSrcOr(card.image, "", 600) || undefined;
+    if (!src) return [];
+    return [
+      {
+        src,
+        video: card.video?.asset?.url,
+        alt: card.image?.alt ?? "",
+        bg: card.tint ?? "transparent",
+      },
+    ];
+  });
+
   return (
     <div className="relative w-full bg-[#000000] min-h-screen">
       {/* ================================================================
@@ -20,18 +88,32 @@ export default function Home() {
           <div
             className="section-container hero-container relative"
             style={{
-              backgroundImage: "url(/hero/herobg.png)",
+              backgroundImage: `url(${heroBackground})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
           >
+            {/* Optional CMS background video (image above stays as poster) */}
+            {heroBackgroundVideo && (
+              <video
+                className="absolute inset-0 h-full w-full object-cover"
+                src={heroBackgroundVideo}
+                poster={heroBackground}
+                autoPlay
+                muted
+                loop
+                playsInline
+                aria-label={heroHeading}
+              />
+            )}
+
             {/* -------- LEFT: Logo + Subtitle (desktop) -------- */}
             <div className="absolute left-[6%] top-[50%] -translate-y-1/2 z-10 flex flex-col gap-2 hidden md:flex">
               <div className="flex items-center gap-3">
                 <div className="relative w-9 h-9 xl:w-11 xl:h-11 flex-shrink-0">
                   <Image
-                    src="/logo-transparent.png"
-                    alt="N4MES Logo"
+                    src={heroLogo}
+                    alt={heroLogoAlt}
                     fill
                     className="object-contain mix-blend-multiply"
                   />
@@ -40,23 +122,23 @@ export default function Home() {
                   className="text-[clamp(1.8rem,3vw,3.4rem)] leading-[1] tracking-[0.08em] text-[#1a1a1a]"
                   style={{ fontFamily: "var(--font-silkscreen), monospace" }}
                 >
-                  N4MES
+                  {heroHeading}
                 </h1>
               </div>
               <p
                 className="text-[clamp(0.55rem,0.65vw,0.72rem)] tracking-[0.32em] uppercase text-[#1a1a1a]/50 mt-1 pl-[48px] xl:pl-[56px]"
                 style={{ fontFamily: "var(--font-silkscreen), monospace" }}
               >
-                MAKE IT MEAN SOMETHING.
+                {heroTagline}
               </p>
             </div>
 
             {/* -------- CENTER: Logo Mark -------- */}
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[5] w-[45%] md:w-[26%] max-w-[380px] aspect-square flex items-center justify-center">
+            <div className="absolute bottom-0 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[5] w-[45%] md:w-[26%] max-w-[380px] aspect-square flex items-center justify-center">
               <div className="relative w-full h-full">
                 <Image
-                  src="/logo-transparent.png"
-                  alt="N4MES Logo"
+                  src={heroLogo}
+                  alt={heroLogoAlt}
                   fill
                   priority
                   className="object-contain mix-blend-multiply"
@@ -74,8 +156,7 @@ export default function Home() {
                   fontStyle: "italic",
                 }}
               >
-                At N4MES, we make it mean something. Turning bold ideas into
-                experiences that captivate, inspire, and endure.
+                {heroDescription}
               </p>
             </div>
 
@@ -84,8 +165,8 @@ export default function Home() {
               <div className="flex items-center gap-2 mb-1">
                 <div className="relative w-7 h-7 flex-shrink-0">
                   <Image
-                    src="/logo-transparent.png"
-                    alt="N4MES Logo"
+                    src={heroLogo}
+                    alt={heroLogoAlt}
                     fill
                     className="object-contain mix-blend-multiply"
                   />
@@ -94,14 +175,14 @@ export default function Home() {
                   className="text-[1.8rem] leading-[1] tracking-[0.08em] text-[#1a1a1a]"
                   style={{ fontFamily: "var(--font-silkscreen), monospace" }}
                 >
-                  N4MES
+                  {heroHeading}
                 </h1>
               </div>
               <p
                 className="text-[0.55rem] tracking-[0.32em] uppercase text-[#1a1a1a]/50"
                 style={{ fontFamily: "var(--font-silkscreen), monospace" }}
               >
-                MAKE IT MEAN SOMETHING.
+                {heroTagline}
               </p>
             </div>
           </div>
@@ -120,70 +201,32 @@ export default function Home() {
               maxWidth: "var(--section-max-width)",
             }}
           >
-            <Reveal delay={0}>
-              <ProjectCard
-                category="campaigns, content, advertising"
-                title={["BRANDS"]}
-                image="/project-1.jpg"
-                alt="Beyond Time"
-                tint="#4d140b"
-                objectPosition="center 50%"
-                href="/projects/brands"
-              />
-            </Reveal>
-
-            <Reveal delay={80}>
-              <ProjectCard
-                category="concerts, festivals, artists"
-                title={["MUSIC"]}
-                image="/project-2.jpg"
-                alt="Brand Redefine"
-                tint="#0b3a31"
-                href="/projects/music"
-              />
-            </Reveal>
-
-            <Reveal delay={160}>
-              <ProjectCard
-                category="creators ugc, personalities"
-                title={["PEOPLE"]}
-                image="/project-3.jpg"
-                alt="Every Second"
-                tint="#3a2a10"
-                href="/projects/people"
-              />
-            </Reveal>
-
-            <Reveal delay={240}>
-              <ProjectCard
-                category="corporate films, events, business content"
-                title={["CORPORTE"]}
-                image="/project-4.jpg"
-                alt="Timeless Mastery"
-                tint="#1f2328"
-                href="/projects/corporte"
-              />
-            </Reveal>
-            <Reveal delay={320}>
-              <ProjectCard
-                category="brands we've built from scratch"
-                title={["BUILT"]}
-                image="/project-4.jpg"
-                alt="Timeless Mastery"
-                tint="#1f2328"
-                href="/projects/built"
-              />
-            </Reveal>
-            <Reveal delay={400}>
-              <ProjectCard
-                category="motion graphics, SaaS videos, typography"
-                title={["MOTION"]}
-                image="/project-4.jpg"
-                alt="Timeless Mastery"
-                tint="#1f2328"
-                href="/projects/motion"
-              />
-            </Reveal>
+            {home?.projectsHeading && (
+              <h2
+                className="font-pixel text-[#1a1a1a] md:col-span-2"
+                style={{
+                  fontSize: "clamp(22px, 1.77vw, 34px)",
+                  fontWeight: 400,
+                  letterSpacing: "0.06em",
+                  lineHeight: 1,
+                }}
+              >
+                {home.projectsHeading}
+              </h2>
+            )}
+            {projectCards.map((card, index) => (
+              <Reveal key={card.href} delay={index * 80}>
+                <ProjectCard
+                  category={card.category}
+                  title={card.title}
+                  image={card.image}
+                  alt={card.alt}
+                  video={card.video}
+                  tint={card.tint}
+                  href={card.href}
+                />
+              </Reveal>
+            ))}
           </div>
         </section>
       </div>
@@ -192,7 +235,10 @@ export default function Home() {
           ABOUT SECTION (contains the gradient transition to #000000)
           ================================================================ */}
       <Reveal>
-        <AboutSection />
+        <AboutSection
+          paragraph={home?.aboutParagraph}
+          image={home?.aboutImage}
+        />
       </Reveal>
 
       {/* ================================================================
@@ -200,13 +246,28 @@ export default function Home() {
           ================================================================ */}
       <div className="w-full bg-[#000000] pt-[var(--section-gap)]">
         <Reveal>
-          <ClientsSection />
+          <ClientsSection
+            heading={home?.clientsHeading}
+            description={home?.clientsDescription}
+            clients={clients?.length ? clients : undefined}
+          />
         </Reveal>
         <Reveal>
-          <ServicesMilestonesSection />
+          <ServicesMilestonesSection
+            servicesTitle={home?.servicesTitle}
+            servicesPill={home?.servicesPill}
+            servicesDescription={home?.servicesDescription}
+            servicesCards={servicesCards?.length ? servicesCards : undefined}
+            milestonesHeading={home?.milestonesHeading}
+            milestones={home?.milestones?.length ? home.milestones : undefined}
+          />
         </Reveal>
         <Reveal>
-          <JournalSection />
+          <JournalSection
+            heading={home?.journalHeading}
+            description={home?.journalDescription}
+            posts={journalPosts?.length ? journalPosts : undefined}
+          />
         </Reveal>
         <Reveal>
           <ContactSection />
@@ -219,58 +280,7 @@ export default function Home() {
       {/* ================================================================
           FIXED NAV (floats over all sections with glassy backdrop blur)
           ================================================================ */}
-      <nav
-        className="fixed bottom-[32px] left-1/2 -translate-x-1/2 z-50 flex items-center justify-between p-[6px] pl-[8px] pr-[8px] rounded-full border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.6)]"
-        style={{
-          backgroundColor: "rgba(18, 18, 18, 0.68)",
-          backdropFilter: "blur(24px) saturate(180%)",
-          WebkitBackdropFilter: "blur(24px) saturate(180%)",
-          height: "60px",
-        }}
-      >
-        {/* Nav avatar – single squircle avatar matching reference */}
-        <div className="relative w-[48px] h-[48px] rounded-[20px] overflow-hidden flex-shrink-0">
-          <Image
-            src="/nav-avatar.jpg"
-            alt="Nav Avatar"
-            fill
-            className="object-cover"
-            sizes="48px"
-          />
-        </div>
-
-        {/* Nav links */}
-        <div className="hidden sm:flex items-center px-6 gap-7 lg:gap-8">
-          {["HOME", "ABOUT", "PROJECTS", "JOURNAL"].map((item) => (
-            <a
-              key={item}
-              href={`#${item.toLowerCase()}`}
-              className="text-white hover:text-white/80 transition-colors whitespace-nowrap"
-              style={{
-                fontFamily: "var(--font-silkscreen), monospace",
-                fontSize: "12px",
-                letterSpacing: "0.08em",
-              }}
-            >
-              {item}
-            </a>
-          ))}
-        </div>
-
-        {/* Contact button – solid white pill with CONTACT + */}
-        <a
-          href="#contact"
-          className="flex items-center justify-center px-6 h-[48px] rounded-full bg-white text-black hover:bg-white/90 active:scale-[0.98] transition-all whitespace-nowrap"
-          style={{
-            fontFamily: "var(--font-silkscreen), monospace",
-            fontSize: "12px",
-            letterSpacing: "0.08em",
-            fontWeight: 400,
-          }}
-        >
-          CONTACT +
-        </a>
-      </nav>
+      <SiteNav />
     </div>
   );
 }

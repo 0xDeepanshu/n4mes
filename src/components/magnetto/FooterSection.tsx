@@ -1,12 +1,62 @@
 import Image from "next/image";
+import { getSiteSettings } from "@/lib/sanity/data";
+import { imgSrcOr } from "@/lib/sanity/image";
+import type { FooterNavItem, SocialLink } from "@/types/sanity";
 
-export default function FooterSection() {
+const DEFAULT_EMAIL = "hi@n4mes.com";
+const DEFAULT_DESCRIPTION =
+  "At N4MES, we make it mean something. Turning bold ideas into experiences that captivate, inspire, and endure.";
+const DEFAULT_CREDIT = {
+  before: "Made with ",
+  highlighted: "Love",
+  after: " by ",
+  linkText: "FTC Studio",
+  linkUrl: "",
+};
+const DEFAULT_NAV: FooterNavItem[] = [
+  { label: "Home", href: "#home" },
+  { label: "About", href: "#about" },
+  { label: "Projects", href: "#projects", badge: "06" },
+  { label: "Journal", href: "#journal", badge: "04" },
+  { label: "Contact us", href: "#contact" },
+];
+const DEFAULT_SOCIAL: SocialLink[] = [
+  { label: "Dribbble", icon: "◉", href: "#" },
+  { label: "Instagram", icon: "◻", href: "#" },
+  { label: "LinkedIn", icon: "▣", href: "#" },
+  { label: "YouTube", icon: "▶", href: "#" },
+];
+const DEFAULT_WORDMARK = "N4MES";
+const DEFAULT_COPYRIGHT = "©2025 N4MES. All rights reserved.";
+
+export default async function FooterSection() {
+  const settings = await getSiteSettings();
+
+  const logo = imgSrcOr(
+    settings?.footerLogo ?? settings?.logo,
+    "/logo-transparent.png",
+    256,
+  );
+  const logoAlt =
+    settings?.footerLogo?.alt ?? settings?.logo?.alt ?? "N4MES Logo";
+  const email = settings?.footerEmail ?? DEFAULT_EMAIL;
+  const description = settings?.footerDescription ?? DEFAULT_DESCRIPTION;
+  const credit = { ...DEFAULT_CREDIT, ...(settings?.footerCredit ?? {}) };
+  const navLinks = settings?.footerNav?.length
+    ? settings.footerNav
+    : DEFAULT_NAV;
+  const socialLinks = settings?.footerSocial?.length
+    ? settings.footerSocial
+    : DEFAULT_SOCIAL;
+  const wordmark = settings?.footerWordmark ?? DEFAULT_WORDMARK;
+  const copyright = settings?.footerCopyright ?? DEFAULT_COPYRIGHT;
+
   return (
     <footer
       id="footer"
       className="section-wrapper"
       style={{
-        paddingBottom: "100px", /* space for floating nav */
+        paddingBottom: "100px" /* space for floating nav */,
       }}
     >
       {/* ================================================================
@@ -22,7 +72,6 @@ export default function FooterSection() {
           paddingRight: "clamp(24px, 4.17vw, 80px)",
         }}
       >
-
         {/* ============================================================
             TOP ROW — 3-column layout
             ============================================================ */}
@@ -36,8 +85,8 @@ export default function FooterSection() {
             >
               <div className="relative w-4 h-4 flex-shrink-0">
                 <Image
-                  src="/logo-transparent.png"
-                  alt="N4MES Logo"
+                  src={logo}
+                  alt={logoAlt}
                   fill
                   className="object-contain filter invert opacity-75"
                 />
@@ -55,10 +104,9 @@ export default function FooterSection() {
               </p>
             </div>
 
-
             {/* Email */}
             <a
-              href="mailto:hi@n4mes.com"
+              href={`mailto:${email}`}
               className="block hover:opacity-80 transition-opacity"
               style={{
                 fontFamily: "var(--font-silkscreen), monospace",
@@ -70,7 +118,7 @@ export default function FooterSection() {
                 marginBottom: "clamp(14px, 1.3vw, 25px)",
               }}
             >
-              HI@N4MES.COM
+              {email.toUpperCase()}
             </a>
 
             {/* Description */}
@@ -86,8 +134,7 @@ export default function FooterSection() {
                 marginBottom: "clamp(20px, 2.08vw, 40px)",
               }}
             >
-              At N4MES, we make it mean something. Turning bold ideas into
-              experiences that captivate, inspire, and endure.
+              {description}
             </p>
 
             {/* Credit */}
@@ -99,27 +146,40 @@ export default function FooterSection() {
                 fontWeight: 400,
               }}
             >
-              Made with{" "}
-              <span style={{ color: "rgba(255,255,255,0.55)" }}>Love</span> by{" "}
-              <span
-                className="underline"
-                style={{ color: "rgba(255,255,255,0.55)" }}
-              >
-                FTC Studio
+              {credit.before}
+              <span style={{ color: "rgba(255,255,255,0.55)" }}>
+                {credit.highlighted}
               </span>
+              {credit.after}
+              {credit.linkUrl ? (
+                <a
+                  href={credit.linkUrl}
+                  className="underline"
+                  style={{ color: "rgba(255,255,255,0.55)" }}
+                >
+                  {credit.linkText}
+                </a>
+              ) : (
+                <span
+                  className="underline"
+                  style={{ color: "rgba(255,255,255,0.55)" }}
+                >
+                  {credit.linkText}
+                </span>
+              )}
             </p>
           </div>
 
           {/* -------- CENTER: Navigation links -------- */}
-          <div className="flex-shrink-0" style={{ minWidth: "clamp(120px, 10.42vw, 200px)" }}>
-            <nav className="flex flex-col" style={{ gap: "clamp(8px, 0.78vw, 15px)" }}>
-              {[
-                { label: "Home", href: "#home" },
-                { label: "About", href: "#about" },
-                { label: "Projects", href: "#projects", sup: "06" },
-                { label: "Journal", href: "#journal", sup: "04" },
-                { label: "Contact us", href: "#contact" },
-              ].map((link) => (
+          <div
+            className="flex-shrink-0"
+            style={{ minWidth: "clamp(120px, 10.42vw, 200px)" }}
+          >
+            <nav
+              className="flex flex-col"
+              style={{ gap: "clamp(8px, 0.78vw, 15px)" }}
+            >
+              {navLinks.map((link) => (
                 <a
                   key={link.label}
                   href={link.href}
@@ -134,7 +194,7 @@ export default function FooterSection() {
                   }}
                 >
                   {link.label}
-                  {link.sup && (
+                  {link.badge && (
                     <sup
                       style={{
                         fontFamily: "var(--font-silkscreen), monospace",
@@ -144,7 +204,7 @@ export default function FooterSection() {
                         verticalAlign: "super",
                       }}
                     >
-                      {link.sup}
+                      {link.badge}
                     </sup>
                   )}
                 </a>
@@ -167,16 +227,14 @@ export default function FooterSection() {
             </p>
 
             {/* Social icons row */}
-            <div className="flex items-center" style={{ gap: "clamp(6px, 0.52vw, 10px)" }}>
-              {[
-                { label: "Dribbble", icon: "◉" },
-                { label: "Instagram", icon: "◻" },
-                { label: "LinkedIn", icon: "▣" },
-                { label: "YouTube", icon: "▶" },
-              ].map((social) => (
+            <div
+              className="flex items-center"
+              style={{ gap: "clamp(6px, 0.52vw, 10px)" }}
+            >
+              {socialLinks.map((social) => (
                 <a
                   key={social.label}
-                  href="#"
+                  href={social.href ?? "#"}
                   aria-label={social.label}
                   className="flex items-center justify-center hover:opacity-70 transition-opacity"
                   style={{
@@ -219,7 +277,7 @@ export default function FooterSection() {
               color: "rgba(255,255,255,0.90)",
             }}
           >
-            N4MES
+            {wordmark}
           </span>
 
           {/* Copyright */}
@@ -233,7 +291,7 @@ export default function FooterSection() {
               fontWeight: 400,
             }}
           >
-            ©2025 N4MES. All rights reserved.
+            {copyright}
           </p>
         </div>
       </div>

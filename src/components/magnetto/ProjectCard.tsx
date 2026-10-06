@@ -1,9 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import Media from "./Media";
 
 export type ProjectCardProps = {
   /** Small uppercase eyebrow, e.g. "ART DIRECTION" */
@@ -13,6 +13,8 @@ export type ProjectCardProps = {
   /** Temporary image – will be swapped for the real project artwork */
   image: string;
   alt: string;
+  /** Optional video that plays over the image (muted, looping) */
+  video?: string;
   /** Fallback tint so the card still reads correctly behind transparent artwork */
   tint: string;
   /** Optional object-position tweak for the artwork */
@@ -67,6 +69,7 @@ export default function ProjectCard({
   title,
   image,
   alt,
+  video,
   tint,
   objectPosition = "center",
   href,
@@ -92,10 +95,10 @@ export default function ProjectCard({
         variants={artworkVariants}
         transition={HOVER}
       >
-        <Image
-          src={image}
+        <Media
+          image={image}
+          video={video}
           alt={alt}
-          fill
           sizes="(max-width: 767px) 100vw, 50vw"
           className="object-cover"
           style={{ objectPosition }}

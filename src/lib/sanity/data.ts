@@ -1,0 +1,290 @@
+import {
+  getProject as getLocalProject,
+  projects as localProjects,
+} from "@/data/projects";
+import type {
+  ClientDoc,
+  HomePageDoc,
+  JournalPostDoc,
+  ProjectDoc,
+  SiteSettings,
+} from "@/types/sanity";
+import { hasSanity, sanityClient } from "./client";
+import { imgSrc } from "./image";
+import {
+  allClientsQuery,
+  allJournalPostsQuery,
+  allProjectSlugsQuery,
+  allProjectsQuery,
+  homePageQuery,
+  projectBySlugQuery,
+  siteSettingsQuery,
+} from "./queries";
+
+async function fetchSanity<T>(
+  query: string,
+  params?: Record<string, string>,
+): Promise<T | null> {
+  if (!hasSanity()) return null;
+  try {
+    return await sanityClient().fetch<T>(query, params ?? {}, {
+      next: { revalidate: 60 },
+    });
+  } catch {
+    return null;
+  }
+}
+
+/* ================================================================
+    Global getters
+   ================================================================ */
+
+export async function getSiteSettings(): Promise<SiteSettings | null> {
+  return fetchSanity<SiteSettings>(siteSettingsQuery);
+}
+
+export async function getHomePage(): Promise<HomePageDoc | null> {
+  return fetchSanity<HomePageDoc>(homePageQuery);
+}
+
+export async function getAllProjects(): Promise<ProjectDoc[]> {
+  return (await fetchSanity<ProjectDoc[]>(allProjectsQuery)) ?? [];
+}
+
+export async function getProjectBySlug(
+  slug: string,
+): Promise<ProjectDoc | null> {
+  return fetchSanity<ProjectDoc>(projectBySlugQuery, { slug });
+}
+
+export async function getAllJournalPosts(): Promise<JournalPostDoc[]> {
+  return (await fetchSanity<JournalPostDoc[]>(allJournalPostsQuery)) ?? [];
+}
+
+export async function getAllClients(): Promise<ClientDoc[]> {
+  return (await fetchSanity<ClientDoc[]>(allClientsQuery)) ?? [];
+}
+
+/* ================================================================
+    View models consumed by the existing components
+   ================================================================ */
+
+export interface HomeProjectCard {
+  category: string;
+  title: string[];
+  image: string;
+  alt: string;
+  tint: string;
+  href: string;
+  video?: string;
+}
+
+export type ProjectSectionView =
+  | {
+      _key: string;
+      _type: "textImageBlock";
+      text: string;
+      image: string;
+      alt: string;
+      video?: string;
+      side: "textLeft" | "textRight";
+    }
+  | {
+      _key: string;
+      _type: "fullWidthImageBlock";
+      image: string;
+      alt: string;
+      video?: string;
+    };
+
+export interface ProjectDetailView {
+  slug: string;
+  title: string;
+  category: string;
+  description: string;
+  hero: string;
+  heroAlt: string;
+  heroVideo?: string;
+  sections: ProjectSectionView[];
+  seoTitle?: string;
+  seoDescription?: string;
+  seoOgImage?: string;
+}
+
+/** Fallback card tints — mirrors the values previously hardcoded in the home page JSX. */
+const FALLBACK_TINTS: Record<string, string> = {
+  brands: "#4d140b",
+  music: "#0b3a31",
+  people: "#3a2a10",
+  corporte: "#1f2328",
+  built: "#1f2328",
+  motion: "#1f2328",
+};
+
+/**
+ * Project cards for the home page grid.
+ * Reads the ordered references from the Home Page document, falling back
+ * to `src/data/projects.ts` while the CMS is not connected.
+ */
+export async function getHomeProjectCards(): Promise<HomeProjectCard[]> {
+  const home = await getHomePage();
+  const referenced = home?.projectCards;
+
+  if (referenced?.length) {
+    const cards: HomeProjectCard[] = [];
+    for (const project of referenced) {
+      if (!project?.slug?.current) continue;
+      const image = imgSrc(project.hero, 1600);
+      if (!image) continue;
+      cards.push({
+        category: project.category,
+        title: [project.title],
+        image,
+        alt: project.hero?.alt ?? project.title,
+        tint: project.tint ?? "transparent",
+        href: `/projects/${project.slug.current}`,
+        video: project.heroVideo?.asset?.url,
+      });
+    }
+    if (cards.length > 0) return cards;
+  }
+
+  return localProjects.map((project) => ({
+    category: project.category,
+    title: [project.title],
+    image: project.hero.src,
+    alt: project.hero.alt,
+    tint: FALLBACK_TINTS[project.slug] ?? "transparent",
+    href: `/projects/${project.slug}`,
+  }));
+}
+
+/**
+ * Detail view for /projects/[slug].
+ * Prefers Sanity, falls back to the local tuple data in `src/data/projects.ts`.
+ * Returns null when neither source knows the slug.
+ */
+export async function getProjectDetailView(
+  slug: string,
+): Promise<ProjectDetailView | null> {
+  const doc = await getProjectBySlug(slug);
+  if (doc) return mapSanityProject(doc);
+
+  const local = getLocalProject(slug);
+  if (local) return mapLocalProject(local);
+
+  return null;
+}
+
+function mapSanityProject(doc: ProjectDoc): ProjectDetailView | null {
+  const hero = imgSrc(doc.hero, 2000);
+  if (!hero) return null;
+
+  const sections: ProjectSectionView[] = [];
+  for (const [index, section] of (doc.sections ?? []).entries()) {
+    const key = section._key ?? `section-${index}`;
+    if (section._type === "textImageBlock") {
+      const image = imgSrc(section.image, 1200);
+      if (!image) continue;
+      sections.push({
+        _key: key,
+        _type: "textImageBlock",
+        text: section.text,
+        image,
+        alt: section.image?.alt ?? "",
+        video: section.video?.asset?.url,
+        side: section.side === "textRight" ? "textRight" : "textLeft",
+      });
+    } else if (section._type === "fullWidthImageBlock") {
+      const image = imgSrc(section.image, 2000);
+      if (!image) continue;
+      sections.push({
+        _key: key,
+        _type: "fullWidthImageBlock",
+        image,
+        alt: section.image?.alt ?? "",
+        video: section.video?.asset?.url,
+      });
+    }
+  }
+
+  return {
+    slug: doc.slug.current,
+    title: doc.title,
+    category: doc.category,
+    description: doc.description,
+    hero,
+    heroAlt: doc.hero?.alt ?? doc.title,
+    heroVideo: doc.heroVideo?.asset?.url,
+    sections,
+    seoTitle: doc.seoTitle,
+    seoDescription: doc.seoDescription,
+    seoOgImage: imgSrc(doc.seoOgImage, 1200),
+  };
+}
+
+function mapLocalProject(
+  local: NonNullable<ReturnType<typeof getLocalProject>>,
+): ProjectDetailView {
+  const [row1Image, row2Image, row3Image] = local.rowImages;
+  const [feature1, feature2] = local.features;
+
+  const sections: ProjectSectionView[] = [
+    {
+      _key: "section-1",
+      _type: "textImageBlock",
+      text: local.textBlocks[0],
+      image: row1Image.src,
+      alt: row1Image.alt,
+      side: "textLeft",
+    },
+    {
+      _key: "section-2",
+      _type: "fullWidthImageBlock",
+      image: feature1.src,
+      alt: feature1.alt,
+    },
+    {
+      _key: "section-3",
+      _type: "textImageBlock",
+      text: local.textBlocks[1],
+      image: row2Image.src,
+      alt: row2Image.alt,
+      side: "textRight",
+    },
+    {
+      _key: "section-4",
+      _type: "fullWidthImageBlock",
+      image: feature2.src,
+      alt: feature2.alt,
+    },
+    {
+      _key: "section-5",
+      _type: "textImageBlock",
+      text: local.textBlocks[2],
+      image: row3Image.src,
+      alt: row3Image.alt,
+      side: "textLeft",
+    },
+  ];
+
+  return {
+    slug: local.slug,
+    title: local.title,
+    category: local.category,
+    description: local.description,
+    hero: local.hero.src,
+    heroAlt: local.hero.alt,
+    sections,
+  };
+}
+
+/** Union of CMS + local slugs so static generation works before migration. */
+export async function getAllProjectSlugs(): Promise<string[]> {
+  const fromCms =
+    (await fetchSanity<{ slug: string }[]>(allProjectSlugsQuery))?.map(
+      (entry) => entry.slug,
+    ) ?? [];
+  const fromLocal = localProjects.map((project) => project.slug);
+  return Array.from(new Set([...fromCms, ...fromLocal]));
+}

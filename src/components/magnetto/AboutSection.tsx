@@ -1,6 +1,21 @@
 import Image from "next/image";
+import { imgSrcOr } from "@/lib/sanity/image";
+import type { SanityImage } from "@/types/sanity";
 
-export default function AboutSection() {
+const DEFAULT_PARAGRAPH =
+  "At N4MES, we make it mean something. We believe design must carry purpose, turning bold ideas into experiences that captivate, engage, and endure.";
+
+type AboutSectionProps = {
+  paragraph?: string;
+  image?: SanityImage;
+};
+
+export default function AboutSection({
+  paragraph = DEFAULT_PARAGRAPH,
+  image,
+}: AboutSectionProps) {
+  const imageSrc = imgSrcOr(image, "/hero-portrait.jpg", 2000);
+  const imageAlt = image?.alt ?? "About N4MES";
   return (
     <section
       id="about"
@@ -31,8 +46,8 @@ export default function AboutSection() {
 
         {/* -------- Full-bleed image (multiplies into the orange) -------- */}
         <Image
-          src="/hero-portrait.jpg"
-          alt="About N4MES"
+          src={imageSrc}
+          alt={imageAlt}
           fill
           sizes="100vw"
           className="object-cover mix-blend-multiply"
@@ -48,7 +63,6 @@ export default function AboutSection() {
             WebkitBackdropFilter: "blur(16px)",
           }}
         >
-
           {/* Left label */}
           <span
             className="whitespace-nowrap uppercase"
@@ -90,13 +104,10 @@ export default function AboutSection() {
               color: "rgba(255,255,255,0.95)",
             }}
           >
-            At N4MES, we make it mean something. We believe design must carry
-            purpose, turning bold ideas into experiences that captivate, engage,
-            and endure.
+            {paragraph}
           </p>
         </div>
       </div>
     </section>
   );
 }
-

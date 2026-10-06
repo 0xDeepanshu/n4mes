@@ -1,6 +1,34 @@
-import ServicesCardStack from "./ServicesCardStack";
+import { Fragment } from "react";
+import type { MilestoneItem } from "@/types/sanity";
+import ServicesCardStack, { type StackCard } from "./ServicesCardStack";
 
-export default function ServicesMilestonesSection() {
+const DEFAULT_TITLE = "MUSIC";
+const DEFAULT_PILL = "04 UI/UX";
+const DEFAULT_DESCRIPTION =
+  "we believe every experience should be built on substance and purpose. Our craft blends strategic intuition with timeless execution, making sure every project means something lasting.";
+const DEFAULT_MILESTONES_HEADING = "PHILOSOPHY";
+const DEFAULT_MILESTONES: MilestoneItem[] = [
+  { value: "IDEA FIRST", label: "Concept Drives Form" },
+  { value: "MEANING", label: "Make It Mean Something" },
+];
+
+type ServicesMilestonesSectionProps = {
+  servicesTitle?: string;
+  servicesPill?: string;
+  servicesDescription?: string;
+  servicesCards?: StackCard[];
+  milestonesHeading?: string;
+  milestones?: MilestoneItem[];
+};
+
+export default function ServicesMilestonesSection({
+  servicesTitle = DEFAULT_TITLE,
+  servicesPill = DEFAULT_PILL,
+  servicesDescription = DEFAULT_DESCRIPTION,
+  servicesCards,
+  milestonesHeading = DEFAULT_MILESTONES_HEADING,
+  milestones = DEFAULT_MILESTONES,
+}: ServicesMilestonesSectionProps) {
   return (
     <section id="services-milestones" className="section-wrapper">
       {/* Two-column layout – shared width, two equal-width cards */}
@@ -12,7 +40,6 @@ export default function ServicesMilestonesSection() {
           maxWidth: "var(--section-max-width)",
         }}
       >
-
         {/* ==============================================================
             LEFT CARD — SERVICES
             ============================================================== */}
@@ -24,7 +51,6 @@ export default function ServicesMilestonesSection() {
             background: "#171717",
           }}
         >
-
           {/* Heading */}
           <h2
             style={{
@@ -38,7 +64,7 @@ export default function ServicesMilestonesSection() {
               textAlign: "center",
             }}
           >
-            MUSIC
+            {servicesTitle}
           </h2>
 
           {/* Card stack */}
@@ -47,7 +73,7 @@ export default function ServicesMilestonesSection() {
               marginTop: "clamp(20px, 2.08vw, 40px)",
             }}
           >
-            <ServicesCardStack />
+            <ServicesCardStack cards={servicesCards} />
           </div>
 
           {/* Pill: 04 UI/UX */}
@@ -72,7 +98,7 @@ export default function ServicesMilestonesSection() {
                 color: "rgba(255,255,255,0.7)",
               }}
             >
-              04 UI/UX
+              {servicesPill}
             </span>
           </div>
 
@@ -92,9 +118,7 @@ export default function ServicesMilestonesSection() {
               fontWeight: 400,
             }}
           >
-            we believe every experience should be built on substance and
-            purpose. Our craft blends strategic intuition with timeless
-            execution, making sure every project means something lasting.
+            {servicesDescription}
           </p>
         </div>
 
@@ -109,7 +133,6 @@ export default function ServicesMilestonesSection() {
             background: "#171717",
           }}
         >
-
           {/* Heading */}
           <h2
             style={{
@@ -123,78 +146,60 @@ export default function ServicesMilestonesSection() {
               textAlign: "center",
             }}
           >
-            PHILOSOPHY
+            {milestonesHeading}
           </h2>
 
-          {/* Pillar 1: IDEA FIRST */}
-          <div
-            className="flex flex-col items-center text-center px-4"
-            style={{ marginTop: "clamp(30px, 6.6vw, 127px)" }}
-          >
-            <span
-              style={{
-                fontFamily: "var(--font-silkscreen), monospace",
-                fontSize: "clamp(26px, 2.6vw, 48px)",
-                fontWeight: 700,
-                lineHeight: 1.1,
-                color: "#ffffff",
-                letterSpacing: "0.04em",
-              }}
-            >
-              IDEA FIRST
-            </span>
-            <span
-              className="italic"
-              style={{
-                marginTop: "clamp(8px, 0.6vw, 12px)",
-                fontFamily: "Georgia, 'Times New Roman', serif",
-                fontSize: "clamp(11px, 0.72vw, 14px)",
-                color: "rgba(255,255,255,0.50)",
-                letterSpacing: "0.01em",
-              }}
-            >
-              Concept Drives Form
-            </span>
-          </div>
-
-          {/* Divider */}
-          <div
-            style={{
-              width: "clamp(200px, 18.23vw, 350px)",
-              height: "1px",
-              background: "rgba(255,255,255,0.10)",
-              marginTop: "clamp(18px, 3.13vw, 60px)",
-              marginBottom: "clamp(18px, 3.13vw, 60px)",
-            }}
-          />
-
-          {/* Pillar 2: MEANING */}
-          <div className="flex flex-col items-center text-center px-4">
-            <span
-              style={{
-                fontFamily: "var(--font-silkscreen), monospace",
-                fontSize: "clamp(26px, 2.6vw, 48px)",
-                fontWeight: 700,
-                lineHeight: 1.1,
-                color: "#ffffff",
-                letterSpacing: "0.04em",
-              }}
-            >
-              MEANING
-            </span>
-            <span
-              className="italic"
-              style={{
-                marginTop: "clamp(8px, 0.6vw, 12px)",
-                fontFamily: "Georgia, 'Times New Roman', serif",
-                fontSize: "clamp(11px, 0.72vw, 14px)",
-                color: "rgba(255,255,255,0.50)",
-                letterSpacing: "0.01em",
-              }}
-            >
-              Make It Mean Something
-            </span>
-          </div>
+          {/* Milestone entries separated by dividers */}
+          {milestones.map((milestone, index) => (
+            <Fragment key={`${milestone.value}-${index}`}>
+              {index > 0 && (
+                <div
+                  style={{
+                    width: "clamp(200px, 18.23vw, 350px)",
+                    height: "1px",
+                    background: "rgba(255,255,255,0.10)",
+                    marginTop: "clamp(18px, 3.13vw, 60px)",
+                    marginBottom: "clamp(18px, 3.13vw, 60px)",
+                  }}
+                />
+              )}
+              <div
+                className="flex flex-col items-center text-center px-4"
+                style={
+                  index === 0
+                    ? { marginTop: "clamp(30px, 6.6vw, 127px)" }
+                    : undefined
+                }
+              >
+                <span
+                  style={{
+                    fontFamily: "var(--font-silkscreen), monospace",
+                    fontSize: "clamp(26px, 2.6vw, 48px)",
+                    fontWeight: 700,
+                    lineHeight: 1.1,
+                    color: "#ffffff",
+                    letterSpacing: "0.04em",
+                  }}
+                >
+                  {milestone.value}
+                </span>
+                {milestone.label && (
+                  <span
+                    className="italic"
+                    style={{
+                      marginTop: "clamp(8px, 0.6vw, 12px)",
+                      fontFamily: "Georgia, 'Times New Roman', serif",
+                      fontSize: "clamp(11px, 0.72vw, 14px)",
+                      color: "rgba(255,255,255,0.50)",
+                      letterSpacing: "0.01em",
+                    }}
+                  >
+                    {milestone.label}
+                  </span>
+                )}
+              </div>
+            </Fragment>
+          ))}
         </div>
       </div>
     </section>

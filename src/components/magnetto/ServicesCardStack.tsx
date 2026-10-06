@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
-import Image from "next/image";
+import { useCallback, useEffect, useState } from "react";
+import Media from "./Media";
 
 /**
  * Stack of image cards that cycle:
@@ -9,7 +9,14 @@ import Image from "next/image";
  * next card becomes front. Repeat infinitely.
  */
 
-const STACK_IMAGES = [
+export interface StackCard {
+  src: string;
+  video?: string;
+  alt: string;
+  bg: string;
+}
+
+const STACK_IMAGES: StackCard[] = [
   { src: "/project-2.jpg", alt: "UI/UX Design", bg: "#0b3a31" },
   { src: "/project-3.jpg", alt: "Brand Identity", bg: "#3a2a10" },
   { src: "/project-4.jpg", alt: "Art Direction", bg: "#1f2328" },
@@ -18,8 +25,14 @@ const STACK_IMAGES = [
 const INTERVAL_MS = 3000; // time each card stays as front
 const TRANSITION_MS = 700; // slide-out animation duration
 
-export default function ServicesCardStack() {
-  const [order, setOrder] = useState<number[]>([0, 1, 2]);
+export default function ServicesCardStack({
+  cards = STACK_IMAGES,
+}: {
+  cards?: StackCard[];
+}) {
+  const [order, setOrder] = useState<number[]>(() =>
+    cards.map((_, index) => index),
+  );
   const [animating, setAnimating] = useState(false);
 
   const cycle = useCallback(() => {
@@ -28,7 +41,8 @@ export default function ServicesCardStack() {
     setTimeout(() => {
       setOrder((prev) => {
         const next = [...prev];
-        const front = next.shift()!;
+        const front = next.shift();
+        if (front === undefined) return prev;
         next.push(front);
         return next;
       });
@@ -56,9 +70,14 @@ export default function ServicesCardStack() {
   return (
     <div
       className="relative mx-auto"
-      style={{ width: "clamp(200px, 18vw, 320px)", height: "clamp(170px, 14.5vw, 250px)" }}
+      style={{
+        width: "clamp(200px, 18vw, 320px)",
+        height: "clamp(170px, 14.5vw, 250px)",
+      }}
     >
       {order.map((imgIdx, stackPos) => {
+        const card = cards[imgIdx];
+        if (!card) return null;
         const isFront = stackPos === 0;
         const isMiddle = stackPos === 1;
 
@@ -66,7 +85,7 @@ export default function ServicesCardStack() {
         let tx = 0;
         let rotate = 0;
         let z = 30 - stackPos * 10;
-        let scale = 1 - stackPos * 0.05;
+        const scale = 1 - stackPos * 0.05;
         let opacity = 1;
 
         if (isMiddle) {
@@ -103,18 +122,18 @@ export default function ServicesCardStack() {
                 : "transform 0.35s ease, opacity 0.35s ease",
             }}
           >
-            <Image
-              src={STACK_IMAGES[imgIdx].src}
-              alt={STACK_IMAGES[imgIdx].alt}
-              fill
-              className="object-cover"
+            <Media
+              image={card.src}
+              video={card.video}
+              alt={card.alt}
               sizes="200px"
+              className="object-cover"
             />
             {/* Colour tint overlay */}
             <div
               className="absolute inset-0"
               style={{
-                background: STACK_IMAGES[imgIdx].bg,
+                background: card.bg,
                 mixBlendMode: "multiply",
                 opacity: 0.35,
               }}

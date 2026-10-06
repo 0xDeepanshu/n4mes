@@ -8,6 +8,7 @@ interface ClientCardProps {
   logo?: string;
   icon?: React.ReactNode;
   invert?: boolean;
+  link?: string;
 }
 
 export default function ClientCard({
@@ -15,6 +16,7 @@ export default function ClientCard({
   logo,
   icon,
   invert = false,
+  link,
 }: ClientCardProps) {
   return (
     <div
@@ -28,6 +30,16 @@ export default function ClientCard({
         boxShadow: "inset 0 0 0 0.5px rgba(255,255,255,0.04)",
       }}
     >
+      {link && (
+        <a
+          href={link}
+          className="absolute inset-0 z-10"
+          target={link.startsWith("http") ? "_blank" : undefined}
+          rel={link.startsWith("http") ? "noreferrer" : undefined}
+        >
+          <span className="sr-only">{name}</span>
+        </a>
+      )}
       {icon ? (
         <div className="flex items-center justify-center">{icon}</div>
       ) : logo ? (
@@ -36,8 +48,9 @@ export default function ClientCard({
             src={logo}
             alt={name}
             fill
-            className={`object-contain ${invert ? "filter invert opacity-85" : "opacity-90"
-              }`}
+            className={`object-contain ${
+              invert ? "filter invert opacity-85" : "opacity-90"
+            }`}
           />
         </div>
       ) : (
