@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# migrated sanity media
+/public/brands/
+/public/built/
+/public/corporate/
+/public/corporte/
+/public/music/
+/public/people/

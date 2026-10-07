@@ -1,6 +1,7 @@
 import { MotionConfig } from "framer-motion";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import SmoothScrollProvider from "@/components/SmoothScrollProvider";
 import { getSiteSettings } from "@/lib/sanity/data";
 import { imgSrc } from "@/lib/sanity/image";
 import "./globals.css";
@@ -43,7 +44,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >
       <body>
-        <MotionConfig reducedMotion="user">{children}</MotionConfig>
+        <MotionConfig reducedMotion="user">
+          <SmoothScrollProvider>{children}</SmoothScrollProvider>
+        </MotionConfig>
       </body>
     </html>
   );

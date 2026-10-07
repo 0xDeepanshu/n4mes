@@ -3,9 +3,9 @@ import { defineField, defineType } from "sanity";
 /**
  * FIXED project detail structure — the layout is controlled by React:
  *   HERO (full-width banner + title/category/description overlay)
- *   → 4 media cards (2×2 grid)
- *   → CLOSING full-width banner
- * The client only chooses the media inside each slot.
+ *   → repeating media sections below the hero: grid (≤4) → full → grid …
+ * The client only chooses the media and its order; the first entry of
+ * `media` follows the hero in the first grid row.
  */
 export default defineType({
   name: "project",
@@ -18,13 +18,8 @@ export default defineType({
       options: { columns: 1 },
     },
     {
-      name: "cards",
-      title: "4 MEDIA CARDS — fixed 2×2 layout",
-      options: { columns: 2 },
-    },
-    {
-      name: "closing",
-      title: "CLOSING BANNER — bottom full-width",
+      name: "media",
+      title: "MEDIA BELOW HERO — ordered (grid ≤4 → full → grid …)",
       options: { columns: 1 },
     },
   ],
@@ -51,6 +46,13 @@ export default defineType({
       description:
         "Small uppercase line under the title, e.g. campaigns, content, advertising",
       validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "categoryRef",
+      title: "Parent Category",
+      type: "reference",
+      to: [{ type: "category" }],
+      description: "Category that this project belongs to.",
     }),
     defineField({
       name: "description",
@@ -80,8 +82,7 @@ export default defineType({
       options: { hotspot: true },
       fields: [defineField({ name: "alt", title: "Alt Text", type: "string" })],
       description:
-        "Full-width artwork at the top of the project page and on the home page card.",
-      validation: (rule) => rule.required(),
+        "Full-width artwork at the top of the project page and on the home page card. Leave empty for video-only projects (set the Hero Video instead).",
     }),
     defineField({
       name: "heroVideo",
@@ -93,40 +94,14 @@ export default defineType({
         "Plays in the hero and on the home page card when set. The image stays as the poster/fallback.",
     }),
     defineField({
-      name: "card1",
-      title: "Card 1 — top left",
-      type: "projectMedia",
-      fieldset: "cards",
-      description: "Media card in the top-left slot of the 2×2 grid.",
-    }),
-    defineField({
-      name: "card2",
-      title: "Card 2 — top right",
-      type: "projectMedia",
-      fieldset: "cards",
-      description: "Media card in the top-right slot of the 2×2 grid.",
-    }),
-    defineField({
-      name: "card3",
-      title: "Card 3 — bottom left",
-      type: "projectMedia",
-      fieldset: "cards",
-      description: "Media card in the bottom-left slot of the 2×2 grid.",
-    }),
-    defineField({
-      name: "card4",
-      title: "Card 4 — bottom right",
-      type: "projectMedia",
-      fieldset: "cards",
-      description: "Media card in the bottom-right slot of the 2×2 grid.",
-    }),
-    defineField({
-      name: "closingBanner",
-      title: "Closing Banner",
-      type: "projectMedia",
-      fieldset: "closing",
+      name: "media",
+      title: "Media below the hero",
+      type: "array",
+      fieldset: "media",
+      of: [{ type: "projectMedia" }],
       description:
-        "Full-width media banner between the cards and the contact section.",
+        "Every media item below the hero, in display order. The layout alternates automatically: first 4 items form a 2×2 grid, the next one is a full-width banner, then 4 again, and so on. The listing card automatically uses the first image and first video found in this list (plus the hero).",
+      validation: (rule) => rule.max(100),
     }),
     defineField({
       name: "seoTitle",

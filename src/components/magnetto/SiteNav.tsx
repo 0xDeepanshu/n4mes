@@ -11,7 +11,12 @@ const DEFAULT_ITEMS = [
 
 const DEFAULT_CTA = { label: "CONTACT +", href: "#contact" };
 
-function navHref(prefix: string, href: string) {
+function navHref(prefix: string, href: string, currentPath = "") {
+  if (currentPath === "/about") {
+    if (href === "#about") return "#about";
+    if (href === "#contact") return "#contact";
+    if (href.startsWith("#")) return `/${href}`;
+  }
   return href.startsWith("#") ? `${prefix}${href}` : href;
 }
 
@@ -19,7 +24,13 @@ function navHref(prefix: string, href: string) {
  * The floating pill navigation shared by the home page and every
  * /projects/[slug] page. Content comes from Website Settings in Sanity.
  */
-export default async function SiteNav({ prefix = "" }: { prefix?: string }) {
+export default async function SiteNav({
+  prefix = "",
+  currentPath = "",
+}: {
+  prefix?: string;
+  currentPath?: string;
+}) {
   const settings = await getSiteSettings();
 
   const avatar = imgSrcOr(settings?.navAvatar, "/nav-avatar.jpg", 96);
@@ -53,7 +64,7 @@ export default async function SiteNav({ prefix = "" }: { prefix?: string }) {
         {items.map((item) => (
           <a
             key={item.label}
-            href={navHref(prefix, item.href)}
+            href={navHref(prefix, item.href, currentPath)}
             className="text-white hover:text-white/80 transition-colors whitespace-nowrap"
             style={{
               fontFamily: "var(--font-silkscreen), monospace",
@@ -68,7 +79,7 @@ export default async function SiteNav({ prefix = "" }: { prefix?: string }) {
 
       {/* Contact button – solid white pill */}
       <a
-        href={navHref(prefix, cta.href)}
+        href={navHref(prefix, cta.href, currentPath)}
         className="flex items-center justify-center px-6 h-[48px] rounded-full bg-white text-black hover:bg-white/90 active:scale-[0.98] transition-all whitespace-nowrap"
         style={{
           fontFamily: "var(--font-silkscreen), monospace",

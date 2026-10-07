@@ -1,3 +1,4 @@
+import category from "./category";
 import client from "./client";
 import homePage from "./homePage";
 import journalPost from "./journalPost";
@@ -19,6 +20,7 @@ export const schemaTypes = [
   siteSettings,
   homePage,
   project,
+  category,
   journalPost,
   client,
   navItem,

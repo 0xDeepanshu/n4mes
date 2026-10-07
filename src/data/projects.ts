@@ -90,8 +90,8 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "corporte",
-    title: "CORPORTE",
+    slug: "corporate",
+    title: "CORPORATE",
     category: "corporate films, events, business content",
     description:
       "Boardroom clarity, broadcast polish. Corporate films and event content that make complex businesses feel human, credible, and worth watching.",
@@ -106,7 +106,7 @@ export const projects: Project[] = [
       { src: "/project-3.jpg", alt: "Every Second" },
     ],
     textBlocks: [
-      "Corporate does not have to mean cautious. For CORPORTE we translate strategy decks and roadmaps into films people actually finish — founder stories, product films, and event coverage shot with the discipline of a studio and the pace of a newsroom.",
+      "Corporate does not have to mean cautious. For CORPORATE we translate strategy decks and roadmaps into films people actually finish — founder stories, product films, and event coverage shot with the discipline of a studio and the pace of a newsroom.",
       "We plan for where the content lives: a ninety-second hero film, cutdowns for social, stills for the deck, and a library the internal team can use for a year. One shoot, one narrative, every audience covered.",
       "Clarity is the real deliverable. We work with the people who know the business best, pull the story out of the jargon, and cut it so stakeholders, recruits, and investors all hear the same confident voice.",
     ],
@@ -158,5 +158,8 @@ export const projects: Project[] = [
 ];
 
 export function getProject(slug: string): Project | undefined {
-  return projects.find((project) => project.slug === slug);
+  const normalized = slug === "corporte" ? "corporate" : slug;
+  return projects.find(
+    (project) => project.slug === normalized || project.slug === slug,
+  );
 }

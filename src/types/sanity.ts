@@ -97,10 +97,11 @@ export interface SiteSettings {
 }
 
 /**
- * A fixed media slot on a project page (card1..card4 / closingBanner).
+ * One media item below the project hero (`media[]` array entry).
  * The slot size is React-controlled; Sanity only picks the media.
  */
 export interface ProjectMediaSlot {
+  _key?: string;
   _type?: "projectMedia";
   image?: SanityImage;
   video?: SanityVideo;
@@ -114,16 +115,50 @@ export interface ProjectDoc {
   category: string;
   description: string;
   tint?: string;
+  /** Parent category link — set for per-folder projects, absent on legacy self-projects. */
+  categoryRef?: { _ref?: string; slug?: { current?: string } } | null;
+  /** Resolved via `categoryRef->tint` in the scoped detail query. */
+  categoryTint?: string | null;
   hero?: SanityImage;
   heroVideo?: SanityVideo;
-  card1?: ProjectMediaSlot;
-  card2?: ProjectMediaSlot;
-  card3?: ProjectMediaSlot;
-  card4?: ProjectMediaSlot;
-  closingBanner?: ProjectMediaSlot;
+  media?: ProjectMediaSlot[];
   seoTitle?: string;
   seoDescription?: string;
   seoOgImage?: SanityImage;
+}
+
+/** One ordered project reference on a category, expanded with card fields. */
+export interface CategoryProjectDoc {
+  _id: string;
+  title: string;
+  slug: { current: string };
+  category: string;
+  tint?: string;
+  hero?: SanityImage;
+  heroVideo?: SanityVideo;
+  /** Ordered media below the hero — used to derive the listing card media. */
+  media?: ProjectMediaSlot[];
+}
+
+/**
+ * Category / listing document — /project/[category].
+ * Provides the fixed hero content + the ordered project cards below it.
+ */
+export interface CategoryDoc {
+  _id: string;
+  _type: "category";
+  title: string;
+  slug: { current: string };
+  subtitle: string;
+  description: string;
+  tint?: string;
+  hero?: SanityImage;
+  heroVideo?: SanityVideo;
+  cardMedia?: ProjectMediaSlot;
+  order?: number;
+  active?: boolean;
+  /** Ordered project references (`projects[]->…`) shown on the listing. */
+  projects?: (CategoryProjectDoc | null)[];
 }
 
 export interface JournalPostDoc {

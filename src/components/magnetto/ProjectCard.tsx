@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useOptionalMediaLightbox } from "@/components/media/MediaLightbox";
+import { type LightboxMedia, toLightboxMedia } from "@/lib/lightbox";
 import Media from "./Media";
 
 export type ProjectCardProps = {
@@ -19,7 +21,7 @@ export type ProjectCardProps = {
   tint: string;
   /** Optional object-position tweak for the artwork */
   objectPosition?: string;
-  /** Detail route this card navigates to, e.g. "/projects/brands" */
+  /** Detail route this card navigates to, e.g. "/project/brands/brands" */
   href: string;
 };
 
@@ -76,6 +78,72 @@ export default function ProjectCard({
 }: ProjectCardProps) {
   const canHover = useCanHover();
 
+  // Viewer integration is opt-in: only pages mounted inside a
+  // MediaLightboxProvider (the category listing) switch to "artwork opens
+  // the media viewer, glass panel keeps navigation" behavior. The home
+  // page (no provider) renders exactly as before.
+  const lightbox = useOptionalMediaLightbox();
+  const lightboxMedia: LightboxMedia | null =
+    lightbox !== null ? toLightboxMedia({ image, video, alt }) : null;
+  const lightboxMode = lightbox !== null && lightboxMedia !== null;
+
+  const stretchedLink = (
+    <Link
+      href={href}
+      aria-hidden="true"
+      tabIndex={-1}
+      className="absolute inset-0 z-20"
+    />
+  );
+
+  const panel = (
+    <div
+      className={
+        lightboxMode
+          ? "pointer-events-none absolute inset-0 z-10 flex items-center justify-center p-[5%]"
+          : "absolute inset-0 z-10 flex items-center justify-center p-[5%]"
+      }
+    >
+      <div
+        className={
+          lightboxMode
+            ? "relative flex min-h-[clamp(180px,16vw,300px)] w-[75%] max-w-[520px] min-w-[220px] flex-col items-center justify-center gap-[clamp(10px,1.2vw,20px)] rounded-[40px] border border-white/10 bg-[linear-gradient(155deg,rgba(8,8,8,0.64)_0%,rgba(8,8,8,0.32)_100%)] px-[clamp(20px,3vw,52px)] py-[clamp(24px,3vw,52px)] text-center backdrop-blur-[12px] pointer-events-auto sm:w-[62%] md:w-[54%]"
+            : "flex min-h-[clamp(180px,16vw,300px)] w-[75%] max-w-[520px] min-w-[220px] flex-col items-center justify-center gap-[clamp(10px,1.2vw,20px)] rounded-[40px] border border-white/10 bg-[linear-gradient(155deg,rgba(8,8,8,0.64)_0%,rgba(8,8,8,0.32)_100%)] px-[clamp(20px,3vw,52px)] py-[clamp(24px,3vw,52px)] text-center backdrop-blur-[12px] sm:w-[62%] md:w-[54%]"
+        }
+      >
+        <motion.div
+          className="relative flex flex-col items-center gap-[clamp(10px,1.2vw,20px)]"
+          variants={textVariants}
+          transition={HOVER}
+        >
+          <span className="font-pixel text-[clamp(0.56rem,0.66vw,0.76rem)] leading-none uppercase tracking-[0.3em] text-white/65">
+            {category}
+          </span>
+
+          <h3 className="font-pixel text-[clamp(1.25rem,2.3vw,2.6rem)] leading-[1.22] tracking-[0.05em] text-white">
+            {title.map((line) => (
+              <span key={line} className="block">
+                {line}
+              </span>
+            ))}
+          </h3>
+
+          <motion.a
+            href={href}
+            className="absolute left-1/2 inline-flex items-center gap-[0.9em] font-pixel text-[clamp(0.6rem,0.7vw,0.8rem)] tracking-[0.16em] whitespace-nowrap text-white/85 transition-colors hover:text-white"
+            style={{ top: "calc(100% + 14px)" }}
+            variants={ctaVariants}
+            transition={CTA_HOVER}
+          >
+            Explore More
+            <span aria-hidden="true">+</span>
+          </motion.a>
+        </motion.div>
+        {lightboxMode && stretchedLink}
+      </div>
+    </div>
+  );
+
   return (
     <motion.article
       className="relative w-full overflow-hidden"
@@ -108,47 +176,22 @@ export default function ProjectCard({
       {/* -------- Legibility gradient -------- */}
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.30)_0%,rgba(0,0,0,0.06)_46%,rgba(0,0,0,0.36)_100%)]" />
 
-      {/* -------- Stretched link: whole card navigates to the detail page -------- */}
-      <Link
-        href={href}
-        aria-hidden="true"
-        tabIndex={-1}
-        className="absolute inset-0 z-20"
-      />
+      {/* -------- Navigation: whole card (default) or the glass panel
+            (viewer mode — the artwork region opens the media viewer) -------- */}
+      {!lightboxMode && stretchedLink}
+
+      {lightboxMode && lightboxMedia && (
+        <button
+          type="button"
+          data-media-open="true"
+          aria-label={`View media: ${alt}`}
+          onClick={() => lightbox?.open(lightboxMedia)}
+          className="absolute inset-0 z-[5] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-inset"
+        />
+      )}
 
       {/* -------- Centered information panel -------- */}
-      <div className="absolute inset-0 z-10 flex items-center justify-center p-[5%]">
-        <div className="flex min-h-[clamp(180px,16vw,300px)] w-[75%] max-w-[520px] min-w-[220px] flex-col items-center justify-center gap-[clamp(10px,1.2vw,20px)] rounded-[40px] border border-white/10 bg-[linear-gradient(155deg,rgba(8,8,8,0.64)_0%,rgba(8,8,8,0.32)_100%)] px-[clamp(20px,3vw,52px)] py-[clamp(24px,3vw,52px)] text-center backdrop-blur-[12px] sm:w-[62%] md:w-[54%]">
-          <motion.div
-            className="relative flex flex-col items-center gap-[clamp(10px,1.2vw,20px)]"
-            variants={textVariants}
-            transition={HOVER}
-          >
-            <span className="font-pixel text-[clamp(0.56rem,0.66vw,0.76rem)] leading-none uppercase tracking-[0.3em] text-white/65">
-              {category}
-            </span>
-
-            <h3 className="font-pixel text-[clamp(1.25rem,2.3vw,2.6rem)] leading-[1.22] tracking-[0.05em] text-white">
-              {title.map((line) => (
-                <span key={line} className="block">
-                  {line}
-                </span>
-              ))}
-            </h3>
-
-            <motion.a
-              href={href}
-              className="absolute left-1/2 inline-flex items-center gap-[0.9em] font-pixel text-[clamp(0.6rem,0.7vw,0.8rem)] tracking-[0.16em] whitespace-nowrap text-white/85 transition-colors hover:text-white"
-              style={{ top: "calc(100% + 14px)" }}
-              variants={ctaVariants}
-              transition={CTA_HOVER}
-            >
-              Explore More
-              <span aria-hidden="true">+</span>
-            </motion.a>
-          </motion.div>
-        </div>
-      </div>
+      {panel}
     </motion.article>
   );
 }

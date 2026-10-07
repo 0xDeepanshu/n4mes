@@ -6,11 +6,10 @@
  * Needs:  NEXT_PUBLIC_SANITY_PROJECT_ID + SANITY_API_WRITE_TOKEN in .env.local
  */
 
-import { createReadStream } from "node:fs";
-import { basename, join, resolve } from "node:path";
 import { createClient } from "@sanity/client";
 import { config as loadEnv } from "dotenv";
 import { projects } from "../src/data/projects";
+import { createUploader } from "./upload";
 
 loadEnv({ path: ".env.local" });
 loadEnv({ path: ".env" });
@@ -33,7 +32,7 @@ const client = createClient({
   token,
 });
 
-const PUBLIC_DIR = resolve(process.cwd(), "public");
+const uploader = createUploader(client);
 
 interface ImageStub {
   _type: "image";
@@ -41,28 +40,8 @@ interface ImageStub {
   alt?: string;
 }
 
-const uploaded = new Map<string, Promise<ImageStub>>();
-
 function uploadImage(path: string, alt?: string): Promise<ImageStub> {
-  const cached = uploaded.get(path);
-  if (cached) {
-    return cached.then((stub) => (alt ? { ...stub, alt } : stub));
-  }
-
-  const promise = client.assets
-    .upload("image", createReadStream(join(PUBLIC_DIR, path)), {
-      filename: basename(path),
-    })
-    .then((asset) => {
-      console.log(`  uploaded ${path}`);
-      return {
-        _type: "image" as const,
-        asset: { _type: "reference" as const, _ref: asset._id },
-      };
-    });
-
-  uploaded.set(path, promise);
-  return promise.then((stub) => (alt ? { ...stub, alt } : stub));
+  return uploader.imageStub(path, alt);
 }
 
 async function upsert(
@@ -81,6 +60,7 @@ const PROJECT_TINTS: Record<string, string> = {
   brands: "#4d140b",
   music: "#0b3a31",
   people: "#3a2a10",
+  corporate: "#1f2328",
   corporte: "#1f2328",
   built: "#1f2328",
   motion: "#1f2328",
@@ -88,19 +68,21 @@ const PROJECT_TINTS: Record<string, string> = {
 
 async function seedProjects() {
   for (const project of projects) {
-    // Fixed detail layout: HERO → card1..card4 (2×2) → closing banner.
-    // Existing project media, mapped without inventing content:
-    // cards = 3 row images + first full-width feature; closing = second feature.
-    const [row1Image, row2Image, row3Image] = project.rowImages;
-    const [feature1, feature2] = project.features;
+    // Detail layout below the hero (React-controlled): ordered media[]
+    // alternates grid(≤4) → full → grid … . Existing content mapped
+    // without inventing: 3 row images + 2 features → first 4 items form
+    // the 2×2 grid, the 5th becomes the full-width closing banner —
+    // the exact layout the old card1..card4 + closingBanner produced.
+    const slots = [...project.rowImages, ...project.features];
 
-    const card = async (image: {
-      src: string;
-      alt: string;
-    }): Promise<Record<string, unknown>> => ({
-      _type: "projectMedia",
-      image: await uploadImage(image.src.replace(/^\//, ""), image.alt),
-    });
+    const media: Record<string, unknown>[] = [];
+    for (const [index, item] of slots.entries()) {
+      media.push({
+        _key: `m-${index}`,
+        _type: "projectMedia",
+        image: await uploadImage(item.src.replace(/^\//, ""), item.alt),
+      });
+    }
 
     await upsert({
       _id: `project-${project.slug}`,
@@ -114,11 +96,91 @@ async function seedProjects() {
         project.hero.src.replace(/^\//, ""),
         project.hero.alt,
       ),
-      card1: await card(row1Image),
-      card2: await card(row2Image),
-      card3: await card(row3Image),
-      card4: await card(feature1),
-      closingBanner: await card(feature2),
+      media,
+    });
+  }
+}
+
+/**
+ * Category / listing pages — /project/[category] (one per home card).
+ * Content is copied from the same-slug project document (nothing is
+ * invented): title, subtitle, description, and hero media; the ordered
+ * `projects` reference points at that same project.
+ * Stable ids `category-<slug>` + createOrReplace => re-running never
+ * duplicates documents and never touches project documents.
+ */
+const CATEGORY_SLUGS = [
+  "brands",
+  "music",
+  "people",
+  "corporate",
+  "built",
+  "motion",
+];
+
+async function seedCategories() {
+  for (const [index, slug] of CATEGORY_SLUGS.entries()) {
+    const project = await client.fetch<{
+      _id: string;
+      title: string;
+      category: string;
+      description: string;
+      tint?: string;
+      hero?: Record<string, unknown>;
+      heroVideo?: Record<string, unknown>;
+    } | null>(
+      `*[_type == "project" && slug.current == $slug][0]{
+        _id, title, category, description, tint, hero, heroVideo
+      }`,
+      { slug },
+    );
+
+    if (!project?.hero) {
+      console.warn(`  skipped category-${slug}: project/hero not found`);
+      continue;
+    }
+
+    // Never clobber an ordered project list that already exists (the
+    // migration links real per-folder projects here); only fall back to
+    // the legacy self reference on first seed.
+    const existing = await client.fetch<{
+      projects: { _ref: string }[];
+    } | null>(
+      `*[_type == "category" && slug.current == $slug][0]{ "projects": projects[]{_ref} }`,
+      { slug },
+    );
+    const projectsRefs = existing?.projects?.length
+      ? existing.projects.map((entry, index) => ({
+          _key: `category-project-${slug}-${index}`,
+          _type: "reference" as const,
+          _ref: entry._ref,
+        }))
+      : [
+          {
+            _key: `category-project-${slug}`,
+            _type: "reference" as const,
+            _ref: project._id,
+          },
+        ];
+
+    await upsert({
+      _id: `category-${slug}`,
+      _type: "category",
+      title: project.title,
+      slug: { _type: "slug", current: slug },
+      subtitle: project.category,
+      description: project.description,
+      tint: project.tint,
+      order: index + 1,
+      active: true,
+      hero: project.hero,
+      heroVideo: project.heroVideo,
+      cardMedia: {
+        _type: "projectMedia",
+        image: project.hero,
+        video: project.heroVideo,
+      },
+      projects: projectsRefs,
     });
   }
 }
@@ -451,10 +513,12 @@ async function seedHomePage() {
 async function main() {
   console.log(`Seeding Sanity project ${projectId} / ${dataset}`);
   await seedProjects();
+  await seedCategories();
   await seedJournal();
   await seedClients();
   await seedSiteSettings();
   await seedHomePage();
+  await uploader.flush();
   console.log("Done.");
 }
 

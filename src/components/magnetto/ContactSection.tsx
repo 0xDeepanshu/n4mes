@@ -12,28 +12,29 @@ const DEFAULT_FORM_FIELDS: FormField[] = [
   { label: "First name", placeholder: "Jane", inputType: "text" },
   { label: "Last name", placeholder: "Smith", inputType: "text" },
   { label: "Email", placeholder: "jane@framer.com", inputType: "email" },
-  { label: "Phone no.", placeholder: "(347) 000 0000", inputType: "tel" },
+  { label: "Phone no.", placeholder: "(347)-000-0000", inputType: "tel" },
 ];
 
 const LABEL_STYLE = {
   fontFamily: "var(--font-geist-sans), sans-serif",
-  fontSize: "clamp(8px, 0.47vw, 9px)",
-  color: "rgba(255,255,255,0.50)",
-  marginBottom: "clamp(4px, 0.31vw, 6px)",
+  fontSize: "clamp(11px, 0.68vw, 13px)",
+  fontWeight: 500,
+  color: "rgba(255,255,255,0.85)",
+  marginBottom: "clamp(6px, 0.36vw, 8px)",
   letterSpacing: "0.01em",
 };
 
 const INPUT_STYLE = {
   width: "100%",
-  height: "clamp(28px, 1.82vw, 35px)",
-  borderRadius: "6px",
-  border: "1px solid rgba(255,255,255,0.18)",
-  background: "rgba(0,0,0,0.25)",
-  padding: "0 clamp(8px, 0.63vw, 12px)",
+  height: "clamp(38px, 2.5vw, 48px)",
+  borderRadius: "8px",
+  border: "1px solid rgba(255,255,255,0.16)",
+  background: "rgba(0,0,0,0.28)",
+  padding: "0 clamp(12px, 0.83vw, 16px)",
   fontFamily: "var(--font-geist-sans), sans-serif",
-  fontSize: "clamp(9px, 0.52vw, 10px)",
-  color: "rgba(255,255,255,0.70)",
-  letterSpacing: "0.005em",
+  fontSize: "clamp(12px, 0.73vw, 14px)",
+  color: "#ffffff",
+  letterSpacing: "0.01em",
 };
 
 export default async function ContactSection() {
@@ -96,19 +97,21 @@ export default async function ContactSection() {
         <div
           className="absolute z-[2] hidden lg:block"
           style={{
-            left: "clamp(40px, 6vw, 100px)",
-            top: "clamp(140px, 24.35vw, 468px)",
-            width: "clamp(340px, 32vw, 600px)",
+            left: "clamp(40px, 5.2vw, 100px)",
+            top: "clamp(90px, 20vw, 390px)",
+            width: "clamp(440px, 36vw, 680px)",
           }}
         >
           <h2
             style={{
-              fontFamily: "var(--font-silkscreen), monospace",
-              fontSize: "clamp(32px, 3.6vw, 60px)",
+              fontFamily: "var(--font-silkscreen), sans-serif",
+              fontSize: "clamp(32px, 2.8vw, 54px)",
               fontWeight: 400,
-              letterSpacing: "0.05em",
+              letterSpacing: "0.04em",
               lineHeight: 1.1,
               color: "#ffffff",
+              textTransform: "uppercase",
+              whiteSpace: "nowrap",
             }}
           >
             {heading}
@@ -116,14 +119,14 @@ export default async function ContactSection() {
 
           <p
             style={{
-              marginTop: "clamp(12px, 1.2vw, 22px)",
+              marginTop: "clamp(16px, 1.3vw, 24px)",
               fontFamily: "var(--font-geist-sans), sans-serif",
-              fontSize: "clamp(11px, 0.65vw, 13px)",
-              lineHeight: 1.55,
-              letterSpacing: "-0.003em",
-              color: "rgba(255,255,255,0.55)",
+              fontSize: "clamp(12px, 0.78vw, 15px)",
+              lineHeight: 1.6,
+              letterSpacing: "-0.005em",
+              color: "rgba(255,255,255,0.70)",
               fontWeight: 400,
-              maxWidth: "clamp(300px, 28vw, 550px)",
+              maxWidth: "clamp(380px, 30vw, 540px)",
             }}
           >
             {description}
@@ -131,15 +134,16 @@ export default async function ContactSection() {
         </div>
 
         {/* Mobile: heading above form */}
-        <div className="absolute z-[2] lg:hidden top-[24px] left-[24px] right-[24px]">
+        <div className="absolute z-[2] lg:hidden top-[24px] left-[20px] right-[20px]">
           <h2
             style={{
-              fontFamily: "var(--font-silkscreen), monospace",
-              fontSize: "26px",
+              fontFamily: "var(--font-silkscreen), sans-serif",
+              fontSize: "clamp(22px, 6vw, 28px)",
               fontWeight: 400,
-              letterSpacing: "0.05em",
-              lineHeight: 1.1,
+              letterSpacing: "0.04em",
+              lineHeight: 1.05,
               color: "#ffffff",
+              textTransform: "uppercase",
             }}
           >
             {heading}
@@ -164,16 +168,17 @@ export default async function ContactSection() {
         >
           {/* Form label */}
           <div
-            className="flex justify-center"
-            style={{ marginBottom: "clamp(14px, 1.3vw, 25px)" }}
+            className="flex justify-end"
+            style={{ marginBottom: "clamp(16px, 1.4vw, 26px)" }}
           >
             <span
               style={{
-                fontFamily: "var(--font-silkscreen), monospace",
-                fontSize: "clamp(7px, 0.47vw, 9px)",
-                letterSpacing: "0.12em",
-                color: "rgba(255,255,255,0.60)",
+                fontFamily: "var(--font-silkscreen), sans-serif",
+                fontSize: "clamp(9px, 0.58vw, 11px)",
+                letterSpacing: "0.14em",
+                color: "rgba(255,255,255,0.75)",
                 textTransform: "uppercase",
+                fontWeight: 400,
               }}
             >
               {formLabel}
@@ -184,12 +189,12 @@ export default async function ContactSection() {
           {rows.map((row, rowIndex) => (
             <div
               key={row.map((f) => f.label).join("-")}
-              className="flex gap-[clamp(8px,0.73vw,14px)]"
+              className="flex gap-[clamp(10px,0.83vw,16px)]"
               style={{
                 marginBottom:
                   rowIndex === rows.length - 1
-                    ? "clamp(14px, 1.3vw, 25px)"
-                    : "clamp(6px, 0.52vw, 10px)",
+                    ? "clamp(18px, 1.4vw, 26px)"
+                    : "clamp(10px, 0.73vw, 14px)",
               }}
             >
               {row.map((field) => {
@@ -205,7 +210,7 @@ export default async function ContactSection() {
                       id={fieldId}
                       type={field.inputType ?? "text"}
                       placeholder={field.placeholder}
-                      className="outline-none"
+                      className="outline-none placeholder:text-white/40"
                       style={INPUT_STYLE}
                     />
                   </div>
@@ -217,15 +222,15 @@ export default async function ContactSection() {
           {/* Submit button */}
           <button
             type="button"
-            className="w-full cursor-pointer"
+            className="w-full cursor-pointer transition-all duration-200 hover:bg-white/90 active:scale-[0.99]"
             style={{
-              height: "clamp(26px, 1.61vw, 31px)",
+              height: "clamp(38px, 2.5vw, 48px)",
               borderRadius: "999px",
               background: "#ffffff",
               border: "none",
-              fontFamily: "var(--font-silkscreen), monospace",
-              fontSize: "clamp(8px, 0.47vw, 9px)",
-              letterSpacing: "0.10em",
+              fontFamily: "var(--font-silkscreen), sans-serif",
+              fontSize: "clamp(10px, 0.63vw, 12px)",
+              letterSpacing: "0.14em",
               color: "#000000",
               fontWeight: 400,
               textTransform: "uppercase",

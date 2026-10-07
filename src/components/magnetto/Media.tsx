@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
+import ProjectVideo from "./ProjectVideo";
 
 type MediaProps = {
   /**
@@ -15,6 +16,11 @@ type MediaProps = {
   className?: string;
   style?: CSSProperties;
   priority?: boolean;
+  /**
+   * Detail media only: play/pause the video by viewport visibility
+   * (metadata preload, IntersectionObserver) instead of blanket autoplay.
+   */
+  viewportPlay?: boolean;
 };
 
 /**
@@ -31,14 +37,29 @@ export default function Media({
   className,
   style,
   priority,
+  viewportPlay,
 }: MediaProps) {
   if (video) {
+    const poster = image || undefined;
+
+    if (viewportPlay) {
+      return (
+        <ProjectVideo
+          src={video}
+          poster={poster}
+          alt={alt}
+          className={className}
+          style={style}
+        />
+      );
+    }
+
     return (
       <video
         className={`absolute inset-0 h-full w-full object-cover ${className ?? ""}`}
         style={style}
         src={video}
-        poster={image}
+        poster={poster}
         autoPlay
         muted
         loop

@@ -1,0 +1,482 @@
+{
+  "brands/BAJAJ/RMFxBAJAJ_17-04.mp4": {
+    "assetId": "file-ada4189f6fa712f2f7b24e6ea621d41d3f5a1cb1-mp4",
+    "url": "https://cdn.sanity.io/files/0rfaony3/production/ada4189f6fa712f2f7b24e6ea621d41d3f5a1cb1.mp4",
+    "kind": "file",
+    "originalFilename": "RMFxBAJAJ_17-04.mp4",
+    "uploadedAt": "2026-10-07T18:15:01.261Z",
+    "size": 451519264
+  },
+  "brands/Diageo/tanquerayXdon_julio reel_3.MP4": {
+    "assetId": "file-a04e8f4dc53742449e0d8a9532ddbccefd9ae967-mp4",
+    "url": "https://cdn.sanity.io/files/0rfaony3/production/a04e8f4dc53742449e0d8a9532ddbccefd9ae967.mp4",
+    "kind": "file",
+    "originalFilename": "tanquerayXdon_julio reel_3.MP4",
+    "uploadedAt": "2026-10-07T18:15:01.471Z",
+    "size": 82552929
+  },
+  "brands/F&B/Photos/DSC00648.jpg": {
+    "assetId": "image-05086961f5f14ef1e716e0e7115628ca4c7cc89f-6224x4672-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/05086961f5f14ef1e716e0e7115628ca4c7cc89f-6224x4672.jpg",
+    "kind": "image",
+    "originalFilename": "DSC00648.jpg",
+    "uploadedAt": "2026-10-07T18:15:01.688Z",
+    "size": 17720009
+  },
+  "brands/F&B/Photos/DSC00664.jpg": {
+    "assetId": "image-d4a9e1c5e394cdcb125d651eb33fa5f0e208cd83-4672x6224-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/d4a9e1c5e394cdcb125d651eb33fa5f0e208cd83-4672x6224.jpg",
+    "kind": "image",
+    "originalFilename": "DSC00664.jpg",
+    "uploadedAt": "2026-10-07T18:15:01.896Z",
+    "size": 15108932
+  },
+  "brands/F&B/Photos/DSC00678.jpg": {
+    "assetId": "image-8c7e87df0b0f7acb9a8c3721db2236ce80f668af-6224x4672-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/8c7e87df0b0f7acb9a8c3721db2236ce80f668af-6224x4672.jpg",
+    "kind": "image",
+    "originalFilename": "DSC00678.jpg",
+    "uploadedAt": "2026-10-07T18:15:02.086Z",
+    "size": 17901142
+  },
+  "brands/F&B/Photos/DSC00687.jpg": {
+    "assetId": "image-21635c849e8126f8df545b1ac5bea070ede28ac9-6224x4672-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/21635c849e8126f8df545b1ac5bea070ede28ac9-6224x4672.jpg",
+    "kind": "image",
+    "originalFilename": "DSC00687.jpg",
+    "uploadedAt": "2026-10-07T18:15:02.303Z",
+    "size": 16802934
+  },
+  "brands/F&B/Photos/DSC00696.jpg": {
+    "assetId": "image-73509baaa7ff7e9c2c1cc023bddccc6f49a1ef1a-4672x6224-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/73509baaa7ff7e9c2c1cc023bddccc6f49a1ef1a-4672x6224.jpg",
+    "kind": "image",
+    "originalFilename": "DSC00696.jpg",
+    "uploadedAt": "2026-10-07T18:15:02.495Z",
+    "size": 16804650
+  },
+  "brands/F&B/Photos/DSC00704.jpg": {
+    "assetId": "image-474778fd9000767d290c99aa7b7cadf86f2a680c-6224x4672-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/474778fd9000767d290c99aa7b7cadf86f2a680c-6224x4672.jpg",
+    "kind": "image",
+    "originalFilename": "DSC00704.jpg",
+    "uploadedAt": "2026-10-07T18:15:02.697Z",
+    "size": 15658708
+  },
+  "brands/F&B/Photos/DSC00710.jpg": {
+    "assetId": "image-86d2e6ef265ca3cec8100b63eb71892d72b9cbf2-6224x4672-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/86d2e6ef265ca3cec8100b63eb71892d72b9cbf2-6224x4672.jpg",
+    "kind": "image",
+    "originalFilename": "DSC00710.jpg",
+    "uploadedAt": "2026-10-07T18:15:03.192Z",
+    "size": 15306560
+  },
+  "brands/F&B/Photos/DSC00719.jpg": {
+    "assetId": "image-f7aaceaf5b727a76bedbf9eefa5f7bde61328c0d-6224x4672-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/f7aaceaf5b727a76bedbf9eefa5f7bde61328c0d-6224x4672.jpg",
+    "kind": "image",
+    "originalFilename": "DSC00719.jpg",
+    "uploadedAt": "2026-10-07T18:15:03.395Z",
+    "size": 14581597
+  },
+  "brands/F&B/Photos/DSC00724.jpg": {
+    "assetId": "image-0d1c147e74c6e4cad1680ecbf856f3f32535b01a-6224x4672-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/0d1c147e74c6e4cad1680ecbf856f3f32535b01a-6224x4672.jpg",
+    "kind": "image",
+    "originalFilename": "DSC00724.jpg",
+    "uploadedAt": "2026-10-07T18:15:03.601Z",
+    "size": 14294468
+  },
+  "brands/F&B/Photos/DSC00742.jpg": {
+    "assetId": "image-769ef74b9b55169c5944644250340e74d9f4661c-6224x4672-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/769ef74b9b55169c5944644250340e74d9f4661c-6224x4672.jpg",
+    "kind": "image",
+    "originalFilename": "DSC00742.jpg",
+    "uploadedAt": "2026-10-07T18:15:03.795Z",
+    "size": 17034114
+  },
+  "brands/F&B/Photos/DSC00749.jpg": {
+    "assetId": "image-c86a42ba6a0b8890ba57c551f398860510be7379-6224x4672-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/c86a42ba6a0b8890ba57c551f398860510be7379-6224x4672.jpg",
+    "kind": "image",
+    "originalFilename": "DSC00749.jpg",
+    "uploadedAt": "2026-10-07T18:15:03.991Z",
+    "size": 16080217
+  },
+  "brands/F&B/Photos/DSC00766.jpg": {
+    "assetId": "image-73677e439f0cbc7196a78174de512f903b325b76-6224x4672-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/73677e439f0cbc7196a78174de512f903b325b76-6224x4672.jpg",
+    "kind": "image",
+    "originalFilename": "DSC00766.jpg",
+    "uploadedAt": "2026-10-07T18:15:04.187Z",
+    "size": 22663933
+  },
+  "brands/F&B/Photos/DSC00781.jpg": {
+    "assetId": "image-43e59cbd05664dbb4b2ba196e31163239dd577fb-6224x4672-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/43e59cbd05664dbb4b2ba196e31163239dd577fb-6224x4672.jpg",
+    "kind": "image",
+    "originalFilename": "DSC00781.jpg",
+    "uploadedAt": "2026-10-07T18:15:04.397Z",
+    "size": 22771393
+  },
+  "brands/F&B/Photos/DSC00805.jpg": {
+    "assetId": "image-df714c3cac923130978be78b41f736e4b786497f-6224x4672-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/df714c3cac923130978be78b41f736e4b786497f-6224x4672.jpg",
+    "kind": "image",
+    "originalFilename": "DSC00805.jpg",
+    "uploadedAt": "2026-10-07T18:15:04.597Z",
+    "size": 19213231
+  },
+  "brands/F&B/Photos/DSC00807.jpg": {
+    "assetId": "image-3d42b651c175e4968b2086f5b702f50a0dabf125-6224x4672-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/3d42b651c175e4968b2086f5b702f50a0dabf125-6224x4672.jpg",
+    "kind": "image",
+    "originalFilename": "DSC00807.jpg",
+    "uploadedAt": "2026-10-07T18:15:04.789Z",
+    "size": 21152161
+  },
+  "brands/F&B/Photos/DSC00838.jpg": {
+    "assetId": "image-6e6c47352980961d021d42a7f4e261202beef08b-6224x4672-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/6e6c47352980961d021d42a7f4e261202beef08b-6224x4672.jpg",
+    "kind": "image",
+    "originalFilename": "DSC00838.jpg",
+    "uploadedAt": "2026-10-07T18:15:05.012Z",
+    "size": 18754155
+  },
+  "brands/F&B/Photos/DSC00852.jpg": {
+    "assetId": "image-36155d5f451d4653a085f0cd9d20eba7f494d66a-4672x6224-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/36155d5f451d4653a085f0cd9d20eba7f494d66a-4672x6224.jpg",
+    "kind": "image",
+    "originalFilename": "DSC00852.jpg",
+    "uploadedAt": "2026-10-07T18:15:05.236Z",
+    "size": 16021024
+  },
+  "brands/F&B/Photos/DSC00864.jpg": {
+    "assetId": "image-e583a80a678e85a7605fa512f5557160b8fb194e-6224x4672-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/e583a80a678e85a7605fa512f5557160b8fb194e-6224x4672.jpg",
+    "kind": "image",
+    "originalFilename": "DSC00864.jpg",
+    "uploadedAt": "2026-10-07T18:15:05.466Z",
+    "size": 18515872
+  },
+  "brands/F&B/Photos/DSC00865.jpg": {
+    "assetId": "image-5a65da15c65147ddc86f6a8b8abe93ecd01ef0da-6224x4672-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/5a65da15c65147ddc86f6a8b8abe93ecd01ef0da-6224x4672.jpg",
+    "kind": "image",
+    "originalFilename": "DSC00865.jpg",
+    "uploadedAt": "2026-10-07T18:15:05.675Z",
+    "size": 19244862
+  },
+  "brands/F&B/Photos/DSC00875.jpg": {
+    "assetId": "image-061e15c7f023910b56ba491242f1b56e3cc90db0-6224x4672-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/061e15c7f023910b56ba491242f1b56e3cc90db0-6224x4672.jpg",
+    "kind": "image",
+    "originalFilename": "DSC00875.jpg",
+    "uploadedAt": "2026-10-07T18:15:05.874Z",
+    "size": 17949225
+  },
+  "brands/F&B/Photos/DSC00877.jpg": {
+    "assetId": "image-59c8f8ad9f5c4d37acfc057f4e36423fd2ef5d82-6224x4672-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/59c8f8ad9f5c4d37acfc057f4e36423fd2ef5d82-6224x4672.jpg",
+    "kind": "image",
+    "originalFilename": "DSC00877.jpg",
+    "uploadedAt": "2026-10-07T18:15:06.091Z",
+    "size": 17609114
+  },
+  "brands/F&B/Photos/DSC00885.jpg": {
+    "assetId": "image-6d9ff1e9a24e17e6b2180efb197030c69ba70cea-4672x6224-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/6d9ff1e9a24e17e6b2180efb197030c69ba70cea-4672x6224.jpg",
+    "kind": "image",
+    "originalFilename": "DSC00885.jpg",
+    "uploadedAt": "2026-10-07T18:15:06.420Z",
+    "size": 16237123
+  },
+  "brands/F&B/Photos/DSC00886.jpg": {
+    "assetId": "image-553e16ad6e66c373892179c473fd45986c5f2e0c-6224x4672-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/553e16ad6e66c373892179c473fd45986c5f2e0c-6224x4672.jpg",
+    "kind": "image",
+    "originalFilename": "DSC00886.jpg",
+    "uploadedAt": "2026-10-07T18:15:06.625Z",
+    "size": 17698237
+  },
+  "brands/F&B/Photos/DSC00895.jpg": {
+    "assetId": "image-52c1220aa82a81ff12c9a56d45db37c33b2f3b26-6224x4672-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/52c1220aa82a81ff12c9a56d45db37c33b2f3b26-6224x4672.jpg",
+    "kind": "image",
+    "originalFilename": "DSC00895.jpg",
+    "uploadedAt": "2026-10-07T18:15:06.836Z",
+    "size": 18713556
+  },
+  "brands/F&B/Photos/DSC00910.jpg": {
+    "assetId": "image-4351eba4aed04686ead68b524ec265382b13211e-6224x4672-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/4351eba4aed04686ead68b524ec265382b13211e-6224x4672.jpg",
+    "kind": "image",
+    "originalFilename": "DSC00910.jpg",
+    "uploadedAt": "2026-10-07T18:15:07.154Z",
+    "size": 18249456
+  },
+  "brands/F&B/Photos/DSC00918.jpg": {
+    "assetId": "image-2a5da271ecbdf4eeeeffdb3a618a26c9a08dfcab-6224x4672-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/2a5da271ecbdf4eeeeffdb3a618a26c9a08dfcab-6224x4672.jpg",
+    "kind": "image",
+    "originalFilename": "DSC00918.jpg",
+    "uploadedAt": "2026-10-07T18:15:07.477Z",
+    "size": 17845449
+  },
+  "brands/F&B/Photos/DSC00919.jpg": {
+    "assetId": "image-4a6fcb835653e419b19115363ec21d6221eeb061-4672x6224-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/4a6fcb835653e419b19115363ec21d6221eeb061-4672x6224.jpg",
+    "kind": "image",
+    "originalFilename": "DSC00919.jpg",
+    "uploadedAt": "2026-10-07T18:15:07.691Z",
+    "size": 16695856
+  },
+  "brands/F&B/Photos/DSC00922.jpg": {
+    "assetId": "image-075f10d21523fbcdb35e98fa3f130c14c4360a7f-6224x4672-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/075f10d21523fbcdb35e98fa3f130c14c4360a7f-6224x4672.jpg",
+    "kind": "image",
+    "originalFilename": "DSC00922.jpg",
+    "uploadedAt": "2026-10-07T18:15:08.006Z",
+    "size": 16048049
+  },
+  "brands/F&B/Photos/DSC00923.jpg": {
+    "assetId": "image-8efc62e6ed8d94645fa742770c3f3132a3d6da54-6224x4672-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/8efc62e6ed8d94645fa742770c3f3132a3d6da54-6224x4672.jpg",
+    "kind": "image",
+    "originalFilename": "DSC00923.jpg",
+    "uploadedAt": "2026-10-07T18:15:08.220Z",
+    "size": 16145882
+  },
+  "brands/F&B/Photos/DSC00936.jpg": {
+    "assetId": "image-c93a56dab5e4e6caa54b8f5e1d53d9606b546a64-6224x4672-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/c93a56dab5e4e6caa54b8f5e1d53d9606b546a64-6224x4672.jpg",
+    "kind": "image",
+    "originalFilename": "DSC00936.jpg",
+    "uploadedAt": "2026-10-07T18:15:08.421Z",
+    "size": 19321917
+  },
+  "brands/F&B/Photos/DSC00944.jpg": {
+    "assetId": "image-093d14f44ba069c258c904c0bd6df17154b685f8-6224x4672-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/093d14f44ba069c258c904c0bd6df17154b685f8-6224x4672.jpg",
+    "kind": "image",
+    "originalFilename": "DSC00944.jpg",
+    "uploadedAt": "2026-10-07T18:15:08.621Z",
+    "size": 18869009
+  },
+  "brands/F&B/Photos/DSC00961.jpg": {
+    "assetId": "image-a3981952c16a33e707c998efc804f61476fc624c-6224x4672-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/a3981952c16a33e707c998efc804f61476fc624c-6224x4672.jpg",
+    "kind": "image",
+    "originalFilename": "DSC00961.jpg",
+    "uploadedAt": "2026-10-07T18:15:08.834Z",
+    "size": 15084653
+  },
+  "brands/F&B/Photos/DSC00962.jpg": {
+    "assetId": "image-e6af4c4d9c4914438a53b215a139b80bb864b925-4672x6224-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/e6af4c4d9c4914438a53b215a139b80bb864b925-4672x6224.jpg",
+    "kind": "image",
+    "originalFilename": "DSC00962.jpg",
+    "uploadedAt": "2026-10-07T18:15:09.155Z",
+    "size": 14586823
+  },
+  "brands/F&B/Photos/DSC00966.jpg": {
+    "assetId": "image-c7c11e629cbfeb0d7d61c1d8aa4dd30d17c3b2e8-6224x4672-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/c7c11e629cbfeb0d7d61c1d8aa4dd30d17c3b2e8-6224x4672.jpg",
+    "kind": "image",
+    "originalFilename": "DSC00966.jpg",
+    "uploadedAt": "2026-10-07T18:15:09.574Z",
+    "size": 14499026
+  },
+  "brands/F&B/Photos/DSC00972.jpg": {
+    "assetId": "image-5210040c79d5dc50a008b2b527800c0afdac5037-6224x4672-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/5210040c79d5dc50a008b2b527800c0afdac5037-6224x4672.jpg",
+    "kind": "image",
+    "originalFilename": "DSC00972.jpg",
+    "uploadedAt": "2026-10-07T18:15:09.772Z",
+    "size": 15855743
+  },
+  "brands/F&B/Photos/DSC00983.jpg": {
+    "assetId": "image-3115faadf90ed601e093b8afdf9899e69254a0c5-6224x4672-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/3115faadf90ed601e093b8afdf9899e69254a0c5-6224x4672.jpg",
+    "kind": "image",
+    "originalFilename": "DSC00983.jpg",
+    "uploadedAt": "2026-10-07T18:15:09.966Z",
+    "size": 15656526
+  },
+  "brands/F&B/Photos/DSC00985.jpg": {
+    "assetId": "image-48e461b7dfc01c737b51e0a4b5d56d8cf894c653-6224x4672-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/48e461b7dfc01c737b51e0a4b5d56d8cf894c653-6224x4672.jpg",
+    "kind": "image",
+    "originalFilename": "DSC00985.jpg",
+    "uploadedAt": "2026-10-07T18:15:10.353Z",
+    "size": 16217599
+  },
+  "brands/F&B/Photos/DSC00995.jpg": {
+    "assetId": "image-204b82bbc652f249815326dc9d1894615635dff7-6224x4672-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/204b82bbc652f249815326dc9d1894615635dff7-6224x4672.jpg",
+    "kind": "image",
+    "originalFilename": "DSC00995.jpg",
+    "uploadedAt": "2026-10-07T18:15:10.541Z",
+    "size": 16619891
+  },
+  "brands/F&B/Photos/DSC01002.jpg": {
+    "assetId": "image-3ec7a23a569f64b59cca7a7ce2c61dd2545a6230-6224x4672-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/3ec7a23a569f64b59cca7a7ce2c61dd2545a6230-6224x4672.jpg",
+    "kind": "image",
+    "originalFilename": "DSC01002.jpg",
+    "uploadedAt": "2026-10-07T18:15:10.758Z",
+    "size": 16442789
+  },
+  "brands/F&B/Photos/DSC01021.jpg": {
+    "assetId": "image-04851711b853fdb485607653efefcd9375a88a70-4672x6224-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/04851711b853fdb485607653efefcd9375a88a70-4672x6224.jpg",
+    "kind": "image",
+    "originalFilename": "DSC01021.jpg",
+    "uploadedAt": "2026-10-07T18:15:11.183Z",
+    "size": 12311045
+  },
+  "brands/F&B/Photos/DSC01023.jpg": {
+    "assetId": "image-8df4ba9a0165d7aa868560506964cc8db448b5e7-4672x6224-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/8df4ba9a0165d7aa868560506964cc8db448b5e7-4672x6224.jpg",
+    "kind": "image",
+    "originalFilename": "DSC01023.jpg",
+    "uploadedAt": "2026-10-07T18:15:11.382Z",
+    "size": 12579605
+  },
+  "brands/F&B/Photos/DSC01039.jpg": {
+    "assetId": "image-30327e558481856ccaf7b9adb0f485b95af56621-4672x6224-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/30327e558481856ccaf7b9adb0f485b95af56621-4672x6224.jpg",
+    "kind": "image",
+    "originalFilename": "DSC01039.jpg",
+    "uploadedAt": "2026-10-07T18:15:11.580Z",
+    "size": 10696939
+  },
+  "brands/F&B/Photos/DSC01041.jpg": {
+    "assetId": "image-a9a1074428a35fb3d5b7b809f3cb8c84270958a4-4672x6224-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/a9a1074428a35fb3d5b7b809f3cb8c84270958a4-4672x6224.jpg",
+    "kind": "image",
+    "originalFilename": "DSC01041.jpg",
+    "uploadedAt": "2026-10-07T18:15:12.005Z",
+    "size": 10557432
+  },
+  "brands/F&B/videos/Reel 6.mp4": {
+    "assetId": "file-9cc4a380052d76905368142ebdd2cc73b1410b59-mp4",
+    "url": "https://cdn.sanity.io/files/0rfaony3/production/9cc4a380052d76905368142ebdd2cc73b1410b59.mp4",
+    "kind": "file",
+    "originalFilename": "Reel 6.mp4",
+    "uploadedAt": "2026-10-07T18:15:12.203Z",
+    "size": 164286192
+  },
+  "brands/F&B/videos/travel moves reel 2 .mp4": {
+    "assetId": "file-2fec1d63a89569edcfb22a7002cb7d3ea74aeeeb-mp4",
+    "url": "https://cdn.sanity.io/files/0rfaony3/production/2fec1d63a89569edcfb22a7002cb7d3ea74aeeeb.mp4",
+    "kind": "file",
+    "originalFilename": "travel moves reel 2 .mp4",
+    "uploadedAt": "2026-10-07T18:15:12.392Z",
+    "size": 107709393
+  },
+  "built/Artt/IMG_5011.JPG.jpeg": {
+    "assetId": "image-87111a76b6c66c177345068ed350eb4d6deba7f5-3236x4000-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/87111a76b6c66c177345068ed350eb4d6deba7f5-3236x4000.jpg",
+    "kind": "image",
+    "originalFilename": "IMG_5011.JPG.jpeg",
+    "uploadedAt": "2026-10-07T18:15:12.708Z",
+    "size": 1362738
+  },
+  "built/Artt/IMG_5012.JPG.jpeg": {
+    "assetId": "image-b26d4dab75d2c126bb373c0aeb25addf7cc05efc-3236x4000-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/b26d4dab75d2c126bb373c0aeb25addf7cc05efc-3236x4000.jpg",
+    "kind": "image",
+    "originalFilename": "IMG_5012.JPG.jpeg",
+    "uploadedAt": "2026-10-07T18:15:13.017Z",
+    "size": 1424987
+  },
+  "built/Artt/IMG_5013.JPG.jpeg": {
+    "assetId": "image-ff5f76ac6e57d60bc339bc1b39702b8049fb05e9-3236x4000-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/ff5f76ac6e57d60bc339bc1b39702b8049fb05e9-3236x4000.jpg",
+    "kind": "image",
+    "originalFilename": "IMG_5013.JPG.jpeg",
+    "uploadedAt": "2026-10-07T18:15:13.226Z",
+    "size": 1345330
+  },
+  "built/Artt/IMG_5288.JPG.jpeg": {
+    "assetId": "image-b4401dcb4963062926051cbe9ad8c58d56eaf8ea-1122x1402-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/b4401dcb4963062926051cbe9ad8c58d56eaf8ea-1122x1402.jpg",
+    "kind": "image",
+    "originalFilename": "IMG_5288.JPG.jpeg",
+    "uploadedAt": "2026-10-07T18:15:13.439Z",
+    "size": 198635
+  },
+  "built/DRNEM/DRNEM DP 2.png": {
+    "assetId": "image-9a45f69ce68f6e38c19a3728bb1a86915710c893-2000x2000-png",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/9a45f69ce68f6e38c19a3728bb1a86915710c893-2000x2000.png",
+    "kind": "image",
+    "originalFilename": "DRNEM DP 2.png",
+    "uploadedAt": "2026-10-07T18:15:13.634Z",
+    "size": 62932
+  },
+  "built/DRNEM/DRNEM DP.png": {
+    "assetId": "image-da9af08bcfeae063fa3573051c3de821b7561904-2000x2000-png",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/da9af08bcfeae063fa3573051c3de821b7561904-2000x2000.png",
+    "kind": "image",
+    "originalFilename": "DRNEM DP.png",
+    "uploadedAt": "2026-10-07T18:15:13.840Z",
+    "size": 72014
+  },
+  "built/DRNEM/DRNEM.png": {
+    "assetId": "image-13aff2c5a672f9e8eeffe6e0f2a3730fe5a7059a-2000x2000-png",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/13aff2c5a672f9e8eeffe6e0f2a3730fe5a7059a-2000x2000.png",
+    "kind": "image",
+    "originalFilename": "DRNEM.png",
+    "uploadedAt": "2026-10-07T18:15:14.051Z",
+    "size": 72488
+  },
+  "built/The Big Picnic/TBP.png": {
+    "assetId": "image-487e27fc90ef936dc79e5873281dbfe2dfcc1bd5-500x500-png",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/487e27fc90ef936dc79e5873281dbfe2dfcc1bd5-500x500.png",
+    "kind": "image",
+    "originalFilename": "TBP.png",
+    "uploadedAt": "2026-10-07T18:15:14.251Z",
+    "size": 20502
+  },
+  "built/The Big Picnic/WhatsApp Image 2026-01-17 at 2.36.14 PM.jpeg": {
+    "assetId": "image-7d158f9e9e1c8ba4123642b34f00b32db9560783-1296x1596-jpg",
+    "url": "https://cdn.sanity.io/images/0rfaony3/production/7d158f9e9e1c8ba4123642b34f00b32db9560783-1296x1596.jpg",
+    "kind": "image",
+    "originalFilename": "WhatsApp Image 2026-01-17 at 2.36.14 PM.jpeg",
+    "uploadedAt": "2026-10-07T18:15:14.450Z",
+    "size": 104604
+  },
+  "corporate/CityLift/Copy of citylift.mp4": {
+    "assetId": "file-ea25fd7332de581dc262c1a68a50c1fbae493091-mp4",
+    "url": "https://cdn.sanity.io/files/0rfaony3/production/ea25fd7332de581dc262c1a68a50c1fbae493091.mp4",
+    "kind": "file",
+    "originalFilename": "Copy of citylift.mp4",
+    "uploadedAt": "2026-10-07T18:15:14.870Z",
+    "size": 566787369
+  },
+  "corporate/G2/Copy of 29th aftermovie render 2.mp4": {
+    "assetId": "file-a51faa289eef178338d206f16f8ec8d8562269d9-mp4",
+    "url": "https://cdn.sanity.io/files/0rfaony3/production/a51faa289eef178338d206f16f8ec8d8562269d9.mp4",
+    "kind": "file",
+    "originalFilename": "Copy of 29th aftermovie render 2.mp4",
+    "uploadedAt": "2026-10-07T19:03:27.436Z",
+    "size": 843864735
+  },
+  "music/Dhanda Nyoliwala/Russian bandana Live Cut.mp4": {
+    "assetId": "file-131612158c79231611eac5ad21b8be981b72f16a-mp4",
+    "url": "https://cdn.sanity.io/files/0rfaony3/production/131612158c79231611eac5ad21b8be981b72f16a.mp4",
+    "kind": "file",
+    "originalFilename": "Russian bandana Live Cut.mp4",
+    "uploadedAt": "2026-10-07T19:03:48.039Z",
+    "size": 139449523
+  },
+  "people/Anupam Mittal/SaveVid.Net_AQPsV8PVPO2mvuLOjcRtaIrRZqKzbU1cTcX4xGsEimtkxkdd0Nb-6BFftiX4B4fAP67JcyFzkfw-n0wNhaAv6KnDuY4t0-Jq24SojlY.mp4": {
+    "assetId": "file-c2264fe53c14e0d1cb5e7e5ce10bdfa849ea8708-mp4",
+    "url": "https://cdn.sanity.io/files/0rfaony3/production/c2264fe53c14e0d1cb5e7e5ce10bdfa849ea8708.mp4",
+    "kind": "file",
+    "originalFilename": "SaveVid.Net_AQPsV8PVPO2mvuLOjcRtaIrRZqKzbU1cTcX4xGsEimtkxkdd0Nb-6BFftiX4B4fAP67JcyFzkfw-n0wNhaAv6KnDuY4t0-Jq24SojlY.mp4",
+    "uploadedAt": "2026-10-07T19:03:50.471Z",
+    "size": 7944191
+  }
+}

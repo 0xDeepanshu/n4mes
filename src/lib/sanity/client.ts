@@ -27,7 +27,7 @@ export function sanityClient() {
     projectId: requireProjectId(),
     dataset,
     apiVersion,
-    useCdn: true,
+    useCdn: false,
   });
 }
 

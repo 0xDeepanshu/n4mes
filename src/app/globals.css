@@ -63,8 +63,13 @@
 }
 
 html {
-  scroll-behavior: smooth;
   background: #000000;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+  scroll-behavior: auto;
 }
 
 body {

@@ -31,6 +31,9 @@ export default defineConfig({
               ),
             S.divider(),
             S.listItem()
+              .title("Categories")
+              .child(S.documentTypeList("category").title("Categories")),
+            S.listItem()
               .title("Projects")
               .child(S.documentTypeList("project").title("Projects")),
             S.listItem()
